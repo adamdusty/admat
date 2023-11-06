@@ -28,7 +28,7 @@ add_executable(admat_tests)
 
 # Add test sources
 target_sources(admat_tests PRIVATE
-    src/admat_test.cpp
+    src/vector_tests.cpp
 )
 
 # Link libs

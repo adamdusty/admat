@@ -6,9 +6,15 @@
 namespace admat {
 
 template<typename T, size_t N>
-struct vec {
-    std::array<T, N> data;
+class vec {
+    std::array<T, N> _data;
 
+public:
+    template<typename... Ts>
+    vec(Ts... args) : _data{args...} {}
+
+    constexpr auto at(size_t idx) -> T& { return _data.at(idx); }
+    constexpr auto at(size_t idx) const -> const T& { return _data.at(idx); }
     constexpr auto operator==(const vec<T, N>&) const -> bool = default;
 };
 
