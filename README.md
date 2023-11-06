@@ -12,11 +12,15 @@ Linear algebra lib specific to my use cases.
 | ------- | -------- |
 |0.1.0| 2, 3, and 4 dimensional vector data structures|
 || Equality operators |
-|| Arithmetic operators for vectors |
+|| [+-] operators for vectors |
 || Dot and cross product for vectors |
-|| Normalization, length, reflection |
+|| Normalization, length |
 | 0.2.0 | 4x4 matrix |
 || Equality operators |
 || Arithmetic operations for matrices |
+|| Matrix * vector multiplication |
 || Determinant, innverse, transpose |
-|0.3.0| Performance considerations |
+|0.3.0| Implement all other WGSL spec vector functions |
+|| Implement all other WGSL spec matrix functions |
+|0.4.0| Performance considerations |
+|0.5.0| Convenience functions |
