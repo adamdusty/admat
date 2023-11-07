@@ -17,6 +17,7 @@ Linear algebra lib specific to my use cases.
 || Normalization, length |
 | 0.2.0a | 4x4 matrix |
 || Equality operators |
+|| Template identity constructor |
 || Arithmetic operations for matrices |
 || Matrix * vector multiplication |
 || Determinant, innverse, transpose |

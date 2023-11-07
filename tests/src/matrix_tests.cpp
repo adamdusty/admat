@@ -18,3 +18,17 @@ TEST_CASE("mat3 identity") {
 
     CHECK(ident == expected);
 }
+
+TEST_CASE("Matrix access") {
+    auto ident = mat3::identity();
+
+    CHECK(ident.at(1, 1) == 1);
+    CHECK(ident.at(1, 2) == 0);
+    CHECK(ident.at(1, 3) == 0);
+    CHECK(ident.at(2, 1) == 0);
+    CHECK(ident.at(2, 2) == 1);
+    CHECK(ident.at(2, 3) == 0);
+    CHECK(ident.at(3, 1) == 0);
+    CHECK(ident.at(3, 2) == 0);
+    CHECK(ident.at(3, 3) == 1);
+}
