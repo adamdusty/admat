@@ -18,13 +18,10 @@ public:
 
     template<size_t Cols = C, size_t Rows = R, std::enable_if_t<C == R, bool> = true>
     static constexpr auto identity() -> column_major_matrix<T, C, R> {
-
         auto size = Cols * Rows;
         auto mat  = column_major_matrix<T, Cols, Rows>{};
         for(size_t i = 0; i < size; ++i) {
-            if(i % size == 0) {
-                mat._data.at(i) = 1;
-            }
+            mat._data.at(i) = i % (Cols + 1) == 0 ? 1 : 0;
         }
 
         return mat;
