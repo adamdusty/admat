@@ -7,7 +7,7 @@ namespace admat::vector {
 
 template<typename T, size_t N>
 class vec {
-    std::array<T, N> _data;
+    std::array<T, N> _data{};
 
 public:
     template<typename... Ts>

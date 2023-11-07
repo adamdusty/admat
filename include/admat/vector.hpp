@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include "admat/vector//operations.hpp"
+#include "admat/vector/operations.hpp"
 #include "admat/vector/types.hpp"
 
 namespace admat {
