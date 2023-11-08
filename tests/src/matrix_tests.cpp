@@ -1,3 +1,4 @@
+#include <adizzle/float.hpp>
 #include <admat/matrix.hpp>
 #include <snitch/snitch.hpp>
 
@@ -19,17 +20,17 @@ TEST_CASE("mat3 identity") {
 }
 
 TEST_CASE("Matrix access") {
-    auto ident = mat3::identity();
+    auto ident = mat3{{1, 4, 7, 2, 5, 8, 3, 6, 9}};
 
-    CHECK(ident.at(1, 1) == 1);
-    CHECK(ident.at(1, 2) == 0);
-    CHECK(ident.at(1, 3) == 0);
-    CHECK(ident.at(2, 1) == 0);
-    CHECK(ident.at(2, 2) == 1);
-    CHECK(ident.at(2, 3) == 0);
-    CHECK(ident.at(3, 1) == 0);
-    CHECK(ident.at(3, 2) == 0);
-    CHECK(ident.at(3, 3) == 1);
+    CHECK(adizzle::almost_equal(ident.at(0, 0), 1.0f));
+    CHECK(adizzle::almost_equal(ident.at(0, 1), 2.0f));
+    CHECK(adizzle::almost_equal(ident.at(0, 2), 3.0f));
+    CHECK(adizzle::almost_equal(ident.at(1, 0), 4.0f));
+    CHECK(adizzle::almost_equal(ident.at(1, 1), 5.0f));
+    CHECK(adizzle::almost_equal(ident.at(1, 2), 6.0f));
+    CHECK(adizzle::almost_equal(ident.at(2, 0), 7.0f));
+    CHECK(adizzle::almost_equal(ident.at(2, 1), 8.0f));
+    CHECK(adizzle::almost_equal(ident.at(2, 2), 9.0f));
 }
 
 TEST_CASE("Matrix addition") {
