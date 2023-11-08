@@ -2,7 +2,6 @@
 
 #include <array>
 #include <cstdint>
-#include <format>
 
 #include <adizzle/assert.hpp>
 
@@ -27,12 +26,27 @@ public:
         return _data.at(idx);
     }
 
-    template<size_t Cols = C, size_t Rows = R, std::enable_if_t<C == R, bool> = true>
+    template<std::enable_if_t<C == R, bool> = true>
     static constexpr auto identity() -> column_major_matrix<T, C, R> {
-        auto size = Cols * Rows;
-        auto mat  = column_major_matrix<T, Cols, Rows>{};
+        auto size = C * R;
+        auto mat  = column_major_matrix<T, C, R>{};
         for(size_t i = 0; i < size; ++i) {
-            mat._data.at(i) = i % (Cols + 1) == 0 ? 1 : 0;
+            mat._data.at(i) = i % (C + 1) == 0 ? 1 : 0;
+        }
+
+        return mat;
+    }
+
+    static constexpr auto from_row_major(const std::array<T, R * C>& data) -> column_major_matrix<T, C, R> {
+        adizzle::assert(data.size() == R * C);
+
+        auto mat = column_major_matrix<T, C, R>{};
+
+        for(size_t i = 0; i < R; ++i) {
+            for(size_t j = 0; j < C; ++j) {
+                auto data_idx = j + (C * i);
+                mat.at(i, j)  = data.at(data_idx);
+            }
         }
 
         return mat;
