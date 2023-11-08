@@ -8,7 +8,6 @@ using namespace admat;
 TEST_CASE("mat4 identity") {
     auto ident    = mat4::identity();
     auto expected = mat4{{1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}};
-
     CHECK(ident == expected);
 }
 
@@ -31,4 +30,12 @@ TEST_CASE("Matrix access") {
     CHECK(ident.at(3, 1) == 0);
     CHECK(ident.at(3, 2) == 0);
     CHECK(ident.at(3, 3) == 1);
+}
+
+TEST_CASE("Matrix addition") {
+    auto m1       = mat3::identity();
+    auto m2       = mat3::identity();
+    auto expected = mat3{{2, 0, 0, 0, 2, 0, 0, 0, 2}};
+
+    CHECK(m1 + m2 == expected);
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "admat/matrix/operations.hpp"
 #include "admat/matrix/types.hpp"
 
 namespace admat {

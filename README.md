@@ -26,3 +26,8 @@ Linear algebra lib specific to my use cases.
 |0.4.0a| Performance considerations |
 |0.5.0a| Convenience functions |
 |0.1.0b| Documentation |
+
+### Notes
+
+Not sure how I feel about matrix accessor indices. 1-indexed feels right mathematically, but inconsistent.
+Should probably go with 0-indexed because that's what I did with vectors.

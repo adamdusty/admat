@@ -31,7 +31,10 @@ target_include_directories(
 )
 
 # Include and link dependencies
-target_link_libraries(admat_admat PRIVATE adizzle::adizzle)
+target_link_libraries(admat_admat
+    PUBLIC
+        adizzle::adizzle
+)
 
 # Add compile options
 add_dev_compile_opts(admat_admat)
