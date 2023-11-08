@@ -36,7 +36,7 @@ auto operator-(const column_major_matrix<T, R, C>& lhs, const column_major_matri
 
 template<typename T, size_t M, size_t N, size_t P>
 auto operator*(const column_major_matrix<T, M, N>& lhs, const column_major_matrix<T, N, P>& rhs)
-    -> column_major_matrix<T, M, M> {
+    -> column_major_matrix<T, M, P> {
 
     auto mat = column_major_matrix<T, M, P>{};
 
