@@ -21,7 +21,7 @@ Linear algebra lib specific to my use cases.
 || [+-] operators for general matrices|
 || Matrix multiplication |
 || Matrix * vector multiplication |
-|| Determinant, innverse, transpose |
+|| Determinant, inverse, transpose |
 |0.3.0a| Implement all other WGSL spec vector functions |
 || Implement all other WGSL spec matrix functions |
 |0.4.0a| Performance considerations |

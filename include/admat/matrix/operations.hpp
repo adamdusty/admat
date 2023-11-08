@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 #include "admat/matrix/types.hpp"
 
 namespace admat::matrix {
@@ -51,38 +53,72 @@ auto operator*(const column_major_matrix<T, M, N>& lhs, const column_major_matri
     return mat;
 }
 
-template<typename T>
-auto determinant(const column_major_matrix<T, 2, 2>& mat) -> T {
-    return mat.at(0, 0) * mat.at(1, 1) - mat.at(1, 0) * mat.at(0, 1);
+template<typename T, size_t N>
+constexpr auto determinant(const column_major_matrix<T, N, N>& mat) -> T {
+    if constexpr(N == 0) {
+        return 1;
+    } else if constexpr(N == 1) {
+        return mat.at(0, 0);
+    } else if constexpr(N == 2) {
+        return mat.at(0, 0) * mat.at(1, 1) - mat.at(1, 0) * mat.at(0, 1);
+    } else {
+
+        auto result = T{};
+        T sign      = 1;
+
+        for(size_t i = 0; i < N; ++i) {
+            auto sub_mat = column_major_matrix<T, N - 1, N - 1>{};
+            for(size_t row = 1; row < N; ++row) {
+                size_t z = 0;
+                for(size_t col = 0; col < N; ++col) {
+                    if(col != i) {
+                        sub_mat.at(row - 1, z++) = mat.at(row, col);
+                    }
+                }
+            }
+
+            result += sign * mat.at(0, i) * determinant(sub_mat);
+            sign = -sign;
+        }
+
+        return result;
+    }
 }
 
-template<typename T>
-auto determinant(const column_major_matrix<T, 3, 3>& mat) -> T {
-    // clang-format off
-    return 
-        + mat.at(0, 0) * (mat.at(1, 1) * mat.at(2, 2) - mat.at(2, 1) * mat.at(1, 2))
-        - mat.at(1, 0) * (mat.at(0, 1) * mat.at(2, 2) - mat.at(2, 1) * mat.at(0, 2))
-        + mat.at(2, 0) * (mat.at(0, 1) * mat.at(1, 2) - mat.at(1, 1) * mat.at(0, 2));
-    // clang-format on
-}
+// template<typename T>
+// constexpr auto determinant(const column_major_matrix<T, 2, 2>& mat) -> T {
+//     return mat.at(0, 0) * mat.at(1, 1) - mat.at(1, 0) * mat.at(0, 1);
+// }
 
-template<typename T>
-auto determinant(const column_major_matrix<T, 4, 4>& mat) -> T {
-    // clang-format off
-    return 
-         mat.at(0,3) * mat.at(1,2) * mat.at(2,1) * mat.at(3,0) - mat.at(0,2) * mat.at(1,3) * mat.at(2,1) * mat.at(3,0) -
-         mat.at(0,3) * mat.at(1,1) * mat.at(2,2) * mat.at(3,0) + mat.at(0,1) * mat.at(1,3) * mat.at(2,2) * mat.at(3,0) +
-         mat.at(0,2) * mat.at(1,1) * mat.at(2,3) * mat.at(3,0) - mat.at(0,1) * mat.at(1,2) * mat.at(2,3) * mat.at(3,0) -
-         mat.at(0,3) * mat.at(1,2) * mat.at(2,0) * mat.at(3,1) + mat.at(0,2) * mat.at(1,3) * mat.at(2,0) * mat.at(3,1) +
-         mat.at(0,3) * mat.at(1,0) * mat.at(2,2) * mat.at(3,1) - mat.at(0,0) * mat.at(1,3) * mat.at(2,2) * mat.at(3,1) -
-         mat.at(0,2) * mat.at(1,0) * mat.at(2,3) * mat.at(3,1) + mat.at(0,0) * mat.at(1,2) * mat.at(2,3) * mat.at(3,1) +
-         mat.at(0,3) * mat.at(1,1) * mat.at(2,0) * mat.at(3,2) - mat.at(0,1) * mat.at(1,3) * mat.at(2,0) * mat.at(3,2) -
-         mat.at(0,3) * mat.at(1,0) * mat.at(2,1) * mat.at(3,2) + mat.at(0,0) * mat.at(1,3) * mat.at(2,1) * mat.at(3,2) +
-         mat.at(0,1) * mat.at(1,0) * mat.at(2,3) * mat.at(3,2) - mat.at(0,0) * mat.at(1,1) * mat.at(2,3) * mat.at(3,2) -
-         mat.at(0,2) * mat.at(1,1) * mat.at(2,0) * mat.at(3,3) + mat.at(0,1) * mat.at(1,2) * mat.at(2,0) * mat.at(3,3) +
-         mat.at(0,2) * mat.at(1,0) * mat.at(2,1) * mat.at(3,3) - mat.at(0,0) * mat.at(1,2) * mat.at(2,1) * mat.at(3,3) -
-         mat.at(0,1) * mat.at(1,0) * mat.at(2,2) * mat.at(3,3) + mat.at(0,0) * mat.at(1,1) * mat.at(2,2) * mat.at(3,3);
-    // clang-format on
-}
+// template<typename T>
+// constexpr auto determinant(const column_major_matrix<T, 3, 3>& mat) -> T {
+//     // clang-format off
+//     return
+//         + mat.at(0, 0) * (mat.at(1, 1) * mat.at(2, 2) - mat.at(2, 1) * mat.at(1, 2))
+//         - mat.at(1, 0) * (mat.at(0, 1) * mat.at(2, 2) - mat.at(2, 1) * mat.at(0, 2))
+//         + mat.at(2, 0) * (mat.at(0, 1) * mat.at(1, 2) - mat.at(1, 1) * mat.at(0, 2));
+//     // clang-format on
+// }
+
+// template<typename T>
+// constexpr auto determinant(const column_major_matrix<T, 4, 4>& mat) -> T {
+//     // clang-format off
+//     return
+//          mat.at(0,3) * mat.at(1,2) * mat.at(2,1) * mat.at(3,0) - mat.at(0,2) * mat.at(1,3) * mat.at(2,1) *
+//          mat.at(3,0) - mat.at(0,3) * mat.at(1,1) * mat.at(2,2) * mat.at(3,0) + mat.at(0,1) * mat.at(1,3) *
+//          mat.at(2,2) * mat.at(3,0) + mat.at(0,2) * mat.at(1,1) * mat.at(2,3) * mat.at(3,0) - mat.at(0,1) *
+//          mat.at(1,2) * mat.at(2,3) * mat.at(3,0) - mat.at(0,3) * mat.at(1,2) * mat.at(2,0) * mat.at(3,1) +
+//          mat.at(0,2) * mat.at(1,3) * mat.at(2,0) * mat.at(3,1) + mat.at(0,3) * mat.at(1,0) * mat.at(2,2) *
+//          mat.at(3,1) - mat.at(0,0) * mat.at(1,3) * mat.at(2,2) * mat.at(3,1) - mat.at(0,2) * mat.at(1,0) *
+//          mat.at(2,3) * mat.at(3,1) + mat.at(0,0) * mat.at(1,2) * mat.at(2,3) * mat.at(3,1) + mat.at(0,3) *
+//          mat.at(1,1) * mat.at(2,0) * mat.at(3,2) - mat.at(0,1) * mat.at(1,3) * mat.at(2,0) * mat.at(3,2) -
+//          mat.at(0,3) * mat.at(1,0) * mat.at(2,1) * mat.at(3,2) + mat.at(0,0) * mat.at(1,3) * mat.at(2,1) *
+//          mat.at(3,2) + mat.at(0,1) * mat.at(1,0) * mat.at(2,3) * mat.at(3,2) - mat.at(0,0) * mat.at(1,1) *
+//          mat.at(2,3) * mat.at(3,2) - mat.at(0,2) * mat.at(1,1) * mat.at(2,0) * mat.at(3,3) + mat.at(0,1) *
+//          mat.at(1,2) * mat.at(2,0) * mat.at(3,3) + mat.at(0,2) * mat.at(1,0) * mat.at(2,1) * mat.at(3,3) -
+//          mat.at(0,0) * mat.at(1,2) * mat.at(2,1) * mat.at(3,3) - mat.at(0,1) * mat.at(1,0) * mat.at(2,2) *
+//          mat.at(3,3) + mat.at(0,0) * mat.at(1,1) * mat.at(2,2) * mat.at(3,3);
+//     // clang-format on
+// }
 
 } // namespace admat::matrix
