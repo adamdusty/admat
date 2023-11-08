@@ -19,15 +19,13 @@ public:
 
     constexpr auto at(size_t row, size_t col) -> T& {
         size_t idx = row + (R * (col));
-        // adizzle::assert(idx < _data.size(), std::format("Idx larger than array: {} > {}", idx, _data.size()));
         return _data.at(idx);
     }
 
-    // constexpr auto at(size_t row, size_t col) const -> const T& {
-    //     size_t idx = row + (R * (col - 1));
-    //     adizzle::assert(idx < _data.size(), std::format("Idx larger than array: {} > {}", idx, _data.size()));
-    //     return _data.at(idx);
-    // }
+    constexpr auto at(size_t row, size_t col) const -> const T& {
+        size_t idx = row + (R * (col));
+        return _data.at(idx);
+    }
 
     template<size_t Cols = C, size_t Rows = R, std::enable_if_t<C == R, bool> = true>
     static constexpr auto identity() -> column_major_matrix<T, C, R> {

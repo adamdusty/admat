@@ -18,7 +18,8 @@ Linear algebra lib specific to my use cases.
 | 0.2.0a | 4x4 matrix |
 || Equality operators |
 || Template identity constructor |
-|| Arithmetic operations for matrices |
+|| [+-] operators for general matrices|
+|| Matrix multiplication |
 || Matrix * vector multiplication |
 || Determinant, innverse, transpose |
 |0.3.0a| Implement all other WGSL spec vector functions |
@@ -31,3 +32,5 @@ Linear algebra lib specific to my use cases.
 
 Not sure how I feel about matrix accessor indices. 1-indexed feels right mathematically, but inconsistent.
 Should probably go with 0-indexed because that's what I did with vectors.
+
+Add tests for matrix arithmetic properties (associtivity, etc.).

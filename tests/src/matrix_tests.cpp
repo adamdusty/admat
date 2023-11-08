@@ -20,17 +20,17 @@ TEST_CASE("mat3 identity") {
 }
 
 TEST_CASE("Matrix access") {
-    auto ident = mat3{{1, 4, 7, 2, 5, 8, 3, 6, 9}};
+    auto mat = mat3{{1, 4, 7, 2, 5, 8, 3, 6, 9}};
 
-    CHECK(adizzle::almost_equal(ident.at(0, 0), 1.0f));
-    CHECK(adizzle::almost_equal(ident.at(0, 1), 2.0f));
-    CHECK(adizzle::almost_equal(ident.at(0, 2), 3.0f));
-    CHECK(adizzle::almost_equal(ident.at(1, 0), 4.0f));
-    CHECK(adizzle::almost_equal(ident.at(1, 1), 5.0f));
-    CHECK(adizzle::almost_equal(ident.at(1, 2), 6.0f));
-    CHECK(adizzle::almost_equal(ident.at(2, 0), 7.0f));
-    CHECK(adizzle::almost_equal(ident.at(2, 1), 8.0f));
-    CHECK(adizzle::almost_equal(ident.at(2, 2), 9.0f));
+    CHECK(adizzle::almost_equal(mat.at(0, 0), 1.0f));
+    CHECK(adizzle::almost_equal(mat.at(0, 1), 2.0f));
+    CHECK(adizzle::almost_equal(mat.at(0, 2), 3.0f));
+    CHECK(adizzle::almost_equal(mat.at(1, 0), 4.0f));
+    CHECK(adizzle::almost_equal(mat.at(1, 1), 5.0f));
+    CHECK(adizzle::almost_equal(mat.at(1, 2), 6.0f));
+    CHECK(adizzle::almost_equal(mat.at(2, 0), 7.0f));
+    CHECK(adizzle::almost_equal(mat.at(2, 1), 8.0f));
+    CHECK(adizzle::almost_equal(mat.at(2, 2), 9.0f));
 }
 
 TEST_CASE("Matrix addition") {
@@ -39,4 +39,12 @@ TEST_CASE("Matrix addition") {
     auto expected = mat3{{2, 0, 0, 0, 2, 0, 0, 0, 2}};
 
     CHECK(m1 + m2 == expected);
+}
+
+TEST_CASE("Matrix subtraction") {
+    auto m1       = mat3{{1, 4, 7, 2, 5, 8, 3, 6, 9}};
+    auto m2       = mat3{{1, 4, 7, 2, 5, 8, 3, 6, 9}};
+    auto expected = mat3{{0, 0, 0, 0, 0, 0, 0, 0, 0}};
+
+    CHECK(m1 - m2 == expected);
 }

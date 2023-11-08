@@ -19,4 +19,18 @@ auto operator+(const column_major_matrix<T, C, R>& lhs, const column_major_matri
     return mat;
 }
 
+template<typename T, size_t C, size_t R>
+auto operator-(const column_major_matrix<T, C, R>& lhs, const column_major_matrix<T, C, R>& rhs)
+    -> column_major_matrix<T, C, R> {
+
+    auto mat = column_major_matrix<T, C, R>{};
+
+    for(size_t i = 0; i < R; ++i) {
+        for(size_t j = 0; j < C; ++j) {
+            mat.at(i, j) = lhs.at(i, j) - rhs.at(i, j);
+        }
+    }
+
+    return mat;
+}
 } // namespace admat::matrix
