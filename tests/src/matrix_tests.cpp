@@ -147,3 +147,51 @@ TEST_CASE("Matrix multiplication non-square") {
 
     CHECK(result == expected);
 }
+
+TEST_CASE("2x2 matrix determinant") {
+    // clang-format off
+    auto mat = matrix::column_major_matrix<float, 2, 2>::from_row_major({
+        7, 1,
+        2, 4,
+    });
+    // clang-format on
+
+    float expected = 26.0f;
+    auto result    = matrix::determinant(mat);
+
+    CAPTURE(result); // Output value on failure
+    CHECK(adizzle::almost_equal(result, expected));
+}
+
+TEST_CASE("3x3 matrix determinant") {
+    // clang-format off
+    auto mat = mat3::from_row_major({
+        7, 1, 3,
+        2, 4, 1,
+        1, 5, 1,
+    });
+    // clang-format on
+
+    float expected = 10.0f;
+    auto result    = matrix::determinant(mat);
+
+    CAPTURE(result); // Output value on failure
+    CHECK(adizzle::almost_equal(result, expected));
+}
+
+TEST_CASE("4x4 matrix determinant") {
+    // clang-format off
+    auto mat = mat4::from_row_major({
+        4, 3, 2, 1,
+        1, 4, 3, 2,
+        2, 1, 4, 3,
+        3, 2, 1, 4,
+    });
+    // clang-format on
+
+    float expected = 160.0f;
+    auto result    = matrix::determinant(mat);
+
+    CAPTURE(result); // Output value on failure
+    CHECK(adizzle::almost_equal(result, expected));
+}
