@@ -24,7 +24,9 @@ Linear algebra lib specific to my use cases.
 - [x] [+-] operators for general matrices
 - [x] Matrix multiplication
 - [x] Matrix * vector multiplication
-- [ ] Determinant, inverse, transpose
+- [x] Determinant
+- [ ] Inverse
+- [ ] Transpose
 
 0.3.0a
 
@@ -49,6 +51,7 @@ Linear algebra lib specific to my use cases.
 
 0.1.0b
 
+- [ ] Test that matrix and vector functions hold to expected properties (Associativity, etc.)
 - [ ] docs
 
 0.2.0b
@@ -59,7 +62,3 @@ Linear algebra lib specific to my use cases.
 
 ### Notes
 
-Not sure how I feel about matrix accessor indices. 1-indexed feels right mathematically, but inconsistent.
-Should probably go with 0-indexed because that's what I did with vectors.
-
-Add tests for matrix arithmetic properties (associtivity, etc.).

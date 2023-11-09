@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cstdint>
+#include <span>
 
 #include <adizzle/assert.hpp>
 
@@ -14,7 +15,14 @@ class column_major_matrix {
 public:
     constexpr column_major_matrix() = default;
     constexpr column_major_matrix(std::array<T, R * C> data) : _data(data) {}
+
+    template<typename... Ts>
+    column_major_matrix(Ts... args) : _data{args...} {
+        static_assert(sizeof...(Ts) <= R * C);
+    }
     constexpr auto operator==(const column_major_matrix<T, R, C>&) const -> bool = default;
+
+    constexpr auto data() const -> std::span<const T> { return _data; }
 
     constexpr auto at(size_t row, size_t col) -> T& {
         size_t idx = row + (R * (col));

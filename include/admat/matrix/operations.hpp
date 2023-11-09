@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+#include <concepts>
 #include <cstdint>
 
 #include "admat/matrix/types.hpp"
@@ -53,6 +55,26 @@ auto operator*(const column_major_matrix<T, M, N>& lhs, const column_major_matri
     return mat;
 }
 
+template<typename T, std::convertible_to<T> U, size_t M, size_t N>
+constexpr auto operator*(U scalar, const column_major_matrix<T, M, N>& rhs) -> column_major_matrix<T, M, N> {
+
+    auto data = rhs.data();
+    auto arr  = std::array<T, M * N>{};
+    std::transform(data.begin(), data.end(), arr.begin(), [scalar](T x) { return scalar * x; });
+    auto mat = column_major_matrix<T, M, N>{arr};
+    return mat;
+}
+
+template<typename T, std::convertible_to<T> U, size_t M, size_t N>
+constexpr auto operator*(const column_major_matrix<T, M, N>& rhs, U scalar) -> column_major_matrix<T, M, N> {
+
+    auto data = rhs.data();
+    auto arr  = std::array<T, M * N>{};
+    std::transform(data.begin(), data.end(), arr.begin(), [scalar](T x) { return scalar * x; });
+    auto mat = column_major_matrix<T, M, N>{arr};
+    return mat;
+}
+
 template<typename T, size_t N>
 constexpr auto determinant(const column_major_matrix<T, N, N>& mat) -> T {
     if constexpr(N == 0) {
@@ -62,7 +84,6 @@ constexpr auto determinant(const column_major_matrix<T, N, N>& mat) -> T {
     } else if constexpr(N == 2) {
         return mat.at(0, 0) * mat.at(1, 1) - mat.at(1, 0) * mat.at(0, 1);
     } else {
-
         auto result = T{};
         T sign      = 1;
 
@@ -120,5 +141,12 @@ constexpr auto determinant(const column_major_matrix<T, N, N>& mat) -> T {
 //          mat.at(3,3) + mat.at(0,0) * mat.at(1,1) * mat.at(2,2) * mat.at(3,3);
 //     // clang-format on
 // }
+
+template<typename T, size_t N>
+constexpr auto inverse(const column_major_matrix<T, N, N>& mat) -> column_major_matrix<T, N, N> {
+    adizzle::assert(determinant(mat) != 0, "Can't take inverse of matrix");
+
+    return {};
+}
 
 } // namespace admat::matrix

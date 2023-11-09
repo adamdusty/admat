@@ -148,6 +148,18 @@ TEST_CASE("Matrix multiplication non-square") {
     CHECK(result == expected);
 }
 
+TEST_CASE("Matrix scalar multiplication") {
+    auto mat = mat3::from_row_major({1, 2, 3, 4, 5, 6, 7, 8, 9});
+
+    auto expected = mat3::from_row_major({2, 4, 6, 8, 10, 12, 14, 16, 18});
+    auto result   = 2.0f * mat;
+
+    CHECK(result == expected);
+
+    result = mat * 2.0f;
+    CHECK(result == expected);
+}
+
 TEST_CASE("2x2 matrix determinant") {
     // clang-format off
     auto mat = matrix::column_major_matrix<float, 2, 2>::from_row_major({
@@ -195,3 +207,5 @@ TEST_CASE("4x4 matrix determinant") {
     CAPTURE(result); // Output value on failure
     CHECK(adizzle::almost_equal(result, expected));
 }
+
+TEST_CASE("3x3 matrix inverse") {}
