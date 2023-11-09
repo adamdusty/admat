@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cstdint>
+#include <format>
 #include <span>
 
 #include <adizzle/assert.hpp>
@@ -25,13 +26,30 @@ public:
     constexpr auto data() const -> std::span<const T> { return _data; }
 
     constexpr auto at(size_t row, size_t col) -> T& {
-        size_t idx = row + (R * (col));
+        size_t idx = row + (R * col);
         return _data.at(idx);
     }
 
     constexpr auto at(size_t row, size_t col) const -> const T& {
-        size_t idx = row + (R * (col));
+        size_t idx = row + (R * col);
         return _data.at(idx);
+    }
+
+    constexpr auto row(size_t index) const -> std::array<T, C> {
+        adizzle::assert(index < R, std::format("Trying to access row {}, of and {}x{} matrix", index, R, C));
+        auto res = std::array<T, C>{};
+
+        for(size_t i = 0; i < C; ++i) {
+            res.at(i) = _data.at((i * R) + index);
+        }
+
+        return res;
+    }
+
+    constexpr auto set_row(size_t index, const std::array<T, C>& values) -> void {
+        for(size_t i = 0; i < C; ++i) {
+            _data.at((R * i) + index) = values.at(i);
+        }
     }
 
     // Template disables function for matrices that are not square

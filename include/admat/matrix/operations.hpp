@@ -1,8 +1,15 @@
 #pragma once
 
 #include <algorithm>
+#include <cmath>
 #include <concepts>
 #include <cstdint>
+#include <iostream>
+#include <tuple>
+
+#include <adizzle/assert.hpp>
+#include <adizzle/cast.hpp>
+#include <adizzle/float.hpp>
 
 #include "admat/matrix/types.hpp"
 
@@ -142,9 +149,42 @@ constexpr auto determinant(const column_major_matrix<T, N, N>& mat) -> T {
 //     // clang-format on
 // }
 
+// https://johnfoster.pge.utexas.edu/numerical-methods-book/LinearAlgebra_LU.html
+template<typename T, size_t N>
+constexpr auto decompose(const column_major_matrix<T, N, N>& mat)
+    -> std::tuple<column_major_matrix<T, N, N>, column_major_matrix<T, N, N>> {
+    auto lower = column_major_matrix<T, N, N>::identity();
+    auto upper = column_major_matrix<T, N, N>{};
+
+    for(size_t k = 0; k < N; ++k) {
+
+        for(size_t j = k; j < N; ++j) {
+            T sum = 0;
+            for(size_t m = 0; m < k; ++m) {
+                sum += lower.at(k, m) * upper.at(m, j);
+            }
+
+            // std::cerr << "K, J: " << k << ", " << j << "\n";
+            upper.at(k, j) = mat.at(k, j) - sum;
+        }
+
+        for(size_t i = k; i < N; ++i) {
+
+            T sum = 0;
+            for(size_t m = 0; m < k; ++m) {
+                sum += lower.at(i, m) * upper.at(m, k);
+            }
+
+            lower.at(i, k) = (mat.at(i, k) - sum) / upper.at(k, k);
+        }
+    }
+
+    return {lower, upper};
+}
+
 template<typename T, size_t N>
 constexpr auto inverse(const column_major_matrix<T, N, N>& mat) -> column_major_matrix<T, N, N> {
-    adizzle::assert(determinant(mat) != 0, "Can't take inverse of matrix");
+    adizzle::assert(!adizzle::almost_equal(determinant(mat), 0.0f), "Can't take inverse of matrix");
 
     return {};
 }

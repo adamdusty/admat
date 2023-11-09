@@ -81,6 +81,23 @@ TEST_CASE("Matrix access non-square") {
     CHECK(adizzle::almost_equal(mat.at(1, 2), 6.0f));
 }
 
+TEST_CASE("Matrix get row") {
+    auto mat = mat3::identity();
+
+    CHECK(mat.row(0) == std::array<float, 3>{1, 0, 0});
+    CHECK(mat.row(1) == std::array<float, 3>{0, 1, 0});
+    CHECK(mat.row(2) == std::array<float, 3>{0, 0, 1});
+}
+
+TEST_CASE("Matrix set row") {
+    auto mat = mat3::identity();
+    mat.set_row(0, {1, 1, 1});
+
+    CHECK(mat.row(0) == std::array<float, 3>{1, 1, 1});
+    CHECK(mat.row(1) == std::array<float, 3>{0, 1, 0});
+    CHECK(mat.row(2) == std::array<float, 3>{0, 0, 1});
+}
+
 TEST_CASE("Matrix addition") {
     auto m1       = mat3::identity();
     auto m2       = mat3::identity();
@@ -208,4 +225,49 @@ TEST_CASE("4x4 matrix determinant") {
     CHECK(adizzle::almost_equal(result, expected));
 }
 
-TEST_CASE("3x3 matrix inverse") {}
+TEST_CASE("3x3 matrix lu decomp") {
+    // clang-format off
+    auto mat = mat3::from_row_major({
+        1,  1,  0,
+        2,  1, -1,
+        3, -1, -1,
+    });
+    
+    auto expected_lower = mat3::from_row_major({
+        1, 0, 0,
+        2, 1, 0,
+        3, 4, 1,
+    });
+    
+    auto expected_upper = mat3::from_row_major({
+        1,  1,  0,
+        0, -1, -1,
+        0,  0,  3,
+    });
+    // clang-format on
+
+    auto [lower, upper] = matrix::decompose(mat);
+
+    CHECK(lower == expected_lower);
+    CHECK(upper == expected_upper);
+}
+
+// TEST_CASE("3x3 matrix inverse") {
+//     // clang-format off
+//     auto mat = mat3::from_row_major({
+//         1, 2, 3,
+//         3, 2, 1,
+//         2, 1, 3,
+//     });
+
+//     auto expected = (1.0f / 12.0f) * mat3::from_row_major({
+//         -5,  3,  4,
+//          7,  3, -8,
+//          1, -3,  4,
+//     });
+//     // clang-format on
+
+//     auto result = matrix::inverse(mat);
+
+//     CHECK(result == expected);
+// }

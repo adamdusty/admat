@@ -62,3 +62,4 @@ Linear algebra lib specific to my use cases.
 
 ### Notes
 
+Matrix inversion is unpleasant
