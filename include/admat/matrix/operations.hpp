@@ -4,7 +4,8 @@
 #include <cmath>
 #include <concepts>
 #include <cstdint>
-#include <iostream>
+#include <format>
+// #include <iostream>
 #include <tuple>
 
 #include <adizzle/assert.hpp>
@@ -164,7 +165,6 @@ constexpr auto decompose(const column_major_matrix<T, N, N>& mat)
                 sum += lower.at(k, m) * upper.at(m, j);
             }
 
-            // std::cerr << "K, J: " << k << ", " << j << "\n";
             upper.at(k, j) = mat.at(k, j) - sum;
         }
 
@@ -183,10 +183,116 @@ constexpr auto decompose(const column_major_matrix<T, N, N>& mat)
 }
 
 template<typename T, size_t N>
-constexpr auto inverse(const column_major_matrix<T, N, N>& mat) -> column_major_matrix<T, N, N> {
-    adizzle::assert(!adizzle::almost_equal(determinant(mat), 0.0f), "Can't take inverse of matrix");
+constexpr auto plu_decompose(const column_major_matrix<T, N, N>& mat)
+    -> std::tuple<column_major_matrix<T, N, N>, column_major_matrix<T, N, N>, column_major_matrix<T, N, N>> {
+    auto perm = column_major_matrix<T, N, N>::identity();
 
-    return {};
+    for(size_t i = 0; i < N; ++i) {
+        T max_val = 0;
+        for(size_t k = i; k < N; ++k) {
+            auto current_val = std::abs(mat.at(perm.at(k, k), i));
+            if(current_val > max_val) {
+                max_val = current_val;
+                perm.swap_rows(i, k);
+            }
+        }
+    }
+
+    auto [lower, upper] = decompose(mat);
+
+    return {lower, upper, perm};
+}
+
+template<typename T>
+constexpr auto invert_mat2(const column_major_matrix<T, 2, 2>& mat) -> column_major_matrix<T, 2, 2> {
+    auto det = determinant(mat);
+    det      = 1 / det;
+
+    auto inverted     = column_major_matrix<T, 2, 2>{};
+    inverted.at(0, 0) = mat.at(1, 1) * det;
+    inverted.at(0, 1) = -mat.at(0, 1) * det;
+    inverted.at(1, 0) = -mat.at(1, 0) * det;
+    inverted.at(1, 1) = mat.at(0, 0) * det;
+
+    return inverted;
+}
+
+template<typename T>
+constexpr auto invert_mat3(const column_major_matrix<T, 3, 3>& mat) -> column_major_matrix<T, 3, 3> {
+    auto det = determinant(mat);
+    det      = 1 / det;
+
+    column_major_matrix<T, 3, 3> inverted{};
+    inverted.at(0, 0) = (mat.at(1, 1) * mat.at(2, 2) - mat.at(2, 1) * mat.at(1, 2)) * det;
+    inverted.at(0, 1) = (mat.at(0, 2) * mat.at(2, 1) - mat.at(0, 1) * mat.at(2, 2)) * det;
+    inverted.at(0, 2) = (mat.at(0, 1) * mat.at(1, 2) - mat.at(0, 2) * mat.at(1, 1)) * det;
+    inverted.at(1, 0) = (mat.at(1, 2) * mat.at(2, 0) - mat.at(1, 0) * mat.at(2, 2)) * det;
+    inverted.at(1, 1) = (mat.at(0, 0) * mat.at(2, 2) - mat.at(0, 2) * mat.at(2, 0)) * det;
+    inverted.at(1, 2) = (mat.at(1, 0) * mat.at(0, 2) - mat.at(0, 0) * mat.at(1, 2)) * det;
+    inverted.at(2, 0) = (mat.at(1, 0) * mat.at(2, 1) - mat.at(2, 0) * mat.at(1, 1)) * det;
+    inverted.at(2, 1) = (mat.at(2, 0) * mat.at(0, 1) - mat.at(0, 0) * mat.at(2, 1)) * det;
+    inverted.at(2, 2) = (mat.at(0, 0) * mat.at(1, 1) - mat.at(1, 0) * mat.at(0, 1)) * det;
+
+    return inverted;
+}
+
+template<typename T>
+constexpr auto invert_mat4(const column_major_matrix<T, 4, 4>& mat) -> column_major_matrix<T, 4, 4> {
+    auto inverted = column_major_matrix<T, 4, 4>{};
+
+    auto A2323 = mat.at(2, 2) * mat.at(3, 3) - mat.at(2, 3) * mat.at(3, 2);
+    auto A1323 = mat.at(2, 1) * mat.at(3, 3) - mat.at(2, 3) * mat.at(3, 1);
+    auto A1223 = mat.at(2, 1) * mat.at(3, 2) - mat.at(2, 2) * mat.at(3, 1);
+    auto A0323 = mat.at(2, 0) * mat.at(3, 3) - mat.at(2, 3) * mat.at(3, 0);
+    auto A0223 = mat.at(2, 0) * mat.at(3, 2) - mat.at(2, 2) * mat.at(3, 0);
+    auto A0123 = mat.at(2, 0) * mat.at(3, 1) - mat.at(2, 1) * mat.at(3, 0);
+    auto A2313 = mat.at(1, 2) * mat.at(3, 3) - mat.at(1, 3) * mat.at(3, 2);
+    auto A1313 = mat.at(1, 1) * mat.at(3, 3) - mat.at(1, 3) * mat.at(3, 1);
+    auto A1213 = mat.at(1, 1) * mat.at(3, 2) - mat.at(1, 2) * mat.at(3, 1);
+    auto A2312 = mat.at(1, 2) * mat.at(2, 3) - mat.at(1, 3) * mat.at(2, 2);
+    auto A1312 = mat.at(1, 1) * mat.at(2, 3) - mat.at(1, 3) * mat.at(2, 1);
+    auto A1212 = mat.at(1, 1) * mat.at(2, 2) - mat.at(1, 2) * mat.at(2, 1);
+    auto A0313 = mat.at(1, 0) * mat.at(3, 3) - mat.at(1, 3) * mat.at(3, 0);
+    auto A0213 = mat.at(1, 0) * mat.at(3, 2) - mat.at(1, 2) * mat.at(3, 0);
+    auto A0312 = mat.at(1, 0) * mat.at(2, 3) - mat.at(1, 3) * mat.at(2, 0);
+    auto A0212 = mat.at(1, 0) * mat.at(2, 2) - mat.at(1, 2) * mat.at(2, 0);
+    auto A0113 = mat.at(1, 0) * mat.at(3, 1) - mat.at(1, 1) * mat.at(3, 0);
+    auto A0112 = mat.at(1, 0) * mat.at(2, 1) - mat.at(1, 1) * mat.at(2, 0);
+
+    auto det = determinant(mat);
+    det      = 1 / det;
+
+    inverted.at(0, 0) = det * (mat.at(1, 1) * A2323 - mat.at(1, 2) * A1323 + mat.at(1, 3) * A1223);
+    inverted.at(0, 1) = det * -(mat.at(0, 1) * A2323 - mat.at(0, 2) * A1323 + mat.at(0, 3) * A1223);
+    inverted.at(0, 2) = det * (mat.at(0, 1) * A2313 - mat.at(0, 2) * A1313 + mat.at(0, 3) * A1213);
+    inverted.at(0, 3) = det * -(mat.at(0, 1) * A2312 - mat.at(0, 2) * A1312 + mat.at(0, 3) * A1212);
+    inverted.at(1, 0) = det * -(mat.at(1, 0) * A2323 - mat.at(1, 2) * A0323 + mat.at(1, 3) * A0223);
+    inverted.at(1, 1) = det * (mat.at(0, 0) * A2323 - mat.at(0, 2) * A0323 + mat.at(0, 3) * A0223);
+    inverted.at(1, 2) = det * -(mat.at(0, 0) * A2313 - mat.at(0, 2) * A0313 + mat.at(0, 3) * A0213);
+    inverted.at(1, 3) = det * (mat.at(0, 0) * A2312 - mat.at(0, 2) * A0312 + mat.at(0, 3) * A0212);
+    inverted.at(2, 0) = det * (mat.at(1, 0) * A1323 - mat.at(1, 1) * A0323 + mat.at(1, 3) * A0123);
+    inverted.at(2, 1) = det * -(mat.at(0, 0) * A1323 - mat.at(0, 1) * A0323 + mat.at(0, 3) * A0123);
+    inverted.at(2, 2) = det * (mat.at(0, 0) * A1313 - mat.at(0, 1) * A0313 + mat.at(0, 3) * A0113);
+    inverted.at(2, 3) = det * -(mat.at(0, 0) * A1312 - mat.at(0, 1) * A0312 + mat.at(0, 3) * A0112);
+    inverted.at(3, 0) = det * -(mat.at(1, 0) * A1223 - mat.at(1, 1) * A0223 + mat.at(1, 2) * A0123);
+    inverted.at(3, 1) = det * (mat.at(0, 0) * A1223 - mat.at(0, 1) * A0223 + mat.at(0, 2) * A0123);
+    inverted.at(3, 2) = det * -(mat.at(0, 0) * A1213 - mat.at(0, 1) * A0213 + mat.at(0, 2) * A0113);
+    inverted.at(3, 3) = det * (mat.at(0, 0) * A1212 - mat.at(0, 1) * A0212 + mat.at(0, 2) * A0112);
+
+    return inverted;
+}
+
+template<typename T, size_t N>
+constexpr auto inverse(const column_major_matrix<T, N, N>& mat) -> column_major_matrix<T, N, N> {
+    adizzle::assert(std::abs(determinant(mat)) > 0, std::format("Matrix not invertible: {}", determinant(mat)));
+
+    if constexpr(N == 2) {
+        return invert_mat2(mat);
+    } else if constexpr(N == 3) {
+        return invert_mat3(mat);
+    } else if constexpr(N == 4) {
+        return invert_mat4(mat);
+    }
 }
 
 } // namespace admat::matrix

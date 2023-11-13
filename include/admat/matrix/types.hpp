@@ -52,6 +52,12 @@ public:
         }
     }
 
+    constexpr auto swap_rows(size_t row1, size_t row2) -> void {
+        auto tmp = row(row1);
+        set_row(row1, row(row2));
+        set_row(row2, tmp);
+    }
+
     // Template disables function for matrices that are not square
     template<size_t Col = R, size_t Row = C, std::enable_if_t<Col == Row, bool> = true>
     static constexpr auto identity() -> column_major_matrix<T, R, C> {

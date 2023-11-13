@@ -98,6 +98,15 @@ TEST_CASE("Matrix set row") {
     CHECK(mat.row(2) == std::array<float, 3>{0, 0, 1});
 }
 
+TEST_CASE("Matrix set row") {
+    auto mat = mat3::identity();
+    mat.swap_rows(0, 1);
+
+    CHECK(mat.row(0) == std::array<float, 3>{0, 1, 0});
+    CHECK(mat.row(1) == std::array<float, 3>{1, 0, 0});
+    CHECK(mat.row(2) == std::array<float, 3>{0, 0, 1});
+}
+
 TEST_CASE("Matrix addition") {
     auto m1       = mat3::identity();
     auto m2       = mat3::identity();
@@ -252,22 +261,62 @@ TEST_CASE("3x3 matrix lu decomp") {
     CHECK(upper == expected_upper);
 }
 
-// TEST_CASE("3x3 matrix inverse") {
-//     // clang-format off
-//     auto mat = mat3::from_row_major({
-//         1, 2, 3,
-//         3, 2, 1,
-//         2, 1, 3,
-//     });
+TEST_CASE("2x2 matrix inverse") {
+    // clang-format off
+    auto mat = mat2::from_row_major({
+        1, 2,
+        3, 2,
+    });
 
-//     auto expected = (1.0f / 12.0f) * mat3::from_row_major({
-//         -5,  3,  4,
-//          7,  3, -8,
-//          1, -3,  4,
-//     });
-//     // clang-format on
+    auto expected = (1.0f / 4.0f) * mat2::from_row_major({
+        -2,  2,
+         3, -1,
+    });
+    // clang-format on
 
-//     auto result = matrix::inverse(mat);
+    auto result = matrix::inverse(mat);
 
-//     CHECK(result == expected);
-// }
+    CHECK(result == expected);
+}
+
+TEST_CASE("3x3 matrix inverse") {
+    // clang-format off
+    auto mat = mat3::from_row_major({
+        1, 2, 3,
+        3, 2, 1,
+        2, 1, 3,
+    });
+
+    auto expected = (1.0f / 12.0f) * mat3::from_row_major({
+        -5,  3,  4,
+         7,  3, -8,
+         1, -3,  4,
+    });
+    // clang-format on
+
+    auto result = matrix::inverse(mat);
+
+    CHECK(result == expected);
+}
+
+TEST_CASE("4x4 matrix inverse") {
+    // clang-format off
+    auto mat = mat4::from_row_major({
+        1, 2, 2, 1,
+        2, 3, 4, 1,
+        2, 2, 1, 3,
+        2, 4, 3, 2,
+    });
+
+    auto expected = (1.0f / 3.0f) * mat4::from_row_major({
+        -13, 4,  1,  3,
+        -2, -1, -1,  3,
+         6,  0,  0, -3,
+         8, -2,  1, -3,
+    });
+    // clang-format on
+
+    auto result = matrix::inverse(mat);
+
+    CHECK(result == expected);
+}
