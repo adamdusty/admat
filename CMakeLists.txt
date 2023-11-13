@@ -20,7 +20,6 @@ add_library(admat::admat ALIAS admat_admat)
 # Add sources
 target_sources(admat_admat PRIVATE
     src/admat.cpp
-    src/matrix/operations.cpp
 )
 
 # Add include directory

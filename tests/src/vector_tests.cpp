@@ -2,6 +2,7 @@
 #include <snitch/snitch.hpp>
 
 #include <cmath>
+#include <numbers>
 
 using namespace admat;
 
@@ -112,4 +113,42 @@ TEST_CASE("vec normalize") {
     CHECK(vector::normalize(v2) == exp2);
     CHECK(vector::normalize(v3) == exp3);
     CHECK(vector::normalize(v4) == exp4);
+}
+
+TEST_CASE("vec abs") {
+    // https://www.w3.org/TR/WGSL/#abs-float-builtin
+    auto v1       = vec4{-0.3f, -15.6f, 0.0f, 10.0f};
+    auto expected = vec4{0.3f, 15.6f, 0.0f, 10.0f};
+
+    auto result = vector::abs(v1);
+
+    CHECK(result == expected);
+}
+
+TEST_CASE("vec acos") {
+    // https://www.w3.org/TR/WGSL/#abs-float-builtin
+    auto v1       = vec4{-1.0f, -0.25f, 0.25f, 1.0f};
+    auto expected = vec4{std::acos(-1.0f), std::acos(-0.25f), std::acos(0.25f), std::acos(1.0f)};
+
+    auto result = vector::acos(v1);
+
+    CHECK(result == expected);
+}
+
+TEST_CASE("vec clamp") {
+    auto v1       = vec2{0.5f, 0.5f};
+    auto expected = vec2{0.75f, 0.75f};
+
+    auto result = clamp(v1 * 100.0f, 0.0f, 0.75f);
+
+    CHECK(result == expected);
+}
+
+TEST_CASE("vec smoothstep") {
+    auto v1       = vec2{0.5f, 0.5f};
+    auto expected = vec2{0.75f, 0.75f};
+
+    auto result = clamp(v1 * 100.0f, 0.0f, 0.75f);
+
+    CHECK(result == expected);
 }

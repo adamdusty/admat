@@ -29,15 +29,10 @@ Linear algebra lib specific to my use cases.
   - 2x2, 3x3, and 4x4
   - Possible optimization is special case where matrix has no scaling factor
   - Not sure if I want to implement general inverse algorithm, since I won't ever need it
-- [ ] Transpose
+- [x] Transpose
 
 0.3.0a
-
-- [ ] Implement all other WGSL spec vector functions
-- [ ] Implement all other WGSL spec matrix functions
-
-0.4.0a
-
+- [ ] Vector clamp and smoothstep
 - [ ] Performance considerations (Initial implementations naive)
 
 0.5.0a
