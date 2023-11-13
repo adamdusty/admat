@@ -295,4 +295,17 @@ constexpr auto inverse(const column_major_matrix<T, N, N>& mat) -> column_major_
     }
 }
 
+template<typename T, size_t R, size_t C>
+constexpr auto transpose(const column_major_matrix<T, R, C>& mat) -> column_major_matrix<T, C, R> {
+    auto result = column_major_matrix<T, C, R>{};
+
+    for(size_t i = 0; i < R; ++i) {
+        for(size_t j = 0; j < C; ++j) {
+            result.at(j, i) = mat.at(i, j);
+        }
+    }
+
+    return result;
+}
+
 } // namespace admat::matrix

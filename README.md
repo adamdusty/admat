@@ -26,6 +26,9 @@ Linear algebra lib specific to my use cases.
 - [x] Matrix * vector multiplication
 - [x] Determinant
 - [ ] Inverse
+  - 2x2, 3x3, and 4x4
+  - Possible optimization is special case where matrix has no scaling factor
+  - Not sure if I want to implement general inverse algorithm, since I won't ever need it
 - [ ] Transpose
 
 0.3.0a

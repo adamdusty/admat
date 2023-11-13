@@ -320,3 +320,82 @@ TEST_CASE("4x4 matrix inverse") {
 
     CHECK(result == expected);
 }
+
+TEST_CASE("2x2 matrix transpose") {
+    // clang-format off
+    auto mat = mat2::from_row_major({
+        1, 2,
+        3, 4,
+    });
+
+    auto expected = mat2::from_row_major({
+        1, 3,
+        2, 4,
+    });
+    // clang-format on
+
+    auto result = matrix::transpose(mat);
+
+    CHECK(result == expected);
+}
+
+TEST_CASE("3x3 matrix transpose") {
+    // clang-format off
+    auto mat = mat3::from_row_major({
+        1, 2, 3,
+        4, 1, 5,
+        6, 7, 1,
+    });
+
+    auto expected = mat3::from_row_major({
+        1, 4, 6,
+        2, 1, 7,
+        3, 5, 1,
+    });
+    // clang-format on
+
+    auto result = matrix::transpose(mat);
+
+    CHECK(result == expected);
+}
+
+TEST_CASE("4x4 matrix transpose") {
+    // clang-format off
+    auto mat = mat4::from_row_major({
+        1, 2, 3, 4,
+        4, 1, 3, 2,
+        3, 4, 1, 2,
+        2, 3, 4, 1,
+    });
+
+    auto expected =  mat4::from_row_major({
+        1, 4, 3, 2,
+        2, 1, 4, 3,
+        3, 3, 1, 4,
+        4, 2, 2, 1,
+    });
+    // clang-format on
+
+    auto result = matrix::transpose(mat);
+
+    CHECK(result == expected);
+}
+
+TEST_CASE("2x3 matrix transpose") {
+    // clang-format off
+    auto mat = matrix::column_major_matrix<float, 2, 3>::from_row_major({
+        1, 2, 3,
+        4, 1, 3,
+    });
+
+    auto expected =  matrix::column_major_matrix<float, 3, 2>::from_row_major({
+        1, 4, 
+        2, 1,
+        3, 3,
+    });
+    // clang-format on
+
+    auto result = matrix::transpose(mat);
+
+    CHECK(result == expected);
+}
