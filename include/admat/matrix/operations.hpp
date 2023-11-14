@@ -2,15 +2,11 @@
 
 #include <algorithm>
 #include <cmath>
-#include <concepts>
 #include <cstdint>
 #include <format>
-// #include <iostream>
 #include <tuple>
 
 #include <adizzle/assert.hpp>
-#include <adizzle/cast.hpp>
-#include <adizzle/float.hpp>
 
 #include "admat/matrix/types.hpp"
 
@@ -255,7 +251,7 @@ constexpr auto invert_mat4(const column_major_matrix<T, 4, 4>& mat) -> column_ma
 
 template<typename T, size_t N>
 constexpr auto inverse(const column_major_matrix<T, N, N>& mat) -> column_major_matrix<T, N, N> {
-    adizzle::assert(std::abs(determinant(mat)) > 0, std::format("Matrix not invertible: {}", determinant(mat)));
+    ADIZZLE_ASSERT(std::abs(determinant(mat)) > 0, std::format("Matrix not invertible: {}", determinant(mat)));
 
     if constexpr(N == 2) {
         return invert_mat2(mat);

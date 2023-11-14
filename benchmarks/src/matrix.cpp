@@ -46,7 +46,7 @@ auto inverse() {
                         dist(gen),
                         dist(gen));
 
-    auto bench = nanobench::Bench().relative(true).epochIterations(50000);
+    auto bench = nanobench::Bench().relative(true).epochIterations(500000);
     bench.run("admat inverse", [&] { nanobench::doNotOptimizeAway(matrix::inverse(m1)); });
     bench.run("glm inverse", [&] { nanobench::doNotOptimizeAway(glm::inverse(m2)); });
 }
