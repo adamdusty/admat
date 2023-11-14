@@ -18,10 +18,22 @@ FetchContent_Declare(
     SYSTEM
     FIND_PACKAGE_ARGS
 )
-FetchContent_MakeAvailable(nanobench)
 
-add_executable(admat_bench
+FetchContent_Declare(
+    glm
+    GIT_REPOSITORY https://github.com/g-truc/glm.git
+    GIT_TAG        586a402
+    SYSTEM
+)
+FetchContent_MakeAvailable(nanobench glm)
+
+add_executable(vector_bench
     src/vector.cpp
 )
 
-target_link_libraries(para_bench PRIVATE para::para nanobench::nanobench)
+add_executable(matrix_bench
+    src/matrix.cpp
+)
+
+target_link_libraries(vector_bench PRIVATE admat::admat nanobench::nanobench)
+target_link_libraries(matrix_bench PRIVATE admat::admat glm::glm nanobench::nanobench)

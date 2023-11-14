@@ -44,6 +44,18 @@
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "ADMAT_BUILD_TESTS": "ON"
             }
+        },
+        {
+            "name": "bench",
+            "binaryDir": "./build/debug",
+            "inherits": [
+                "base"
+            ],
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_BUILD_TYPE": "Release",
+                "ADMAT_BUILD_BENCH": "ON"
+            }
         }
     ],
     "buildPresets": [
@@ -58,6 +70,10 @@
         {
             "name": "release",
             "configurePreset": "release"
+        },
+        {
+            "name": "bench",
+            "configurePreset": "bench"
         }
     ],
     "testPresets": [
