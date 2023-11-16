@@ -4,7 +4,7 @@
 #include <concepts>
 #include <cstdint>
 
-namespace admat::vector {
+namespace admat {
 
 template<typename T, size_t N>
 class vec {
@@ -24,4 +24,4 @@ public:
     constexpr auto operator==(const vec<T, N>&) const -> bool = default;
 };
 
-} // namespace admat::vector
+} // namespace admat

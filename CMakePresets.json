@@ -47,7 +47,7 @@
         },
         {
             "name": "bench",
-            "binaryDir": "./build/debug",
+            "binaryDir": "./build/bench",
             "inherits": [
                 "base"
             ],

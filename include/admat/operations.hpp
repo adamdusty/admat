@@ -5,8 +5,8 @@
 
 namespace admat {
 
-using admat::matrix::column_major_matrix;
-using admat::vector::vec;
+using admat::column_major_matrix;
+using admat::vec;
 
 template<typename T, size_t M, size_t N>
 auto operator*(const vec<T, N>& lhs, const column_major_matrix<T, M, N>& rhs) -> vec<T, M> {

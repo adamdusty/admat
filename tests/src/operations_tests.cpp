@@ -30,7 +30,7 @@ TEST_CASE("Multiply vector by non-square matrix") {
     auto vec = vec3{5.0f, 6.0f, 7.0f};
 
     // clang-format off
-    auto mat = matrix::column_major_matrix<float, 2, 3>::from_row_major({
+    auto mat = column_major_matrix<float, 2, 3>::from_row_major({
         1, 2, 3,
         4, 5, 6,
     });

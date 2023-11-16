@@ -10,7 +10,7 @@ using namespace admat;
 using namespace ankerl;
 
 template<typename T, size_t R, size_t C>
-auto randomize(matrix::column_major_matrix<T, R, C> mat) {
+auto randomize(column_major_matrix<T, R, C> mat) {
     auto dev  = std::random_device{};
     auto gen  = std::mt19937(dev());
     auto dist = std::uniform_real_distribution{0.0f, 5.0f};
@@ -50,7 +50,7 @@ auto inverse() {
     randomize(m1);
 
     auto bench = nanobench::Bench().title("inverse").relative(true);
-    bench.run("admat inverse", [&] { nanobench::doNotOptimizeAway(matrix::inverse(m1)); });
+    bench.run("admat inverse", [&] { nanobench::doNotOptimizeAway(inverse(m1)); });
     bench.run("glm inverse", [&] { nanobench::doNotOptimizeAway(glm::inverse(m2)); });
 }
 
@@ -80,7 +80,7 @@ auto determinant() {
     randomize(m1);
 
     auto bench = nanobench::Bench().title("determinant").relative(true);
-    bench.run("admat determinant", [&] { nanobench::doNotOptimizeAway(matrix::determinant_mat4(m1)); });
+    bench.run("admat determinant", [&] { nanobench::doNotOptimizeAway(determinant_mat4(m1)); });
     bench.run("glm determinant", [&] { nanobench::doNotOptimizeAway(glm::determinant(m2)); });
 }
 
@@ -90,7 +90,7 @@ auto transpose() {
     randomize(m1);
 
     auto bench = nanobench::Bench().title("transpose").relative(true);
-    bench.run("admat transpose", [&] { nanobench::doNotOptimizeAway(matrix::transpose(m1)); });
+    bench.run("admat transpose", [&] { nanobench::doNotOptimizeAway(transpose(m1)); });
     bench.run("glm transpose", [&] { nanobench::doNotOptimizeAway(glm::transpose(m2)); });
 }
 

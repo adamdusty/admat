@@ -38,13 +38,13 @@ TEST_CASE("Matrix from row major array") {
 
 TEST_CASE("Matrix from row major array non-square") {
     // clang-format off
-    auto m1 = matrix::column_major_matrix<float, 2, 3>::from_row_major({
+    auto m1 = column_major_matrix<float, 2, 3>::from_row_major({
         1, 2, 3,
         4, 5, 6,
     });
     // clang-format on
 
-    auto expected = matrix::column_major_matrix<float, 2, 3>{{1, 4, 2, 5, 3, 6}};
+    auto expected = column_major_matrix<float, 2, 3>{{1, 4, 2, 5, 3, 6}};
 
     CHECK(m1 == expected);
 }
@@ -71,7 +71,7 @@ TEST_CASE("Matrix access") {
 }
 
 TEST_CASE("Matrix access non-square") {
-    auto mat = matrix::column_major_matrix<float, 2, 3>{{1, 4, 2, 5, 3, 6}};
+    auto mat = column_major_matrix<float, 2, 3>{{1, 4, 2, 5, 3, 6}};
 
     CHECK(adizzle::almost_equal(mat.at(0, 0), 1.0f));
     CHECK(adizzle::almost_equal(mat.at(0, 1), 2.0f));
@@ -91,7 +91,7 @@ TEST_CASE("Matrix get row") {
 
 TEST_CASE("Matrix get column") {
     // clang-format off
-    auto mat = matrix::column_major_matrix<float, 2, 3>::from_row_major({
+    auto mat = column_major_matrix<float, 2, 3>::from_row_major({
         2.0f, 3.0f, 4.0f,
         5.0f, 6.0f, 7.0f,
     });
@@ -173,13 +173,13 @@ TEST_CASE("Matrix multiplication") {
 
 TEST_CASE("Matrix multiplication non-square") {
     // clang-format off
-    auto m1 = matrix::column_major_matrix<float, 3, 2>::from_row_major({
+    auto m1 = column_major_matrix<float, 3, 2>::from_row_major({
         1, 2,
         3, 4,
         5, 6,
     });
 
-    auto m2 = matrix::column_major_matrix<float, 2, 3>::from_row_major({
+    auto m2 = column_major_matrix<float, 2, 3>::from_row_major({
         6, 5, 4,
         3, 2, 1,
     });
@@ -239,14 +239,14 @@ TEST_CASE("Matrix scalar multiplication") {
 
 TEST_CASE("2x2 matrix determinant") {
     // clang-format off
-    auto mat = matrix::column_major_matrix<float, 2, 2>::from_row_major({
+    auto mat = column_major_matrix<float, 2, 2>::from_row_major({
         7, 1,
         2, 4,
     });
     // clang-format on
 
     float expected = 26.0f;
-    auto result    = matrix::determinant(mat);
+    auto result    = determinant(mat);
 
     CAPTURE(result); // Output value on failure
     CHECK(adizzle::almost_equal(result, expected));
@@ -262,7 +262,7 @@ TEST_CASE("3x3 matrix determinant") {
     // clang-format on
 
     float expected = 10.0f;
-    auto result    = matrix::determinant(mat);
+    auto result    = determinant(mat);
 
     CAPTURE(result); // Output value on failure
     CHECK(adizzle::almost_equal(result, expected));
@@ -279,7 +279,7 @@ TEST_CASE("4x4 matrix determinant") {
     // clang-format on
 
     float expected = 160.0f;
-    auto result    = matrix::determinant(mat);
+    auto result    = determinant(mat);
 
     CAPTURE(result); // Output value on failure
     CHECK(adizzle::almost_equal(result, expected));
@@ -306,7 +306,7 @@ TEST_CASE("3x3 matrix lu decomp") {
     });
     // clang-format on
 
-    auto [lower, upper] = matrix::decompose(mat);
+    auto [lower, upper] = decompose(mat);
 
     CHECK(lower == expected_lower);
     CHECK(upper == expected_upper);
@@ -325,7 +325,7 @@ TEST_CASE("2x2 matrix inverse") {
     });
     // clang-format on
 
-    auto result = matrix::inverse(mat);
+    auto result = inverse(mat);
 
     CHECK(result == expected);
 }
@@ -345,7 +345,7 @@ TEST_CASE("3x3 matrix inverse") {
     });
     // clang-format on
 
-    auto result = matrix::inverse(mat);
+    auto result = inverse(mat);
 
     CHECK(result == expected);
 }
@@ -367,7 +367,7 @@ TEST_CASE("4x4 matrix inverse") {
     });
     // clang-format on
 
-    auto result = matrix::inverse(mat);
+    auto result = inverse(mat);
 
     CHECK(result == expected);
 }
@@ -385,7 +385,7 @@ TEST_CASE("2x2 matrix transpose") {
     });
     // clang-format on
 
-    auto result = matrix::transpose(mat);
+    auto result = transpose(mat);
 
     CHECK(result == expected);
 }
@@ -405,7 +405,7 @@ TEST_CASE("3x3 matrix transpose") {
     });
     // clang-format on
 
-    auto result = matrix::transpose(mat);
+    auto result = transpose(mat);
 
     CHECK(result == expected);
 }
@@ -427,26 +427,26 @@ TEST_CASE("4x4 matrix transpose") {
     });
     // clang-format on
 
-    auto result = matrix::transpose(mat);
+    auto result = transpose(mat);
 
     CHECK(result == expected);
 }
 
 TEST_CASE("2x3 matrix transpose") {
     // clang-format off
-    auto mat = matrix::column_major_matrix<float, 2, 3>::from_row_major({
+    auto mat = column_major_matrix<float, 2, 3>::from_row_major({
         1, 2, 3,
         4, 1, 3,
     });
 
-    auto expected =  matrix::column_major_matrix<float, 3, 2>::from_row_major({
+    auto expected =  column_major_matrix<float, 3, 2>::from_row_major({
         1, 4, 
         2, 1,
         3, 3,
     });
     // clang-format on
 
-    auto result = matrix::transpose(mat);
+    auto result = transpose(mat);
 
     CHECK(result == expected);
 }

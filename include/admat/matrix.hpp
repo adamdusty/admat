@@ -5,8 +5,8 @@
 
 namespace admat {
 
-using mat2 = matrix::column_major_matrix<float, 2, 2>;
-using mat3 = matrix::column_major_matrix<float, 3, 3>;
-using mat4 = matrix::column_major_matrix<float, 4, 4>;
+using mat2 = column_major_matrix<float, 2, 2>;
+using mat3 = column_major_matrix<float, 3, 3>;
+using mat4 = column_major_matrix<float, 4, 4>;
 
 } // namespace admat

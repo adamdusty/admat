@@ -7,7 +7,7 @@
 
 #include <adizzle/assert.hpp>
 
-namespace admat::matrix {
+namespace admat {
 
 template<typename T, size_t R, size_t C>
 class column_major_matrix {
@@ -103,4 +103,4 @@ public:
     }
 };
 
-} // namespace admat::matrix
+} // namespace admat

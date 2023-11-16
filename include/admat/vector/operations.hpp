@@ -9,7 +9,7 @@
 
 #include "admat/vector/types.hpp"
 
-namespace admat::vector {
+namespace admat {
 
 template<typename T, size_t N>
 constexpr auto operator+(const vec<T, N>& lhs, const vec<T, N>& rhs) -> vec<T, N> {
@@ -173,4 +173,4 @@ constexpr auto smoothstep(const vec<T, N>& low, const vec<T, N>& high, const vec
     return result;
 }
 
-} // namespace admat::vector
+} // namespace admat

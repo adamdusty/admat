@@ -16,7 +16,7 @@ test: build-dev
     ctest --preset dev
 
 bench: build-bench
-    build/debug/benchmarks/matrix_bench.exe
+    build/bench/benchmarks/matrix_bench.exe
 
 clean:
     @rm ./build -Recurse -Force

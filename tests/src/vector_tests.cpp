@@ -83,7 +83,7 @@ TEST_CASE("vec dot product", "[dot]") {
     auto v1 = vec4{2.0f, -2.0f, 10.0f, 10.0f};
     auto v2 = vec4{10.0f, 5.0f, 2.0f, 1.0f};
 
-    auto result = vector::dot(v1, v2);
+    auto result = dot(v1, v2);
     CHECK(result == 40);
 }
 
@@ -92,7 +92,7 @@ TEST_CASE("vec cross product", "[cross]") {
     auto v2 = vec3{-1.0f, 4.0f, 2.0f};
 
     auto expected = vec3{-8.0f, -8.0f, 12.0f};
-    auto result   = vector::cross(v1, v2);
+    auto result   = cross(v1, v2);
 
     CHECK(result == expected);
 }
@@ -110,9 +110,9 @@ TEST_CASE("vec normalize") {
     auto exp3 = vec3{v3.at(0) / len3, v3.at(1) / len3, v3.at(2) / len3};
     auto exp4 = vec4{v4.at(0) / len4, v4.at(1) / len4, v4.at(2) / len4, v4.at(3) / len4};
 
-    CHECK(vector::normalize(v2) == exp2);
-    CHECK(vector::normalize(v3) == exp3);
-    CHECK(vector::normalize(v4) == exp4);
+    CHECK(normalize(v2) == exp2);
+    CHECK(normalize(v3) == exp3);
+    CHECK(normalize(v4) == exp4);
 }
 
 TEST_CASE("vec abs") {
@@ -120,7 +120,7 @@ TEST_CASE("vec abs") {
     auto v1       = vec4{-0.3f, -15.6f, 0.0f, 10.0f};
     auto expected = vec4{0.3f, 15.6f, 0.0f, 10.0f};
 
-    auto result = vector::abs(v1);
+    auto result = abs(v1);
 
     CHECK(result == expected);
 }
@@ -130,7 +130,7 @@ TEST_CASE("vec acos") {
     auto v1       = vec4{-1.0f, -0.25f, 0.25f, 1.0f};
     auto expected = vec4{std::acos(-1.0f), std::acos(-0.25f), std::acos(0.25f), std::acos(1.0f)};
 
-    auto result = vector::acos(v1);
+    auto result = acos(v1);
 
     CHECK(result == expected);
 }

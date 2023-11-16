@@ -11,7 +11,7 @@
 #include "admat/matrix/types.hpp"
 #include "admat/vector.hpp"
 
-namespace admat::matrix {
+namespace admat {
 
 template<typename T, size_t R, size_t C>
 constexpr auto operator+(const column_major_matrix<T, R, C>& lhs, const column_major_matrix<T, R, C>& rhs)
@@ -64,15 +64,15 @@ template<typename T>
 constexpr auto operator*(const column_major_matrix<T, 4, 4>& lhs, const column_major_matrix<T, 4, 4>& rhs)
     -> column_major_matrix<T, 4, 4> {
 
-    auto m0 = vector::vec<T, 4>{lhs.col(0)};
-    auto m1 = vector::vec<T, 4>{lhs.col(1)};
-    auto m2 = vector::vec<T, 4>{lhs.col(2)};
-    auto m3 = vector::vec<T, 4>{lhs.col(3)};
+    auto m0 = vec<T, 4>{lhs.col(0)};
+    auto m1 = vec<T, 4>{lhs.col(1)};
+    auto m2 = vec<T, 4>{lhs.col(2)};
+    auto m3 = vec<T, 4>{lhs.col(3)};
 
-    auto n0 = vector::vec<T, 4>{rhs.col(0)};
-    auto n1 = vector::vec<T, 4>{rhs.col(1)};
-    auto n2 = vector::vec<T, 4>{rhs.col(2)};
-    auto n3 = vector::vec<T, 4>{rhs.col(3)};
+    auto n0 = vec<T, 4>{rhs.col(0)};
+    auto n1 = vec<T, 4>{rhs.col(1)};
+    auto n2 = vec<T, 4>{rhs.col(2)};
+    auto n3 = vec<T, 4>{rhs.col(3)};
 
     auto r0 = (m0 * n0.at(0) + m1 * n0.at(1) + m2 * n0.at(2) + m3 * n0.at(3)).get();
     auto r1 = (m0 * n1.at(0) + m1 * n1.at(1) + m2 * n1.at(2) + m3 * n1.at(3)).get();
@@ -327,4 +327,4 @@ constexpr auto transpose(const column_major_matrix<T, R, C>& mat) -> column_majo
     return result;
 }
 
-} // namespace admat::matrix
+} // namespace admat
