@@ -117,12 +117,14 @@ template<typename T, size_t N>
 constexpr auto normalize(const vec<T, N>& vect) -> vec<T, N> {
     auto mag = magnitude(vect);
 
-    auto result = vec<T, N>{};
-    for(size_t i = 0; i < N; ++i) {
-        result.at(i) = vect.at(i) / mag;
-    }
+    return vect / mag;
 
-    return result;
+    // auto result = vec<T, N>{};
+    // for(size_t i = 0; i < N; ++i) {
+    //     result.at(i) = vect.at(i) / mag;
+    // }
+
+    // return result;
 }
 
 template<typename T, size_t N>
