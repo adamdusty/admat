@@ -109,6 +109,26 @@ constexpr auto operator*(const column_major_matrix<T, M, N>& rhs, U scalar) -> c
     return mat;
 }
 
+template<typename T>
+auto determinant_mat4(const column_major_matrix<T, 4, 4>& mat) -> T {
+    T sub_00 = mat.at(2, 2) * mat.at(3, 3) - mat.at(3, 2) * mat.at(2, 3);
+    T sub_01 = mat.at(2, 1) * mat.at(3, 3) - mat.at(3, 1) * mat.at(2, 3);
+    T sub_02 = mat.at(2, 1) * mat.at(3, 2) - mat.at(3, 1) * mat.at(2, 2);
+    T sub_03 = mat.at(2, 0) * mat.at(3, 3) - mat.at(3, 0) * mat.at(2, 3);
+    T sub_04 = mat.at(2, 0) * mat.at(3, 2) - mat.at(3, 0) * mat.at(2, 2);
+    T sub_05 = mat.at(2, 0) * mat.at(3, 1) - mat.at(3, 0) * mat.at(2, 1);
+
+    auto coeff = vec4{
+        +(mat.at(1, 1) * sub_00 - mat.at(1, 2) * sub_01 + mat.at(1, 3) * sub_02),
+        -(mat.at(1, 0) * sub_00 - mat.at(1, 2) * sub_03 + mat.at(1, 3) * sub_04),
+        +(mat.at(1, 0) * sub_01 - mat.at(1, 1) * sub_03 + mat.at(1, 3) * sub_05),
+        -(mat.at(1, 0) * sub_02 - mat.at(1, 1) * sub_04 + mat.at(1, 2) * sub_05),
+    };
+
+    return mat.at(0, 0) * coeff.at(0) + mat.at(0, 1) * coeff.at(1) + mat.at(0, 2) * coeff.at(2) +
+           mat.at(0, 3) * coeff.at(3);
+}
+
 template<typename T, size_t N>
 constexpr auto determinant(const column_major_matrix<T, N, N>& mat) -> T {
     if constexpr(N == 0) {
@@ -124,6 +144,8 @@ constexpr auto determinant(const column_major_matrix<T, N, N>& mat) -> T {
             - mat.at(1, 0) * (mat.at(0, 1) * mat.at(2, 2) - mat.at(2, 1) * mat.at(0, 2))
             + mat.at(2, 0) * (mat.at(0, 1) * mat.at(1, 2) - mat.at(1, 1) * mat.at(0, 2));
         // clang-format on
+    } else if constexpr(N == 4) {
+        return determinant_mat4(mat);
     } else {
         auto result = T{};
         T sign      = 1;

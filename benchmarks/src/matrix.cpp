@@ -74,9 +74,31 @@ auto multiplication() {
     bench.run("glm multiplication", [&] { nanobench::doNotOptimizeAway(m2 * m2); });
 }
 
+auto determinant() {
+    auto m1 = mat4{};
+    auto m2 = random_glm();
+    randomize(m1);
+
+    auto bench = nanobench::Bench().title("determinant").relative(true);
+    bench.run("admat determinant", [&] { nanobench::doNotOptimizeAway(matrix::determinant_mat4(m1)); });
+    bench.run("glm determinant", [&] { nanobench::doNotOptimizeAway(glm::determinant(m2)); });
+}
+
+auto transpose() {
+    auto m1 = mat4{};
+    auto m2 = random_glm();
+    randomize(m1);
+
+    auto bench = nanobench::Bench().title("transpose").relative(true);
+    bench.run("admat transpose", [&] { nanobench::doNotOptimizeAway(matrix::transpose(m1)); });
+    bench.run("glm transpose", [&] { nanobench::doNotOptimizeAway(glm::transpose(m2)); });
+}
+
 auto main() -> int {
     inverse();
     addition();
     multiplication();
+    determinant();
+    transpose();
     return 0;
 }
