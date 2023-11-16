@@ -89,6 +89,19 @@ TEST_CASE("Matrix get row") {
     CHECK(mat.row(2) == std::array<float, 3>{0, 0, 1});
 }
 
+TEST_CASE("Matrix get column") {
+    // clang-format off
+    auto mat = matrix::column_major_matrix<float, 2, 3>::from_row_major({
+        2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f,
+    });
+    // clang-format on
+
+    CHECK(mat.col(0) == std::array<float, 2>{2.0f, 5.0f});
+    CHECK(mat.col(1) == std::array<float, 2>{3.0f, 6.0f});
+    CHECK(mat.col(2) == std::array<float, 2>{4.0f, 7.0f});
+}
+
 TEST_CASE("Matrix set row") {
     auto mat = mat3::identity();
     mat.set_row(0, {1, 1, 1});
@@ -96,6 +109,15 @@ TEST_CASE("Matrix set row") {
     CHECK(mat.row(0) == std::array<float, 3>{1, 1, 1});
     CHECK(mat.row(1) == std::array<float, 3>{0, 1, 0});
     CHECK(mat.row(2) == std::array<float, 3>{0, 0, 1});
+}
+
+TEST_CASE("Matrix set col") {
+    auto mat = mat3::identity();
+    mat.set_col(0, {1, 1, 1});
+
+    CHECK(mat.col(0) == std::array<float, 3>{1, 1, 1});
+    CHECK(mat.col(1) == std::array<float, 3>{0, 1, 0});
+    CHECK(mat.col(2) == std::array<float, 3>{0, 0, 1});
 }
 
 TEST_CASE("Matrix set row") {
@@ -166,6 +188,35 @@ TEST_CASE("Matrix multiplication non-square") {
         12,  9,  6,
         30, 23, 16,
         48, 37, 26,
+    });
+    // clang-format on
+
+    auto result = m1 * m2;
+
+    CHECK(result == expected);
+}
+
+TEST_CASE("4x4 Matrix multiplication") {
+    // clang-format off
+    auto m1 = mat4::from_row_major({
+        1, 2, 3, 0,
+        4, 5, 6, 0,
+        7, 8, 9, 0,
+        0, 0, 0, 0,
+    });
+
+    auto m2 = mat4::from_row_major({
+        1, 2, 3, 0,
+        4, 5, 6, 0,
+        7, 8, 9, 0,
+        0, 0, 0, 0,
+    });
+
+    auto expected = mat4::from_row_major({
+         30,  36,  42, 0,
+         66,  81,  96, 0,
+        102, 126, 150, 0,
+          0,   0,   0, 0, 
     });
     // clang-format on
 

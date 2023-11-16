@@ -9,11 +9,12 @@
 #include <adizzle/assert.hpp>
 
 #include "admat/matrix/types.hpp"
+#include "admat/vector.hpp"
 
 namespace admat::matrix {
 
 template<typename T, size_t R, size_t C>
-auto operator+(const column_major_matrix<T, R, C>& lhs, const column_major_matrix<T, R, C>& rhs)
+constexpr auto operator+(const column_major_matrix<T, R, C>& lhs, const column_major_matrix<T, R, C>& rhs)
     -> column_major_matrix<T, R, C> {
 
     auto mat = column_major_matrix<T, R, C>{};
@@ -28,7 +29,7 @@ auto operator+(const column_major_matrix<T, R, C>& lhs, const column_major_matri
 }
 
 template<typename T, size_t R, size_t C>
-auto operator-(const column_major_matrix<T, R, C>& lhs, const column_major_matrix<T, R, C>& rhs)
+constexpr auto operator-(const column_major_matrix<T, R, C>& lhs, const column_major_matrix<T, R, C>& rhs)
     -> column_major_matrix<T, R, C> {
 
     auto mat = column_major_matrix<T, R, C>{};
@@ -43,7 +44,7 @@ auto operator-(const column_major_matrix<T, R, C>& lhs, const column_major_matri
 }
 
 template<typename T, size_t M, size_t N, size_t P>
-auto operator*(const column_major_matrix<T, M, N>& lhs, const column_major_matrix<T, N, P>& rhs)
+constexpr auto operator*(const column_major_matrix<T, M, N>& lhs, const column_major_matrix<T, N, P>& rhs)
     -> column_major_matrix<T, M, P> {
 
     auto mat = column_major_matrix<T, M, P>{};
@@ -55,6 +56,35 @@ auto operator*(const column_major_matrix<T, M, N>& lhs, const column_major_matri
             }
         }
     }
+
+    return mat;
+}
+
+template<typename T>
+constexpr auto operator*(const column_major_matrix<T, 4, 4>& lhs, const column_major_matrix<T, 4, 4>& rhs)
+    -> column_major_matrix<T, 4, 4> {
+
+    auto m0 = vector::vec<T, 4>{lhs.col(0)};
+    auto m1 = vector::vec<T, 4>{lhs.col(1)};
+    auto m2 = vector::vec<T, 4>{lhs.col(2)};
+    auto m3 = vector::vec<T, 4>{lhs.col(3)};
+
+    auto n0 = vector::vec<T, 4>{rhs.col(0)};
+    auto n1 = vector::vec<T, 4>{rhs.col(1)};
+    auto n2 = vector::vec<T, 4>{rhs.col(2)};
+    auto n3 = vector::vec<T, 4>{rhs.col(3)};
+
+    auto r0 = (m0 * n0.at(0) + m1 * n0.at(1) + m2 * n0.at(2) + m3 * n0.at(3)).get();
+    auto r1 = (m0 * n1.at(0) + m1 * n1.at(1) + m2 * n1.at(2) + m3 * n1.at(3)).get();
+    auto r2 = (m0 * n2.at(0) + m1 * n2.at(1) + m2 * n2.at(2) + m3 * n2.at(3)).get();
+    auto r3 = (m0 * n3.at(0) + m1 * n3.at(1) + m2 * n3.at(2) + m3 * n3.at(3)).get();
+
+    auto mat = column_major_matrix<T, 4, 4>{};
+
+    mat.set_col(0, r0);
+    mat.set_col(1, r1);
+    mat.set_col(2, r2);
+    mat.set_col(3, r3);
 
     return mat;
 }

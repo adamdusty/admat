@@ -11,7 +11,7 @@ namespace admat::matrix {
 
 template<typename T, size_t R, size_t C>
 class column_major_matrix {
-    std::array<T, R * C> _data;
+    std::array<T, R * C> _data{};
 
 public:
     constexpr column_major_matrix() = default;
@@ -36,7 +36,7 @@ public:
     }
 
     constexpr auto row(size_t index) const -> std::array<T, C> {
-        adizzle::assert(index < R, std::format("Trying to access row {}, of and {}x{} matrix", index, R, C));
+        ADIZZLE_ASSERT(index < R, std::format("Trying to access row {}, of and {}x{} matrix", index, R, C));
         auto res = std::array<T, C>{};
 
         for(size_t i = 0; i < C; ++i) {
@@ -46,9 +46,26 @@ public:
         return res;
     }
 
+    constexpr auto col(size_t index) const -> std::array<T, R> {
+        ADIZZLE_ASSERT(index < C, std::format("Trying to access column {}, of and {}x{} matrix", index, R, C));
+        auto res = std::array<T, R>{};
+
+        for(size_t i = 0; i < R; ++i) {
+            res.at(i) = _data.at((R * index) + i);
+        }
+
+        return res;
+    }
+
     constexpr auto set_row(size_t index, const std::array<T, C>& values) -> void {
         for(size_t i = 0; i < C; ++i) {
             _data.at((R * i) + index) = values.at(i);
+        }
+    }
+
+    constexpr auto set_col(size_t index, const std::array<T, R>& values) -> void {
+        for(size_t i = 0; i < C; ++i) {
+            _data.at((R * index) + i) = values.at(i);
         }
     }
 
