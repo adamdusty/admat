@@ -32,8 +32,10 @@ Linear algebra lib specific to my use cases.
 - [x] Transpose
 
 0.3.0a
-- [ ] Vector clamp and smoothstep
-- [ ] Performance considerations (Initial implementations naive)
+
+- [x] Vector clamp and smoothstep
+- [x] Performance considerations (Initial implementations naive)
+  - Implement basic benchmarks
 
 0.5.0a
 
