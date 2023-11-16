@@ -89,6 +89,8 @@ auto transpose() {
     auto m2 = random_glm();
     randomize(m1);
 
+    glm::perspective(1.f, 1.f, 1.f, 1.f);
+
     auto bench = nanobench::Bench().title("transpose").relative(true);
     bench.run("admat transpose", [&] { nanobench::doNotOptimizeAway(transpose(m1)); });
     bench.run("glm transpose", [&] { nanobench::doNotOptimizeAway(glm::transpose(m2)); });

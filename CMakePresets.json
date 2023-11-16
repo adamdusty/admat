@@ -42,7 +42,8 @@
             ],
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-                "ADMAT_BUILD_TESTS": "ON"
+                "ADMAT_BUILD_TESTS": "ON",
+                "ADMAT_BUILD_BENCH": "ON"
             }
         },
         {
