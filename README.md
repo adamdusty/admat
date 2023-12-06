@@ -46,9 +46,9 @@ Linear algebra lib specific to my use cases.
 - [x] mat rotate
   - I think quaternions will be a better solution for rotations. Building rotation matrices from a vector of angles feels like the wrong solution, but once I have quaternions implemented, I'll benchmark both.
 - [x] mat scale
-- [ ] vec distance
-- [ ] vec reflect
-- [ ] vec refract
+- [x] vec distance
+- [x] vec reflect
+- [x] vec refract
 - [ ] lerp
 
 0.1.0b

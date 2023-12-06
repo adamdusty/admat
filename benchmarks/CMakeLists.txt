@@ -35,5 +35,5 @@ add_executable(matrix_bench
     src/matrix.cpp
 )
 
-target_link_libraries(vector_bench PRIVATE admat::admat nanobench::nanobench)
+target_link_libraries(vector_bench PRIVATE admat::admat glm::glm nanobench::nanobench)
 target_link_libraries(matrix_bench PRIVATE admat::admat glm::glm nanobench::nanobench)

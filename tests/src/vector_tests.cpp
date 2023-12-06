@@ -145,11 +145,32 @@ TEST_CASE("vec clamp") {
     CHECK(result == expected);
 }
 
-TEST_CASE("vec smoothstep") {
-    auto v1       = vec2{0.5f, 0.5f};
-    auto expected = vec2{0.75f, 0.75f};
+TEST_CASE("vec distance") {
+    auto v1 = vec3{1.0f, 2.0f, 3.0f};
+    auto v2 = vec3{-55.0f, -73.0f, -52.0f};
 
-    auto result = clamp(v1 * 100.0f, 0.0f, 0.75f);
+    auto result   = distance(v1, v2);
+    auto expected = 108.563f;
+
+    CHECK(adizzle::almost_equal(result, expected, 0.001f));
+}
+
+TEST_CASE("vec reflect") {
+    auto inc  = vec3{1.0f, 1.0f, 0.0f};
+    auto surf = vec3{0.0f, 1.0f, 0.0f};
+
+    auto result   = reflect(inc, surf);
+    auto expected = vec3{1.0f, -1.0f, 0.0f};
+
+    CHECK(result == expected);
+}
+
+TEST_CASE("vec refract") {
+    auto inc  = vec3{1.0f, 1.0f, 0.0f};
+    auto surf = vec3{0.0f, 1.0f, 0.0f};
+
+    auto result   = refract(inc, surf, 0.5f);
+    auto expected = vec3{0.5f, -1.0f, 0.0f};
 
     CHECK(result == expected);
 }
