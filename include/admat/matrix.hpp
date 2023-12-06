@@ -1,12 +1,5 @@
 #pragma once
 
 #include "admat/matrix/operations.hpp"
+#include "admat/matrix/transform.hpp"
 #include "admat/matrix/types.hpp"
-
-namespace admat {
-
-using mat2 = column_major_matrix<float, 2, 2>;
-using mat3 = column_major_matrix<float, 3, 3>;
-using mat4 = column_major_matrix<float, 4, 4>;
-
-} // namespace admat

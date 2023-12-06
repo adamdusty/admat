@@ -1,5 +1,6 @@
 #include <adizzle/float.hpp>
 #include <admat/matrix.hpp>
+#include <admat/vector.hpp>
 #include <snitch/snitch.hpp>
 
 #include <cmath>
@@ -449,4 +450,59 @@ TEST_CASE("2x3 matrix transpose") {
     auto result = transpose(mat);
 
     CHECK(result == expected);
+}
+
+TEST_CASE("translate") {
+    auto mat = mat4::identity();
+
+    auto actual = translate(mat, vec3{1.0f, 1.0f, 1.0f});
+    // clang-format off
+    auto expected = mat4::from_row_major({
+        1.0f, 0.0f, 0.0f, 1.0f,
+        0.0f, 1.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f, 1.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+    // clang-format on
+
+    CHECK(actual == expected);
+}
+
+TEST_CASE("scale") {
+    auto mat = mat4::identity();
+
+    auto actual = scale(mat, vec3{2.0f, 2.0f, 2.0f});
+    // clang-format off
+    auto expected = mat4::from_row_major({
+        2.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 2.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 2.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    });
+    // clang-format on
+
+    CHECK(actual == expected);
+}
+
+TEST_CASE("rotate") {
+    // RESOURCE: https://www.cs.usfca.edu/~galles/visualization/RotateScale3D.html
+    auto mat = mat4::identity();
+
+    auto actual = rotate(mat, vec3{0.5236f, 0.7854f, 1.047f});
+    // clang-format off
+    auto expected = mat4::from_row_major({
+        0.354f, -.573f, -.739f, 0.000f,
+        0.612f, 0.739f, -.280f, 0.000f,
+        0.707f, -.353f, 0.612f, 0.000f,
+        0.000f, 0.000f, 0.000f, 1.000f
+    });
+    // clang-format on
+
+    for(size_t i = 0; i < 4; ++i) {
+        for(size_t j = 0; j < 4; ++j) {
+            CAPTURE(actual.at(i, j));
+            CAPTURE(expected.at(i, j));
+            CHECK(adizzle::almost_equal(actual.at(i, j), expected.at(i, j), 0.001f));
+        }
+    }
 }

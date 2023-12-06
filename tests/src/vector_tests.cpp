@@ -1,3 +1,4 @@
+#include <adizzle/float.hpp>
 #include <admat/vector.hpp>
 #include <snitch/snitch.hpp>
 
@@ -84,7 +85,7 @@ TEST_CASE("vec dot product", "[dot]") {
     auto v2 = vec4{10.0f, 5.0f, 2.0f, 1.0f};
 
     auto result = dot(v1, v2);
-    CHECK(result == 40);
+    CHECK(adizzle::almost_equal(result, 40.0f));
 }
 
 TEST_CASE("vec cross product", "[cross]") {

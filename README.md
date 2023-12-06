@@ -37,13 +37,15 @@ Linear algebra lib specific to my use cases.
 - [x] Performance considerations (Initial implementations naive)
   - Implement basic benchmarks
 
-0.5.0a
+0.4.0a
 
 - [ ] mat perspective
 - [ ] mat orthoganol
 - [ ] mat look at
-- [ ] mat rotate
-- [ ] mat scale
+- [x] mat translate
+- [x] mat rotate
+  - I think quaternions will be a better solution for rotations. Building rotation matrices from a vector of angles feels like the wrong solution, but once I have quaternions implemented, I'll benchmark both.
+- [x] mat scale
 - [ ] vec distance
 - [ ] vec reflect
 - [ ] vec refract
