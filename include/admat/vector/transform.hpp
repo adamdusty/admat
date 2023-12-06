@@ -32,4 +32,22 @@ constexpr auto refract(const vec<T, N>& incident, const vec<T, N>& normal, T rat
     return ratio * incident - (ratio * dot(normal, incident) + std::sqrt(constant)) * normal;
 }
 
+template<typename T, size_t N>
+constexpr auto lerp(vec<T, N> from, const vec<T, N>& to, float delta) -> vec<T, N> {
+    for(size_t i = 0; i < N; ++i) {
+        from.at(i) = std::lerp(from.at(i), to.at(i), delta);
+    }
+
+    return from;
+}
+
+template<typename T, size_t N>
+constexpr auto lerp(vec<T, N> from, const vec<T, N>& to, double delta) -> vec<T, N> {
+    for(size_t i = 0; i < N; ++i) {
+        from.at(i) = std::lerp(from.at(i), to.at(i), delta);
+    }
+
+    return from;
+}
+
 } // namespace admat

@@ -174,3 +174,14 @@ TEST_CASE("vec refract") {
 
     CHECK(result == expected);
 }
+
+TEST_CASE("vec lerp") {
+    auto from = vec3{1.0f, 1.0f, 1.0f};
+    auto to   = vec3{2.0f, 5.0f, 9.0f};
+
+    auto quarter_lerp = lerp(from, to, 0.25f);
+    auto half_lerp    = lerp(from, to, 0.5f);
+
+    CHECK(quarter_lerp == vec3{1.25f, 2.0f, 3.0f});
+    CHECK(half_lerp == vec3{1.5f, 3.0f, 5.0f});
+}
