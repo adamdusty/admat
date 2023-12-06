@@ -49,7 +49,7 @@ Linear algebra lib specific to my use cases.
 - [x] vec distance
 - [x] vec reflect
 - [x] vec refract
-- [ ] lerp
+- [x] lerp
 
 0.1.0b
 
@@ -65,3 +65,4 @@ Linear algebra lib specific to my use cases.
 ### Notes
 
 Matrix inversion is unpleasant
+Today I learned cmath has a lerp function
