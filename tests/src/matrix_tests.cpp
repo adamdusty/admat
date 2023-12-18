@@ -3,8 +3,6 @@
 #include <admat/vector.hpp>
 #include <snitch/snitch.hpp>
 
-#include <cmath>
-
 using namespace admat;
 
 TEST_CASE("Matrix initialization") {
@@ -503,6 +501,27 @@ TEST_CASE("rotate") {
             CAPTURE(actual.at(i, j));
             CAPTURE(expected.at(i, j));
             CHECK(adizzle::almost_equal(actual.at(i, j), expected.at(i, j), 0.001f));
+        }
+    }
+}
+
+TEST_CASE("Perspective FOV") {
+    auto actual = perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f);
+
+    // clang-format off
+    auto expected = mat4::from_row_major({
+        2.09928f, 0.00000f,  0.00000f,  0.000f,
+        0.00000f, 3.73205f,  0.00000f,  0.000f,
+        0.00000f, 0.00000f, -1.00150f, -1.000f,
+        0.00000f, 0.00000f, -1.50225f,  0.000f
+    });
+    // clang-format on
+
+    for(size_t i = 0; i < 4; ++i) {
+        for(size_t j = 0; j < 4; ++j) {
+            CAPTURE(actual.at(i, j));
+            CAPTURE(expected.at(i, j));
+            CHECK(adizzle::almost_equal(actual.at(i, j), expected.at(i, j), 0.00001f));
         }
     }
 }

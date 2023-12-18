@@ -2,8 +2,9 @@
 
 #include "admat/matrix/operations.hpp"
 #include "admat/matrix/types.hpp"
-#include "admat/vector.hpp"
+#include <adizzle/assert.hpp>
 #include <cmath>
+#include <numbers>
 
 namespace admat {
 
@@ -50,6 +51,26 @@ constexpr auto rotate(const column_major_matrix<T, 4, 4>& mat, const vec<T, 3>& 
     auto rotation = rotation_y * rotation_x;
     rotation      = rotation_z * rotation;
     return mat * rotation;
+}
+
+constexpr auto perspective(float fov, float aspect, float near, float far) -> mat4 {
+    ADIZZLE_ASSERT(fov > 0.0f && fov < static_cast<float>(std::numbers::pi), "Invalid FOV");
+    ADIZZLE_ASSERT(near > 0.0f, "Near plane distance less than zero.");
+    ADIZZLE_ASSERT(far > near, "Far plane distance less than zero.");
+    ADIZZLE_ASSERT(far > 0.0f, "Far plane distance less than near plane.");
+
+    float y_scale = 1.0f / std::tan(fov * 0.5f);
+    float x_scale = y_scale / aspect;
+
+    auto mat = mat4{};
+
+    mat.at(0, 0) = x_scale;
+    mat.at(1, 1) = y_scale;
+    mat.at(2, 2) = far / (near - far);
+    mat.at(2, 3) = -1.0f;
+    mat.at(3, 2) = near * far / (near - far);
+
+    return mat;
 }
 
 } // namespace admat

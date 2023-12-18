@@ -39,7 +39,7 @@ Linear algebra lib specific to my use cases.
 
 0.4.0a
 
-- [ ] mat perspective
+- [x] mat perspective
 - [ ] mat orthoganol
 - [ ] mat look at
 - [x] mat translate
