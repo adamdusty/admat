@@ -94,11 +94,32 @@ auto transpose() {
     bench.run("glm transpose", [&] { nanobench::doNotOptimizeAway(glm::transpose(m2)); });
 }
 
+auto rotation() {
+    auto m1 = mat4{};
+    auto m2 = random_glm();
+    randomize(m1);
+
+    // TODO: Not equivalent rotation calculations
+    auto bench = nanobench::Bench().title("rotation").relative(true);
+    bench.run("admat rotate", [&] { nanobench::doNotOptimizeAway(rotate(m1, {30.0f, 60.0f, 90.0f})); });
+    bench.run("glm rotate", [&] { nanobench::doNotOptimizeAway(glm::rotate(m2, 50.0f, {1.0f, 0.0f, 0.0f})); });
+}
+
+auto create_perspective() {
+    auto bench = nanobench::Bench().title("perspective").relative(true);
+    bench.run("admat perspective",
+              [&] { nanobench::doNotOptimizeAway(perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
+    bench.run("glm perspective",
+              [&] { nanobench::doNotOptimizeAway(glm::perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
+}
+
 auto main() -> int {
     inverse();
     addition();
     multiplication();
     determinant();
     transpose();
+    rotation();
+    create_perspective();
     return 0;
 }
