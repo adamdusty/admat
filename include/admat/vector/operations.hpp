@@ -34,6 +34,17 @@ constexpr auto operator+(const vec<T, N>& lhs, const T scalar) -> vec<T, N> {
 }
 
 template<typename T, size_t N>
+constexpr auto operator-(const vec<T, N>& vect) -> vec<T, N> {
+    auto result = vec<T, N>{};
+
+    for(size_t i = 0; i < N; ++i) {
+        result.at(i) = -vect.at(i);
+    }
+
+    return result;
+}
+
+template<typename T, size_t N>
 constexpr auto operator-(const vec<T, N>& lhs, const vec<T, N>& rhs) -> vec<T, N> {
     auto result = std::array<T, N>{};
 

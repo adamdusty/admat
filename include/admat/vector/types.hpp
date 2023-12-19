@@ -11,11 +11,11 @@ class vec {
 
 public:
     template<typename... Ts>
-    vec(Ts... args) : _data{args...} {
+    constexpr vec(Ts... args) : _data{args...} {
         static_assert(sizeof...(Ts) <= N);
     }
 
-    vec(std::array<T, N> data) : _data(data) {}
+    constexpr vec(std::array<T, N> data) : _data(data) {}
 
     constexpr auto get() const -> std::array<T, N> { return _data; }
     constexpr auto at(size_t idx) -> T& { return _data.at(idx); }

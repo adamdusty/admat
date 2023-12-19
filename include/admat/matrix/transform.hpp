@@ -2,6 +2,7 @@
 
 #include "admat/matrix/operations.hpp"
 #include "admat/matrix/types.hpp"
+#include "admat/vector.hpp"
 #include <adizzle/assert.hpp>
 #include <cmath>
 #include <numbers>
@@ -83,6 +84,24 @@ constexpr auto orthographic(float width, float height, float near, float far) ->
     mat.at(2, 2) = range;
     mat.at(3, 2) = range * near;
     mat.at(3, 3) = 1.0f;
+
+    return mat;
+}
+
+constexpr auto look_at(const vec3& position, const vec3& target, const vec3& up) -> mat4 {
+    auto direction = target - position;
+
+    auto z       = normalize(-direction);
+    auto x       = normalize(cross(up, z));
+    auto y       = cross(z, x);
+    auto neg_pos = -position;
+
+    auto mat = mat4{};
+
+    mat.set_row(0, {x.at(0), y.at(0), z.at(0), 0.0f});
+    mat.set_row(1, {x.at(1), y.at(1), z.at(1), 0.0f});
+    mat.set_row(2, {x.at(2), y.at(2), z.at(2), 0.0f});
+    mat.set_row(3, {dot(x, neg_pos), dot(y, neg_pos), dot(z, neg_pos), 1.0f});
 
     return mat;
 }

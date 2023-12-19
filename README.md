@@ -41,7 +41,7 @@ Linear algebra lib specific to my use cases.
 
 - [x] mat perspective
 - [x] mat orthoganol
-- [ ] mat look at
+- [x] mat look at
 - [x] mat translate
 - [x] mat rotate
   - I think quaternions will be a better solution for rotations. Building rotation matrices from a vector of angles feels like the wrong solution, but once I have quaternions implemented, I'll benchmark both.
@@ -66,3 +66,4 @@ Linear algebra lib specific to my use cases.
 
 Matrix inversion is unpleasant
 Today I learned cmath has a lerp function
+If I were to start over from scratch, I would only implement vec up to size 4 and mat 4x4 and 3x2. I would hard code determinants, transposes, and inverses. I will never need matrices larger than 4x4 or vectors larger than 4. I may go back and do this.
