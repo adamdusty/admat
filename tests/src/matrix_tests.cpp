@@ -525,3 +525,24 @@ TEST_CASE("Perspective FOV") {
         }
     }
 }
+
+TEST_CASE("Orthographic") {
+    auto actual = orthographic(100.0f, 200.0f, 1.5f, 1000.0f);
+
+    // clang-format off
+    auto expected = mat4::from_row_major({
+        0.02f, 0.00f,  0.00000000f,  0.0f,
+        0.00f, 0.01f,  0.00000000f,  0.0f,
+        0.00f, 0.00f, -0.00100150f,  0.0f,
+        0.00f, 0.00f, -0.00150225f,  1.0f
+    });
+    // clang-format on
+
+    for(size_t i = 0; i < 4; ++i) {
+        for(size_t j = 0; j < 4; ++j) {
+            CAPTURE(actual.at(i, j));
+            CAPTURE(expected.at(i, j));
+            CHECK(adizzle::almost_equal(actual.at(i, j), expected.at(i, j), 0.0001f));
+        }
+    }
+}

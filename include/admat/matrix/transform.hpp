@@ -73,4 +73,18 @@ constexpr auto perspective(float fov, float aspect, float near, float far) -> ma
     return mat;
 }
 
+constexpr auto orthographic(float width, float height, float near, float far) -> mat4 {
+    float range = 1.0f / (near - far);
+
+    auto mat = mat4{};
+
+    mat.at(0, 0) = 2.0f / width;
+    mat.at(1, 1) = 2.0f / height;
+    mat.at(2, 2) = range;
+    mat.at(3, 2) = range * near;
+    mat.at(3, 3) = 1.0f;
+
+    return mat;
+}
+
 } // namespace admat

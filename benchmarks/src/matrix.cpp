@@ -113,6 +113,14 @@ auto create_perspective() {
               [&] { nanobench::doNotOptimizeAway(glm::perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
 }
 
+auto create_orthographic() {
+    auto bench = nanobench::Bench().title("orthographic").relative(true);
+    bench.run("admat orthographic",
+              [&] { nanobench::doNotOptimizeAway(orthographic(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
+    bench.run("glm orthographic",
+              [&] { nanobench::doNotOptimizeAway(glm::ortho(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
+}
+
 auto main() -> int {
     inverse();
     addition();
@@ -121,5 +129,6 @@ auto main() -> int {
     transpose();
     rotation();
     create_perspective();
+    create_orthographic();
     return 0;
 }
