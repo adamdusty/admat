@@ -1,4 +1,4 @@
-#include <admat/vector.hpp>
+#include <admat/vec.hpp>
 #include <nanobench.h>
 
 using namespace admat;
