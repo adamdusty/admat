@@ -1,109 +1,166 @@
-// #pragma once
+#pragma once
 
-// #include <array>
-// #include <format>
-// #include <span>
+#include "admat/vec.hpp"
+#include <adizzle/assert.hpp>
+#include <array>
+#include <cstddef>
+#include <format>
+#include <span>
 
-// #include <adizzle/assert.hpp>
+namespace admat {
 
-// namespace admat {
+class mat4 {
+    std::array<float, 16> data;
 
-// template<typename T, size_t R, size_t C>
-// class column_major_matrix {
-//     std::array<T, R * C> _data{};
+public:
+    constexpr mat4() : data{} {}
+    constexpr mat4(const std::array<float, 16>& values) : data(values) {}
 
-// public:
-//     constexpr column_major_matrix() = default;
-//     constexpr column_major_matrix(std::array<T, R * C> data) : _data(data) {}
+    constexpr auto operator()(size_t row, size_t col) const -> float {
+        ADIZZLE_ASSERT(row < 4 && col < 4, "Out of bounds matrix access.");
 
-//     template<typename... Ts>
-//     column_major_matrix(Ts... args) : _data{args...} {
-//         static_assert(sizeof...(Ts) <= R * C);
-//     }
-//     constexpr auto operator==(const column_major_matrix<T, R, C>&) const -> bool = default;
+        size_t idx = row + (4 * col);
+        return data.at(idx);
+    }
 
-//     constexpr auto data() const -> std::span<const T> { return _data; }
+    constexpr auto operator()(size_t row, size_t col) -> float& {
+        ADIZZLE_ASSERT(row < 4 && col < 4, "Out of bounds matrix access.");
 
-//     constexpr auto at(size_t row, size_t col) -> T& {
-//         size_t idx = row + (R * col);
-//         return _data.at(idx);
-//     }
+        size_t idx = row + (4 * col);
+        return data.at(idx);
+    }
 
-//     constexpr auto at(size_t row, size_t col) const -> const T& {
-//         size_t idx = row + (R * col);
-//         return _data.at(idx);
-//     }
+    constexpr auto get() const -> std::span<const float, 16> { return std::span{data}; }
 
-//     constexpr auto row(size_t index) const -> std::array<T, C> {
-//         ADIZZLE_ASSERT(index < R, std::format("Trying to access row {}, of and {}x{} matrix", index, R, C));
-//         auto res = std::array<T, C>{};
+    constexpr auto row(size_t index) const -> std::array<float, 4> {
+        ADIZZLE_ASSERT(index < 4, "Row index greater than row count.");
+        auto result = std::array<float, 4>{};
 
-//         for(size_t i = 0; i < C; ++i) {
-//             res.at(i) = _data.at((i * R) + index);
-//         }
+        for(size_t i = 0; i < 4; ++i) {
+            result.at(i) = data.at((i * 4) + index);
+        }
 
-//         return res;
-//     }
+        return result;
+    }
 
-//     constexpr auto col(size_t index) const -> std::array<T, R> {
-//         ADIZZLE_ASSERT(index < C, std::format("Trying to access column {}, of and {}x{} matrix", index, R, C));
-//         auto res = std::array<T, R>{};
+    constexpr auto col(size_t index) const -> std::array<float, 4> {
+        ADIZZLE_ASSERT(index < 4, "Col index greater than col count.");
+        auto result = std::array<float, 4>{};
 
-//         for(size_t i = 0; i < R; ++i) {
-//             res.at(i) = _data.at((R * index) + i);
-//         }
+        for(size_t i = 0; i < 4; ++i) {
+            result.at(i) = data.at((4 * index) + i);
+        }
 
-//         return res;
-//     }
+        return result;
+    }
 
-//     constexpr auto set_row(size_t index, const std::array<T, C>& values) -> void {
-//         for(size_t i = 0; i < C; ++i) {
-//             _data.at((R * i) + index) = values.at(i);
-//         }
-//     }
+    constexpr auto set_row(size_t index, const std::array<float, 4>& values) {
+        ADIZZLE_ASSERT(index < 4, "Row index greater than row count.");
 
-//     constexpr auto set_col(size_t index, const std::array<T, R>& values) -> void {
-//         for(size_t i = 0; i < C; ++i) {
-//             _data.at((R * index) + i) = values.at(i);
-//         }
-//     }
+        for(size_t i = 0; i < 4; ++i) {
+            data.at((4 * i) + index) = values.at(i);
+        }
+    }
 
-//     constexpr auto swap_rows(size_t row1, size_t row2) -> void {
-//         auto tmp = row(row1);
-//         set_row(row1, row(row2));
-//         set_row(row2, tmp);
-//     }
+    constexpr auto set_col(size_t index, const std::array<float, 4>& values) {
+        ADIZZLE_ASSERT(index < 4, "Col index greater than col count.");
 
-//     // Template disables function for matrices that are not square
-//     template<size_t Col = R, size_t Row = C, std::enable_if_t<Col == Row, bool> = true>
-//     static constexpr auto identity() -> column_major_matrix<T, R, C> {
-//         auto size = R * C;
-//         auto mat  = column_major_matrix<T, R, C>{};
-//         for(size_t i = 0; i < size; ++i) {
-//             mat._data.at(i) = i % (R + 1) == 0 ? 1 : 0;
-//         }
+        for(size_t i = 0; i < 4; ++i) {
+            data.at((4 * index) + i) = values.at(i);
+        }
+    }
 
-//         return mat;
-//     }
+    static constexpr auto identity() -> mat4 {
+        auto mat = mat4{};
 
-//     static constexpr auto from_row_major(const std::array<T, C * R>& data) -> column_major_matrix<T, R, C> {
-//         adizzle::assert(data.size() == R * C);
+        for(size_t i = 0; i < 4; ++i) {
+            for(size_t j = 0; j < 4; ++j) {
+                if(i == j) {
+                    mat(i, j) = 1.0f;
+                }
+            }
+        }
 
-//         auto mat = column_major_matrix<T, R, C>{};
+        return mat;
+    }
 
-//         for(size_t i = 0; i < R; ++i) {
-//             for(size_t j = 0; j < C; ++j) {
-//                 auto data_idx = j + (C * i);
-//                 mat.at(i, j)  = data.at(data_idx);
-//             }
-//         }
+    static consteval auto from_row_major(const std::array<float, 16>& data) -> mat4 {
+        auto mat = mat4{};
 
-//         return mat;
-//     }
-// };
+        for(size_t i = 0; i < 4; ++i) {
+            for(size_t j = 0; j < 4; ++j) {
+                auto data_idx = j + (4 * i);
+                mat(i, j)     = data.at(data_idx);
+            }
+        }
 
-// using mat2 = column_major_matrix<float, 2, 2>;
-// using mat3 = column_major_matrix<float, 3, 3>;
-// using mat4 = column_major_matrix<float, 4, 4>;
+        return mat;
+    }
+};
 
-// } // namespace admat
+constexpr auto operator+(const mat4& lhs, const mat4& rhs) -> mat4 {
+    auto result = mat4{};
+
+    for(size_t i = 0; i < 4; ++i) {
+        for(size_t j = 0; j < 4; ++j) {
+            result(i, j) = lhs(i, j) + rhs(i, j);
+        }
+    }
+
+    return result;
+}
+
+constexpr auto operator-(const mat4& lhs, const mat4& rhs) -> mat4 {
+    auto result = mat4{};
+
+    for(size_t i = 0; i < 4; ++i) {
+        for(size_t j = 0; j < 4; ++j) {
+            result(i, j) = lhs(i, j) - rhs(i, j);
+        }
+    }
+
+    return result;
+}
+
+constexpr auto operator*(const mat4& lhs, const mat4& rhs) -> mat4 {
+
+    auto m0 = vec4{lhs.col(0)};
+    auto m1 = vec4{lhs.col(1)};
+    auto m2 = vec4{lhs.col(2)};
+    auto m3 = vec4{lhs.col(3)};
+
+    auto n0 = vec4{rhs.col(0)};
+    auto n1 = vec4{rhs.col(1)};
+    auto n2 = vec4{rhs.col(2)};
+    auto n3 = vec4{rhs.col(3)};
+
+    auto r0 = (m0 * n0.w + m1 * n0.x + m2 * n0.y + m3 * n0.z);
+    auto r1 = (m0 * n1.w + m1 * n1.x + m2 * n1.y + m3 * n1.z);
+    auto r2 = (m0 * n2.w + m1 * n2.x + m2 * n2.y + m3 * n2.z);
+    auto r3 = (m0 * n3.w + m1 * n3.x + m2 * n3.y + m3 * n3.z);
+
+    auto result = mat4{};
+
+    result.set_col(0, r0);
+    result.set_col(1, r1);
+    result.set_col(2, r2);
+    result.set_col(3, r3);
+
+    return result;
+}
+
+constexpr auto operator*(mat4 lhs, float scalar) -> mat4 {
+    for(size_t i = 0; i < 4; ++i) {
+        for(size_t j = 0; j < 4; ++j) {
+            lhs(i, j) *= scalar;
+        }
+    }
+
+    return lhs;
+}
+
+constexpr auto operator*(float scalar, mat4 rhs) -> mat4 {
+    return rhs * scalar;
+}
+
+} // namespace admat

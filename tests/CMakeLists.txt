@@ -30,7 +30,7 @@ add_executable(admat_tests)
 # Add test sources
 target_sources(admat_tests PRIVATE
     src/vector_tests.cpp
-    # src/matrix_tests.cpp
+    src/matrix_tests.cpp
     # src/operations_tests.cpp
 )
 
