@@ -103,21 +103,21 @@ auto rotation() {
     bench.run("glm rotate", [&] { nanobench::doNotOptimizeAway(glm::rotate(m2, 1.3f, {1.0f, 0.0f, 0.0f})); });
 }
 
-// auto create_perspective() {
-//     auto bench = nanobench::Bench().title("perspective").relative(true);
-//     bench.run("admat perspective",
-//               [&] { nanobench::doNotOptimizeAway(perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
-//     bench.run("glm perspective",
-//               [&] { nanobench::doNotOptimizeAway(glm::perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
-// }
+auto create_perspective() {
+    auto bench = nanobench::Bench().title("perspective").relative(true);
+    bench.run("admat perspective",
+              [&] { nanobench::doNotOptimizeAway(perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
+    bench.run("glm perspective",
+              [&] { nanobench::doNotOptimizeAway(glm::perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
+}
 
-// auto create_orthographic() {
-//     auto bench = nanobench::Bench().title("orthographic").relative(true);
-//     bench.run("admat orthographic",
-//               [&] { nanobench::doNotOptimizeAway(orthographic(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
-//     bench.run("glm orthographic",
-//               [&] { nanobench::doNotOptimizeAway(glm::ortho(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
-// }
+auto create_orthographic() {
+    auto bench = nanobench::Bench().title("orthographic").relative(true);
+    bench.run("admat orthographic",
+              [&] { nanobench::doNotOptimizeAway(orthographic(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
+    bench.run("glm orthographic",
+              [&] { nanobench::doNotOptimizeAway(glm::ortho(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f)); });
+}
 
 auto main() -> int {
     inverse();
@@ -126,7 +126,7 @@ auto main() -> int {
     determinant();
     transpose();
     rotation();
-    // create_perspective();
-    // create_orthographic();
+    create_perspective();
+    create_orthographic();
     return 0;
 }

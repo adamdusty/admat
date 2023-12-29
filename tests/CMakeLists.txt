@@ -26,6 +26,8 @@ FetchContent_MakeAvailable(snitch)
 # Add test exe
 add_executable(admat_tests)
 
+add_dev_compile_opts(admat_tests)
+
 
 # Add test sources
 target_sources(admat_tests PRIVATE

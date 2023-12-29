@@ -1,47 +1,64 @@
 #pragma once
 
 #include <array>
+#include <type_traits>
 
 namespace admat {
 
 struct vec2 {
-    float x = 0.0f;
-    float y = 0.0f;
-
-    constexpr vec2() = default;
-    constexpr vec2(float x_val, float y_val) : x{x_val}, y{y_val} {}
-    constexpr vec2(const std::array<float, 2>& data) : x{data.at(0)}, y{data.at(1)} {}
+    float x;
+    float y;
 
     // Enable implicit conversion to array. Not sure I like this?
     constexpr operator std::array<float, 2>() { return {x, y}; }
+
+    static constexpr auto from_array(const std::array<float, 2>& data) -> vec2 {
+        return vec2{
+            data.at(0),
+            data.at(1),
+        };
+    }
 };
 
 struct vec3 {
-    float x = 0.0f;
-    float y = 0.0f;
-    float z = 0.0f;
-
-    constexpr vec3() = default;
-    constexpr vec3(float x_val, float y_val, float z_val) : x{x_val}, y{y_val}, z{z_val} {}
-    constexpr vec3(const std::array<float, 4>& data) : x{data.at(0)}, y{data.at(1)}, z{data.at(2)} {}
+    float x;
+    float y;
+    float z;
 
     // Enable implicit conversion to array. Not sure I like this?
     constexpr operator std::array<float, 3>() { return {x, y, z}; }
+
+    static constexpr auto from_array(const std::array<float, 3>& data) -> vec3 {
+        return vec3{
+            data.at(0),
+            data.at(1),
+            data.at(2),
+        };
+    }
 };
 
 struct vec4 {
-    float w = 0.0f;
-    float x = 0.0f;
-    float y = 0.0f;
-    float z = 0.0f;
-
-    constexpr vec4() = default;
-    constexpr vec4(float w_val, float x_val, float y_val, float z_val) : w{w_val}, x{x_val}, y{y_val}, z{z_val} {}
-    constexpr vec4(const std::array<float, 4>& data) : w{data.at(0)}, x{data.at(1)}, y{data.at(2)}, z{data.at(3)} {}
+    float w;
+    float x;
+    float y;
+    float z;
 
     // Enable implicit conversion to array. Not sure I like this?
     constexpr operator std::array<float, 4>() { return {w, x, y, z}; }
+
+    static constexpr auto from_array(const std::array<float, 4>& data) -> vec4 {
+        return vec4{
+            data.at(0),
+            data.at(1),
+            data.at(2),
+            data.at(3),
+        };
+    }
 };
+
+static_assert(std::is_standard_layout_v<vec2> && std::is_trivial_v<vec2>, "vec2 not pod");
+static_assert(std::is_standard_layout_v<vec3> && std::is_trivial_v<vec3>, "vec3 not pod");
+static_assert(std::is_standard_layout_v<vec4> && std::is_trivial_v<vec4>, "vec4 not pod");
 
 constexpr auto operator+(const vec2& lhs, const vec2& rhs) -> vec2 {
     return vec2{lhs.x + rhs.x, lhs.y + rhs.y};
@@ -49,6 +66,10 @@ constexpr auto operator+(const vec2& lhs, const vec2& rhs) -> vec2 {
 
 constexpr auto operator-(const vec2& lhs, const vec2& rhs) -> vec2 {
     return vec2{lhs.x - rhs.x, lhs.y - rhs.y};
+}
+
+constexpr auto operator-(const vec2& vec) -> vec2 {
+    return vec2{-vec.x, -vec.y};
 }
 
 constexpr auto operator*(const vec2& lhs, const vec2& rhs) -> vec2 {
@@ -66,9 +87,15 @@ constexpr auto operator+(const vec3& lhs, const vec3& rhs) -> vec3 {
 constexpr auto operator-(const vec3& lhs, const vec3& rhs) -> vec3 {
     return vec3{lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z};
 }
+
+constexpr auto operator-(const vec3& vec) -> vec3 {
+    return vec3{-vec.x, -vec.y, -vec.z};
+}
+
 constexpr auto operator*(const vec3& lhs, const vec3& rhs) -> vec3 {
     return vec3{lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z};
 }
+
 constexpr auto operator/(const vec3& lhs, const vec3& rhs) -> vec3 {
     return vec3{lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z};
 }
@@ -76,12 +103,19 @@ constexpr auto operator/(const vec3& lhs, const vec3& rhs) -> vec3 {
 constexpr auto operator+(const vec4& lhs, const vec4& rhs) -> vec4 {
     return vec4{lhs.w + rhs.w, lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z};
 }
+
 constexpr auto operator-(const vec4& lhs, const vec4& rhs) -> vec4 {
     return vec4{lhs.w - rhs.w, lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z};
 }
+
+constexpr auto operator-(const vec4& vec) -> vec4 {
+    return vec4{-vec.w, -vec.x, -vec.y, -vec.z};
+}
+
 constexpr auto operator*(const vec4& lhs, const vec4& rhs) -> vec4 {
     return vec4{lhs.w * rhs.w, lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z};
 }
+
 constexpr auto operator/(const vec4& lhs, const vec4& rhs) -> vec4 {
     return vec4{lhs.w / rhs.w, lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z};
 }

@@ -2,6 +2,9 @@
 #include <admat/mat.hpp>
 #include <snitch/snitch.hpp>
 
+#include <algorithm>
+#include <ranges>
+
 using namespace admat;
 
 TEST_CASE("mat4 initialization") {
@@ -128,11 +131,30 @@ TEST_CASE("mat4 multiplication") {
 
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
-            CAPTURE(actual(i, j));
-            CAPTURE(expected(i, j));
             CHECK(adizzle::almost_equal(actual(i, j), expected(i, j), 0.000001f));
         }
     }
+}
+
+TEST_CASE("mat4 * vec4") {
+    auto mat = mat4::identity();
+    auto vec = vec4{2.0f, 3.0f, 4.0f, 5.0f};
+
+    auto expected = vec4{2.0f, 3.0f, 4.0f, 5.0f};
+
+    auto actual = mat * vec;
+
+    CHECK(adizzle::almost_equal(actual.w, expected.w, 0.000001f));
+    CHECK(adizzle::almost_equal(actual.x, expected.x, 0.000001f));
+    CHECK(adizzle::almost_equal(actual.y, expected.y, 0.000001f));
+    CHECK(adizzle::almost_equal(actual.z, expected.z, 0.000001f));
+
+    actual = vec * mat;
+
+    CHECK(adizzle::almost_equal(actual.w, expected.w, 0.000001f));
+    CHECK(adizzle::almost_equal(actual.x, expected.x, 0.000001f));
+    CHECK(adizzle::almost_equal(actual.y, expected.y, 0.000001f));
+    CHECK(adizzle::almost_equal(actual.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("mat4 get row") {
@@ -323,65 +345,59 @@ TEST_CASE("rotate") {
     }
 }
 
-// TEST_CASE("Perspective FOV") {
-//     auto actual = perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f);
+TEST_CASE("Perspective FOV") {
+    auto actual = perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f);
 
-//     // clang-format off
-//     auto expected = mat4::from_row_major({
-//         2.09928f, 0.00000f,  0.00000f,  0.000f,
-//         0.00000f, 3.73205f,  0.00000f,  0.000f,
-//         0.00000f, 0.00000f, -1.00150f, -1.000f,
-//         0.00000f, 0.00000f, -1.50225f,  0.000f
-//     });
-//     // clang-format on
+    // clang-format off
+    auto expected = mat4::from_row_major({
+        2.09928f, 0.00000f,  0.00000f,  0.000f,
+        0.00000f, 3.73205f,  0.00000f,  0.000f,
+        0.00000f, 0.00000f, -1.00150f, -1.000f,
+        0.00000f, 0.00000f, -1.50225f,  0.000f
+    });
+    // clang-format on
 
-//     for(size_t i = 0; i < 4; ++i) {
-//         for(size_t j = 0; j < 4; ++j) {
-//             CAPTURE(actual.at(i, j));
-//             CAPTURE(expected.at(i, j));
-//             CHECK(adizzle::almost_equal(actual.at(i, j), expected.at(i, j), 0.00001f));
-//         }
-//     }
-// }
+    for(size_t i = 0; i < 4; ++i) {
+        for(size_t j = 0; j < 4; ++j) {
+            CHECK(adizzle::almost_equal(actual(i, j), expected(i, j), 0.00001f));
+        }
+    }
+}
 
-// TEST_CASE("Orthographic") {
-//     auto actual = orthographic(100.0f, 200.0f, 1.5f, 1000.0f);
+TEST_CASE("Orthographic") {
+    auto actual = orthographic(100.0f, 200.0f, 1.5f, 1000.0f);
 
-//     // clang-format off
-//     auto expected = mat4::from_row_major({
-//         0.02f, 0.00f,  0.00000000f,  0.0f,
-//         0.00f, 0.01f,  0.00000000f,  0.0f,
-//         0.00f, 0.00f, -0.00100150f,  0.0f,
-//         0.00f, 0.00f, -0.00150225f,  1.0f
-//     });
-//     // clang-format on
+    // clang-format off
+    auto expected = mat4::from_row_major({
+        0.02f, 0.00f,  0.00000000f,  0.0f,
+        0.00f, 0.01f,  0.00000000f,  0.0f,
+        0.00f, 0.00f, -0.00100150f,  0.0f,
+        0.00f, 0.00f, -0.00150225f,  1.0f
+    });
+    // clang-format on
 
-//     for(size_t i = 0; i < 4; ++i) {
-//         for(size_t j = 0; j < 4; ++j) {
-//             CAPTURE(actual.at(i, j));
-//             CAPTURE(expected.at(i, j));
-//             CHECK(adizzle::almost_equal(actual.at(i, j), expected.at(i, j), 0.0001f));
-//         }
-//     }
-// }
+    for(size_t i = 0; i < 4; ++i) {
+        for(size_t j = 0; j < 4; ++j) {
+            CHECK(adizzle::almost_equal(actual(i, j), expected(i, j), 0.0001f));
+        }
+    }
+}
 
-// TEST_CASE("Look at") {
-//     auto actual = look_at({10.0f, 20.0f, 30.0f}, {3.0f, 2.0f, -4.0f}, {0.0f, 1.0f, 0.0f});
+TEST_CASE("Look at") {
+    auto actual = look_at({10.0f, 20.0f, 30.0f}, {3.0f, 2.0f, -4.0f}, {0.0f, 1.0f, 0.0f});
 
-//     // clang-format off
-//     auto expected = mat4::from_row_major({
-//          0.979457f, -0.09282680f,  0.179017f,  0.0f,
-//          0.000000f,  0.88774800f,  0.460329f,  0.0f,
-//         -0.201653f, -0.45087300f,  0.869511f,  0.0f,
-//         -3.744980f, -3.30051000f, -37.08210f,  1.0f
-//     });
-//     // clang-format on
+    // clang-format off
+    auto expected = mat4::from_row_major({
+         0.979457f, -0.09282680f,  0.179017f,  0.0f,
+         0.000000f,  0.88774800f,  0.460329f,  0.0f,
+        -0.201653f, -0.45087300f,  0.869511f,  0.0f,
+        -3.744980f, -3.30051000f, -37.08210f,  1.0f
+    });
+    // clang-format on
 
-//     for(size_t i = 0; i < 4; ++i) {
-//         for(size_t j = 0; j < 4; ++j) {
-//             CAPTURE(actual.at(i, j));
-//             CAPTURE(expected.at(i, j));
-//             CHECK(adizzle::almost_equal(actual.at(i, j), expected.at(i, j), 0.00001f));
-//         }
-//     }
-// }
+    for(size_t i = 0; i < 4; ++i) {
+        for(size_t j = 0; j < 4; ++j) {
+            CHECK(adizzle::almost_equal(actual(i, j), expected(i, j), 0.00001f));
+        }
+    }
+}

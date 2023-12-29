@@ -11,7 +11,6 @@ Linear algebra lib specific to my use cases.
 0.1.0a
 
 - [x] 2, 3, and 4 dimensional vector data structures
-- [x] Equality operators
 - [x] [+-] operators for vectors
 - [x] Dot and cross product for vectors
 - [x] Normalization, length
@@ -19,16 +18,11 @@ Linear algebra lib specific to my use cases.
 0.2.0a
 
 - [x] 4x4 matrix
-- [x] Equality operators
-- [x] Template identity constructor
 - [x] [+-] operators for general matrices
 - [x] Matrix multiplication
 - [x] Matrix * vector multiplication
 - [x] Determinant
-- [ ] Inverse
-  - 2x2, 3x3, and 4x4
-  - Possible optimization is special case where matrix has no scaling factor
-  - Not sure if I want to implement general inverse algorithm, since I won't ever need it
+- [x] Inverse
 - [x] Transpose
 
 0.3.0a
