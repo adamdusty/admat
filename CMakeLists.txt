@@ -34,27 +34,9 @@ target_link_libraries(admat_admat
         adizzle::adizzle
 )
 
-# Add compile options
-# add_dev_compile_opts(admat_admat)
-
-# Generate header for export
-# include(GenerateExportHeader)
-# generate_export_header(
-#     admat_admat
-#     BASE_NAME admat
-#     EXPORT_FILE_NAME include/admat/export.hpp
-#     CUSTOM_CONTENT_FROM_VARIABLE pragma_suppress_c4251
-# )
-
 # Set properties
-set_target_properties(
-    admat_admat PROPERTIES
-    CXX_VISIBILITY_PRESET "hidden"
-    VISIBILITY_INLINES_HIDDEN YES
-    VERSION "${PROJECT_VERSION}"
-    SOVERSION "${PROJECT_VERSION_MAJOR}"
+set_target_properties(admat_admat PROPERTIES
     EXPORT_NAME admat
-    OUTPUT_NAME admat
 )
 
 # Install rules
