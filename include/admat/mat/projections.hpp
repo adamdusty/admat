@@ -7,6 +7,13 @@
 
 namespace admat {
 
+// windows.h includes files that define 'near' and 'far' as macros, which causes this function to error
+// at compile time with difficult to understand error messages.
+#pragma push_macro("near")
+#pragma push_macro("far")
+#undef near
+#undef far
+
 constexpr auto perspective(float fov, float aspect, float near, float far) -> mat4 {
     ADIZZLE_ASSERT(fov > 0.0f && fov < static_cast<float>(std::numbers::pi), "Invalid FOV");
     ADIZZLE_ASSERT(near > 0.0f, "Near plane distance less than zero.");
@@ -40,6 +47,9 @@ constexpr auto orthographic(float width, float height, float near, float far) ->
 
     return mat;
 }
+
+#pragma pop_macro("far")
+#pragma pop_macro("near")
 
 constexpr auto look_at(const vec3& position, const vec3& target, const vec3& up) -> mat4 {
     auto direction = target - position;
