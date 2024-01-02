@@ -1,6 +1,7 @@
 #pragma once
 
 #include "admat/vec/vec.hpp"
+#include <adizzle/math.hpp>
 
 #include <cmath>
 
@@ -28,25 +29,25 @@ constexpr auto cross(const vec3& lhs, const vec3& rhs) -> vec3 {
 
 constexpr auto abs(const vec2& vec) -> vec2 {
     return vec2{
-        std::abs(vec.x),
-        std::abs(vec.y),
+        adizzle::abs(vec.x),
+        adizzle::abs(vec.y),
     };
 }
 
 constexpr auto abs(const vec3& vec) -> vec3 {
     return vec3{
-        std::abs(vec.x),
-        std::abs(vec.y),
-        std::abs(vec.z),
+        adizzle::abs(vec.x),
+        adizzle::abs(vec.y),
+        adizzle::abs(vec.z),
     };
 }
 
 constexpr auto abs(const vec4& vec) -> vec4 {
     return vec4{
-        std::abs(vec.w),
-        std::abs(vec.x),
-        std::abs(vec.y),
-        std::abs(vec.z),
+        adizzle::abs(vec.w),
+        adizzle::abs(vec.x),
+        adizzle::abs(vec.y),
+        adizzle::abs(vec.z),
     };
 }
 
