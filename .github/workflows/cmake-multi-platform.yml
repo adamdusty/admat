@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false    
     runs-on: ubuntu-latest
-    ENV: {CXX: "g++-13"}
+    env: {CXX: "g++-13"}
 
     steps:
     - uses: actions/checkout@v4
