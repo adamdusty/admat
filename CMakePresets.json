@@ -11,8 +11,7 @@
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_CXX_EXTENSIONS": "OFF",
-                "CMAKE_CXX_STANDARD": "20",
-                "CMAKE_COLOR_DIAGNOSTICS": "ON"
+                "CMAKE_CXX_STANDARD": "20"
             }
         },
         {
@@ -42,6 +41,7 @@
             ],
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_COLOR_DIAGNOSTICS": "ON",
                 "ADMAT_BUILD_TESTS": "ON",
                 "ADMAT_BUILD_BENCH": "ON"
             }
@@ -54,6 +54,7 @@
             ],
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_COLOR_DIAGNOSTICS": "ON",
                 "CMAKE_BUILD_TYPE": "Release",
                 "ADMAT_BUILD_BENCH": "ON"
             }
