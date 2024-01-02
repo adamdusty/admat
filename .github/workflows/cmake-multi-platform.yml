@@ -37,7 +37,9 @@ jobs:
 
     - name: configure
       shell: pwsh
-      run: cmake --preset=ci -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }}
+      run: 
+        g++ --version
+        cmake --preset=ci -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }}
 
     - name: build
       shell: pwsh
