@@ -22,9 +22,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: >-
         sudo apt-get install clang-tidy -y -q
-
-        sudo update-alternatives --install
-        /user/bin/clang-tidy clang-tidy
+        clang-tidy --version
       
     
     - name: setup multitooltask
