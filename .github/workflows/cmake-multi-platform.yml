@@ -37,7 +37,8 @@ jobs:
 
     - name: configure
       shell: pwsh
-      env: { CXX: ${{ matrix.config.cxx }}}
+      env:
+        - CXX: ${{ matrix.config.cxx }}
       run: cmake --preset=ci
 
     - name: build
