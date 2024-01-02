@@ -19,8 +19,8 @@ jobs:
           - {
               name: "ubuntu",
               os: ubuntu-latest,
-              cc: "gcc-13",
-              cxx: "g++-13"
+              C: "gcc-13",
+              CXX: "g++-13"
             }
     
     runs-on: ${{ matrix.config.os }}
