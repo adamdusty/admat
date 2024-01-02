@@ -23,7 +23,7 @@ jobs:
       run: >-
         sudo apt-get install clang-tidy -y -q
 
-        sudo update-alerternatives --install
+        sudo update-alternatives --install
         /user/bin/clang-tidy clang-tidy
       
     
