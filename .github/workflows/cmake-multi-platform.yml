@@ -11,9 +11,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        config:
+          - {
+              name: "windows",
+              os: windows-latest
+            }
+          - {
+              name: "ubuntu",
+              os: ubuntu-latest,
+              cc: "gcc-13",
+              cxx: "g++-13"
+            }
     
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.config.os }}
 
     steps:
     - uses: actions/checkout@v4
