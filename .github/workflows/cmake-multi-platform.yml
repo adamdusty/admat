@@ -36,10 +36,8 @@ jobs:
     - uses: lukka/get-cmake@latest
 
     - name: configure
-      env:
-        CXX: ${{ matrix.config.cxx }}
       shell: pwsh
-      run: cmake "--preset=ci"
+      run: cmake "--preset=ci -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }}"
 
     - name: build
       shell: pwsh
