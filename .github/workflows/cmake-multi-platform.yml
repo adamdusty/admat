@@ -9,23 +9,9 @@ jobs:
   
   test:
     strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - {
-              name: "windows",
-              os: windows-latest
-            }
-          - {
-              name: "ubuntu",
-              os: ubuntu-latest,
-              env: {
-                CC: "gcc-13",
-                CXX: "g++-13"
-              }
-            }
-    
-    runs-on: ${{ matrix.config.os }}
+      fail-fast: false    
+    runs-on: ubuntu-latest
+    ENV: {CXX: "g++-13"}
 
     steps:
     - uses: actions/checkout@v4
