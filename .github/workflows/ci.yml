@@ -24,10 +24,6 @@ jobs:
               os: windows-latest,
               cxx: cl.exe
             }
-          - {
-              os: windows-latest,
-              cxx: g++
-            }
     runs-on: ${{ matrix.config.os }}
 
 
