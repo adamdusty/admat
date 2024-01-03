@@ -4,6 +4,7 @@
 #include "admat/vec.hpp"
 #include <adizzle/assert.hpp>
 #include <cmath>
+#include <numbers>
 
 namespace admat {
 
