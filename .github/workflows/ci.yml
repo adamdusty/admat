@@ -22,7 +22,7 @@ jobs:
             }
           - {
               os: windows-latest,
-              cxx: g++-13
+              cxx: cl
             }
     runs-on: ${{ matrix.config.os }}
 

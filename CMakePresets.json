@@ -63,11 +63,11 @@
         {
             "name": "ci",
             "binaryDir": "build/ci",
-            "generator": "Ninja",
             "inherits": [
                 "base"
             ],
             "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
                 "ADMAT_BUILD_TESTS": "ON"
             }
         }
