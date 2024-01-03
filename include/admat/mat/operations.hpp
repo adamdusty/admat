@@ -5,6 +5,9 @@
 
 namespace admat {
 
+// Can't be constexpr due to cmath
+auto rotate(const mat4& mat, const vec3& axis, float radians) -> mat4;
+
 constexpr auto determinant(const mat4& mat) -> float {
     float sub_00 = mat(2, 2) * mat(3, 3) - mat(3, 2) * mat(2, 3);
     float sub_01 = mat(2, 1) * mat(3, 3) - mat(3, 1) * mat(2, 3);
@@ -98,33 +101,6 @@ constexpr auto scale(const mat4& mat, const vec3& scale) -> mat4 {
     transformation(2, 2) *= scale.z;
 
     return mat * transformation;
-}
-
-constexpr auto rotate(const mat4& mat, const vec3& axis, float radians) -> mat4 {
-    auto ax  = normalize(axis);
-    auto sin = std::sin(radians);
-    auto cos = std::cos(radians);
-
-    auto rotation = mat4{{
-        cos + (ax.x * ax.x) * (1 - cos),
-        ax.y * ax.x * (1 - cos) + (ax.z * sin),
-        ax.z * ax.x * (1 - cos) - (ax.y * sin),
-        0.0f,
-        ax.x * ax.y * (1 - cos) - (ax.z * sin),
-        cos + (ax.y * ax.y) * (1 - cos),
-        ax.z * ax.y * (1 - cos) + (ax.x * sin),
-        0.0f,
-        ax.x * ax.z * (1 - cos) + (ax.y * sin),
-        ax.y * ax.z * (1 - cos) - (ax.x * sin),
-        cos + (ax.z * ax.z) * (1 - cos),
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        1.0f,
-    }};
-
-    return mat * rotation;
 }
 
 } // namespace admat

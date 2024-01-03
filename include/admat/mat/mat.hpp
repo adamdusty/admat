@@ -2,10 +2,8 @@
 
 #include "admat/vec.hpp"
 #include <adizzle/assert.hpp>
-#include <algorithm>
 #include <array>
 #include <cstddef>
-#include <format>
 #include <span>
 
 namespace admat {

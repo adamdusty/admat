@@ -33,7 +33,6 @@ add_dev_compile_opts(admat_tests)
 target_sources(admat_tests PRIVATE
     src/vector_tests.cpp
     src/matrix_tests.cpp
-    # src/operations_tests.cpp
 )
 
 # Link libs
@@ -44,8 +43,8 @@ add_test(NAME admat_tests COMMAND admat_tests)
 
 # Enable test binary to find the DLL if building a shared lib
 if(BUILD_SHARED_LIBS)
-    set_tests_properties(xyz_tests PROPERTIES
+    set_tests_properties(admat_tests PROPERTIES
         ENVIRONMENT_MODIFICATION
-            "PATH=path_list_append:$<TARGET_FILE_DIR:xyz::xyz>;PATH=path_list_append:$<TARGET_FILE_DIR:snitch::snitch>"
+            "PATH=path_list_append:$<TARGET_FILE_DIR:admat::admat>;PATH=path_list_append:$<TARGET_FILE_DIR:snitch::snitch>"
     )
 endif()
