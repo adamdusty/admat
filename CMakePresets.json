@@ -63,6 +63,7 @@
         {
             "name": "ci",
             "binaryDir": "build/ci",
+            "generator": "Ninja",
             "inherits": [
                 "base"
             ],
