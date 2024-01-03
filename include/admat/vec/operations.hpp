@@ -79,7 +79,7 @@ constexpr auto distance(const vec2& lhs, const vec2& rhs) -> float {
     auto x = (rhs.x - lhs.x) * (rhs.x - lhs.x);
     auto y = (rhs.y - lhs.y) * (rhs.y - lhs.y);
 
-    return std::sqrt(x + y);
+    return adizzle::sqrt(x + y);
 }
 
 constexpr auto distance(const vec3& lhs, const vec3& rhs) -> float {
@@ -87,7 +87,7 @@ constexpr auto distance(const vec3& lhs, const vec3& rhs) -> float {
     auto y = (rhs.y - lhs.y) * (rhs.y - lhs.y);
     auto z = (rhs.z - lhs.z) * (rhs.z - lhs.z);
 
-    return std::sqrt(x + y + z);
+    return adizzle::sqrt(x + y + z);
 }
 
 constexpr auto distance(const vec4& lhs, const vec4& rhs) -> float {
@@ -96,7 +96,7 @@ constexpr auto distance(const vec4& lhs, const vec4& rhs) -> float {
     auto y = (rhs.y - lhs.y) * (rhs.y - lhs.y);
     auto z = (rhs.z - lhs.z) * (rhs.z - lhs.z);
 
-    return std::sqrt(w + x + y + z);
+    return adizzle::sqrt(w + x + y + z);
 }
 
 constexpr auto lerp(const vec2& from, const vec2& to, float delta) -> vec2 {
@@ -125,7 +125,7 @@ constexpr auto lerp(const vec4& from, const vec4& to, float delta) -> vec4 {
 
 template<typename T>
 constexpr auto magnitude(const T& vec) -> float {
-    return std::sqrt(dot(vec, vec));
+    return adizzle::sqrt(dot(vec, vec));
 }
 
 template<typename T>
@@ -145,7 +145,7 @@ constexpr auto refract(const T& incident, const T& normal, float ratio) -> T {
         return T{};
     }
 
-    return (incident * ratio) - (ratio * dot(normal, incident) + std::sqrt(constant)) * normal;
+    return (incident * ratio) - (ratio * dot(normal, incident) + adizzle::sqrt(constant)) * normal;
 }
 
 } // namespace admat
