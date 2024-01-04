@@ -1,5 +1,6 @@
 #pragma once
 
+#include "admat/mat/arithmetic.hpp"
 #include "admat/mat/mat.hpp"
 #include "admat/vec/vec.hpp"
 
