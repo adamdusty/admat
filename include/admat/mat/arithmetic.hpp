@@ -2,32 +2,27 @@
 
 #include "admat/mat/mat.hpp"
 #include "admat/vec.hpp"
+#include <algorithm>
+#include <ranges>
 
+namespace rg = std::ranges;
 
 namespace admat {
 
 constexpr auto operator+(const mat4& lhs, const mat4& rhs) -> mat4 {
-    auto result = mat4{};
+    auto result = std::array<float, 16>{};
 
-    for(size_t i = 0; i < 4; ++i) {
-        for(size_t j = 0; j < 4; ++j) {
-            result(i, j) = lhs(i, j) + rhs(i, j);
-        }
-    }
+    rg::transform(lhs.get(), rhs.get(), result.begin(), std::plus{});
 
-    return result;
+    return mat4{result};
 }
 
 constexpr auto operator-(const mat4& lhs, const mat4& rhs) -> mat4 {
-    auto result = mat4{};
+    auto result = std::array<float, 16>{};
 
-    for(size_t i = 0; i < 4; ++i) {
-        for(size_t j = 0; j < 4; ++j) {
-            result(i, j) = lhs(i, j) - rhs(i, j);
-        }
-    }
+    rg::transform(lhs.get(), rhs.get(), result.begin(), std::minus{});
 
-    return result;
+    return mat4{result};
 }
 
 constexpr auto operator*(const mat4& lhs, const mat4& rhs) -> mat4 {
@@ -56,14 +51,12 @@ constexpr auto operator*(const mat4& lhs, const mat4& rhs) -> mat4 {
     return result;
 }
 
-constexpr auto operator*(mat4 lhs, float scalar) -> mat4 {
-    for(size_t i = 0; i < 4; ++i) {
-        for(size_t j = 0; j < 4; ++j) {
-            lhs(i, j) *= scalar;
-        }
-    }
+constexpr auto operator*(const mat4& lhs, float scalar) -> mat4 {
+    auto result = std::array<float, 16>{};
 
-    return lhs;
+    rg::transform(lhs.get(), result.begin(), [scalar](const auto x) { return x * scalar; });
+
+    return mat4{result};
 }
 
 constexpr auto operator*(float scalar, mat4 rhs) -> mat4 {
