@@ -9,44 +9,34 @@
 using namespace admat;
 using namespace ankerl;
 
-auto randomize(mat4& mat) {
+auto random_mat4() -> mat4 {
     auto dev  = std::random_device{};
     auto gen  = std::mt19937(dev());
     auto dist = std::uniform_real_distribution{0.0f, 5.0f};
 
-    for(size_t i = 0; i < 4; ++i) {
-        for(size_t j = 0; j < 4; ++j) {
-            mat(i, j) = dist(gen);
-        }
-    }
+    return mat4{
+        {dist(gen), dist(gen), dist(gen), dist(gen)},
+        {dist(gen), dist(gen), dist(gen), dist(gen)},
+        {dist(gen), dist(gen), dist(gen), dist(gen)},
+        {dist(gen), dist(gen), dist(gen), dist(gen)},
+    };
 }
 
 auto random_glm() -> glm::mat4 {
     auto dev  = std::random_device{};
     auto gen  = std::mt19937(dev());
     auto dist = std::uniform_real_distribution{0.0f, 100.0f};
-    return {dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen),
-            dist(gen)};
+    return {
+        {dist(gen), dist(gen), dist(gen), dist(gen)},
+        {dist(gen), dist(gen), dist(gen), dist(gen)},
+        {dist(gen), dist(gen), dist(gen), dist(gen)},
+        {dist(gen), dist(gen), dist(gen), dist(gen)},
+    };
 }
 
 auto inverse() {
-    auto m1 = mat4{};
+    auto m1 = random_mat4();
     auto m2 = random_glm();
-    randomize(m1);
 
     auto bench = nanobench::Bench().title("inverse").relative(true);
     bench.run("admat inverse", [&] { nanobench::doNotOptimizeAway(inverse(m1)); });
@@ -54,9 +44,8 @@ auto inverse() {
 }
 
 auto addition() {
-    auto m1 = mat4{};
+    auto m1 = random_mat4();
     auto m2 = random_glm();
-    randomize(m1);
 
     auto bench = nanobench::Bench().title("addition").relative(true);
     bench.run("admat addition", [&] { nanobench::doNotOptimizeAway(m1 + m1); });
@@ -64,9 +53,8 @@ auto addition() {
 }
 
 auto multiplication() {
-    auto m1 = mat4{};
+    auto m1 = random_mat4();
     auto m2 = random_glm();
-    randomize(m1);
 
     auto bench = nanobench::Bench().title("multiplication").relative(true);
     bench.run("admat multiplication", [&] { nanobench::doNotOptimizeAway(m1 * m1); });
@@ -74,9 +62,8 @@ auto multiplication() {
 }
 
 auto determinant() {
-    auto m1 = mat4{};
+    auto m1 = random_mat4();
     auto m2 = random_glm();
-    randomize(m1);
 
     auto bench = nanobench::Bench().title("determinant").relative(true);
     bench.run("admat determinant", [&] { nanobench::doNotOptimizeAway(determinant(m1)); });
@@ -84,9 +71,8 @@ auto determinant() {
 }
 
 auto transpose() {
-    auto m1 = mat4{};
+    auto m1 = random_mat4();
     auto m2 = random_glm();
-    randomize(m1);
 
     auto bench = nanobench::Bench().title("transpose").relative(true);
     bench.run("admat transpose", [&] { nanobench::doNotOptimizeAway(transpose(m1)); });
@@ -94,12 +80,11 @@ auto transpose() {
 }
 
 auto rotation() {
-    auto m1 = mat4{};
+    auto m1 = random_mat4();
     auto m2 = random_glm();
-    randomize(m1);
 
     auto bench = nanobench::Bench().title("rotation").relative(true);
-    bench.run("admat rotate", [&] { nanobench::doNotOptimizeAway(rotate(m1, {1.0f, 0.0f, 0.0f}, 1.3f)); });
+    bench.run("admat rotate", [&] { nanobench::doNotOptimizeAway(m1 * rotation({1.0f, 0.0f, 0.0f}, 1.3f)); });
     bench.run("glm rotate", [&] { nanobench::doNotOptimizeAway(glm::rotate(m2, 1.3f, {1.0f, 0.0f, 0.0f})); });
 }
 
@@ -128,5 +113,6 @@ auto main() -> int {
     rotation();
     create_perspective();
     create_orthographic();
+
     return 0;
 }

@@ -1,6 +1,8 @@
 #pragma once
 
+#include <adizzle/assert.hpp>
 #include <array>
+#include <cstddef>
 #include <type_traits>
 
 namespace admat {
@@ -9,8 +11,11 @@ struct vec2 {
     float x;
     float y;
 
-    // Enable implicit conversion to array. Not sure I like this?
-    constexpr operator std::array<float, 2>() { return {x, y}; }
+    constexpr auto operator[](std::size_t idx) const -> float {
+        ADIZZLE_ASSERT(idx < 2, "vec2 index out of bounds");
+
+        return *(&(this->x) + idx);
+    }
 
     static constexpr auto from_array(const std::array<float, 2>& data) -> vec2 {
         return vec2{
@@ -25,8 +30,11 @@ struct vec3 {
     float y;
     float z;
 
-    // Enable implicit conversion to array. Not sure I like this?
-    constexpr operator std::array<float, 3>() { return {x, y, z}; }
+    constexpr auto operator[](std::size_t idx) const -> float {
+        ADIZZLE_ASSERT(idx < 3, "vec3 index out of bounds");
+
+        return *(&(this->x) + idx);
+    }
 
     static constexpr auto from_array(const std::array<float, 3>& data) -> vec3 {
         return vec3{
@@ -43,8 +51,11 @@ struct vec4 {
     float y;
     float z;
 
-    // Enable implicit conversion to array. Not sure I like this?
-    constexpr operator std::array<float, 4>() { return {w, x, y, z}; }
+    constexpr auto operator[](std::size_t idx) const -> float {
+        ADIZZLE_ASSERT(idx < 4, "vec4 index out of bounds");
+
+        return *(&(this->x) + idx);
+    }
 
     static constexpr auto from_array(const std::array<float, 4>& data) -> vec4 {
         return vec4{

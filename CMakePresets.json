@@ -99,7 +99,7 @@
         {
             "name": "dev",
             "configurePreset": "dev",
-            "configuration": "Debug",
+            "configuration": "debug",
             "output": {
                 "outputOnFailure": true
             }
@@ -107,7 +107,7 @@
         {
             "name": "ci",
             "configurePreset": "ci",
-            "configuration": "Release",
+            "configuration": "release",
             "output": {
                 "outputOnFailure": true
             }

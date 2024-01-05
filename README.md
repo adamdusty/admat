@@ -34,7 +34,7 @@ Linear algebra lib specific to my use cases.
 0.4.0a
 
 - [x] mat perspective
-- [x] mat orthoganol
+- [x] mat orthogonal
 - [x] mat look at
 - [x] mat translate
 - [x] mat rotate
@@ -44,20 +44,3 @@ Linear algebra lib specific to my use cases.
 - [x] vec reflect
 - [x] vec refract
 - [x] lerp
-
-0.1.0b
-
-- [ ] Test that matrix and vector functions hold to expected properties (Associativity, etc.)
-- [ ] docs
-
-0.2.0b
-
-- [ ] quaternion data structure
-- [ ] quaternion from euler
-- [ ] quaternion inverse
-
-### Notes
-
-Matrix inversion is unpleasant
-Today I learned cmath has a lerp function
-If I were to start over from scratch, I would only implement vec up to size 4 and mat 4x4 and 3x2. I would hard code determinants, transposes, and inverses. I will never need matrices larger than 4x4 or vectors larger than 4. I may go back and do this.
