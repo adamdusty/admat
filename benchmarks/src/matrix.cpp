@@ -1,8 +1,11 @@
 #define GLM_FORCE_PURE
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
 
 #include <admat/mat.hpp>
+#include <format>
 #include <glm/ext.hpp>
 #include <glm/glm.hpp>
+#include <iostream>
 #include <nanobench.h>
 #include <random>
 
@@ -128,5 +131,6 @@ auto main() -> int {
     rotation();
     create_perspective();
     create_orthographic();
+
     return 0;
 }
