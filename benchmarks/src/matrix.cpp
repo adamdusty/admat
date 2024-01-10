@@ -108,24 +108,14 @@ auto create_orthographic() {
 }
 
 auto main() -> int {
-    // inverse();
-    // addition();
-    // multiplication();
-    // determinant();
-    // transpose();
-    // rotation();
-    // create_perspective();
-    // create_orthographic();
-
-    auto ad = look_at({0, 0, -100}, {0, 0, 0}, {0, 1, 0});
-    auto gl = glm::lookAt(glm::vec3{0, 0, -100}, glm::vec3{0, 0, 0}, glm::vec3{0, 1, 0});
-
-    for(size_t i = 0; i < 4; ++i) {
-        for(size_t j = 0; j < 4; ++j) {
-            std::cout << std::format("ADMAT: {}, {}: {}\n", i, j, ad(i, j));
-            std::cout << std::format("GLM  : {}, {}: {}\n", i, j, gl[i][j]);
-        }
-    }
+    inverse();
+    addition();
+    multiplication();
+    determinant();
+    transpose();
+    rotation();
+    create_perspective();
+    create_orthographic();
 
     return 0;
 }

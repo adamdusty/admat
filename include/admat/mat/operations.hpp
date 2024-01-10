@@ -81,10 +81,10 @@ constexpr auto inverse(const mat4& mat) -> mat4 {
 
 constexpr auto transpose(const mat4& mat) -> mat4 {
     return mat4{
-        {mat.w.w, mat.x.w, mat.y.w, mat.z.w},
-        {mat.w.x, mat.x.x, mat.y.x, mat.z.x},
-        {mat.w.y, mat.x.y, mat.y.y, mat.z.y},
-        {mat.w.z, mat.x.z, mat.y.z, mat.z.z},
+        {mat.w},
+        {mat.x},
+        {mat.y},
+        {mat.z},
     };
 }
 

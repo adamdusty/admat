@@ -2,7 +2,35 @@
 #include <admat/mat.hpp>
 #include <snitch/snitch.hpp>
 
+#include <format>
+#include <iostream>
+
 using namespace admat;
+
+auto print_mat(const mat4& mat) {
+    auto str = std::format("{}, {}, {}, {}\n"
+                           "{}, {}, {}, {}\n"
+                           "{}, {}, {}, {}\n"
+                           "{}, {}, {}, {}\n",
+                           mat(0, 0),
+                           mat(0, 1),
+                           mat(0, 2),
+                           mat(0, 3),
+                           mat(1, 0),
+                           mat(1, 1),
+                           mat(1, 2),
+                           mat(1, 3),
+                           mat(2, 0),
+                           mat(2, 1),
+                           mat(2, 2),
+                           mat(2, 3),
+                           mat(3, 0),
+                           mat(3, 1),
+                           mat(3, 2),
+                           mat(3, 3));
+
+    std::cout << str;
+}
 
 auto operator==(const vec4& lhs, const vec4& rhs) -> bool {
     return adizzle::almost_equal(lhs.w, rhs.w) && adizzle::almost_equal(lhs.x, rhs.x) &&
@@ -25,7 +53,7 @@ TEST_CASE("mat4 initialization") {
 
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
-            CHECK(adizzle::almost_equal(mat(i, j), 0.0f, 0.000001f));
+            CHECK(adizzle::almost_equal(mat(i, j), 0.0f));
         }
     }
 }
@@ -127,6 +155,7 @@ TEST_CASE("mat4 multiplication") {
     };
 
     auto actual = m1 * m2;
+    print_mat(actual);
     CHECK(actual == expected);
 }
 

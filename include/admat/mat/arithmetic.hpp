@@ -28,21 +28,14 @@ constexpr auto operator-(const mat4& lhs, const mat4& rhs) -> mat4 {
 }
 
 constexpr auto operator*(const mat4& lhs, const mat4& rhs) -> mat4 {
-    return mat4{
-        {rhs.w * lhs.w.w + rhs.x * lhs.w.x + rhs.y * lhs.w.y + rhs.z * lhs.w.z},
-        {rhs.w * lhs.x.w + rhs.x * lhs.x.x + rhs.y * lhs.x.y + rhs.z * lhs.x.z},
-        {rhs.w * lhs.y.w + rhs.x * lhs.y.x + rhs.y * lhs.y.y + rhs.z * lhs.y.z},
-        {rhs.w * lhs.z.w + rhs.x * lhs.z.x + rhs.y * lhs.z.y + rhs.z * lhs.z.z},
-    };
+    return mat4::from_cols({lhs.w * rhs.w.w + lhs.x * rhs.w.x + lhs.y * rhs.w.y + lhs.z * rhs.w.z},
+                           {lhs.w * rhs.x.w + lhs.x * rhs.x.x + lhs.y * rhs.x.y + lhs.z * rhs.x.z},
+                           {lhs.w * rhs.y.w + lhs.x * rhs.y.x + lhs.y * rhs.y.y + lhs.z * rhs.y.z},
+                           {lhs.w * rhs.z.w + lhs.x * rhs.z.x + lhs.y * rhs.z.y + lhs.z * rhs.z.z});
 }
 
 constexpr auto operator*(const mat4& lhs, float scalar) -> mat4 {
-    return mat4{
-        lhs.w * scalar,
-        lhs.x * scalar,
-        lhs.y * scalar,
-        lhs.z * scalar,
-    };
+    return mat4::from_cols(lhs.w * scalar, lhs.x * scalar, lhs.y * scalar, lhs.z * scalar);
 }
 
 constexpr auto operator*(float scalar, mat4 rhs) -> mat4 {
