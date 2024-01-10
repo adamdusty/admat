@@ -7,18 +7,15 @@
 namespace admat {
 
 auto look_at(const vec3& position, const vec3& target, const vec3& up) -> mat4 {
-    auto direction = target - position;
-
-    auto look    = normalize(-direction);
-    auto right   = normalize(cross(up, look));
-    auto y       = cross(look, right);
-    auto neg_pos = -position;
+    auto look  = normalize(target - position);
+    auto right = normalize(cross(look, up));
+    auto y     = cross(right, look);
 
     return mat4{
-        {right.x, y.x, look.x, 0.0f},
-        {right.y, y.y, look.y, 0.0f},
-        {right.z, y.z, look.z, 0.0f},
-        {dot(right, neg_pos), dot(y, neg_pos), dot(look, neg_pos), 1.0f},
+        {right.x, right.y, right.z, -dot(right, position)},
+        {y.x, y.y, y.z, -dot(y, position)},
+        {-look.x, -look.y, -look.z, dot(look, position)},
+        {0, 0, 0, 1},
     };
 }
 

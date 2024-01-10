@@ -122,7 +122,8 @@ auto main() -> int {
 
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
-            std::cout << std::format("{}, {}: {} == {}\n", i, j, ad(i, j), gl[i][j]);
+            std::cout << std::format("ADMAT: {}, {}: {}\n", i, j, ad(i, j));
+            std::cout << std::format("GLM  : {}, {}: {}\n", i, j, gl[i][j]);
         }
     }
 

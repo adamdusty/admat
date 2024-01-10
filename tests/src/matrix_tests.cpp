@@ -296,15 +296,16 @@ TEST_CASE("Orthographic") {
 
 TEST_CASE("Look at") {
     auto expected = mat4{
-        {0.979457f, -0.09282680f, 0.179017f, 0.0f},
-        {0.000000f, 0.88774800f, 0.460329f, 0.0f},
-        {-0.201653f, -0.45087300f, 0.869511f, 0.0f},
-        {-3.744980f, -3.30051000f, -37.08210f, 1.0f},
+        {-1, 0, 0, 0},
+        {0, 1, 0, 0},
+        {0, 0, -1, -100},
+        {0, 0, 0, 1},
     };
 
-    auto actual = look_at({10.0f, 20.0f, 30.0f}, {3.0f, 2.0f, -4.0f}, {0.0f, 1.0f, 0.0f});
+    auto actual = look_at({0, 0, -100}, {0, 0, 0}, {0, 1, 0});
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
+            CAPTURE(i, j);
             CHECK(adizzle::almost_equal(actual(i, j), expected(i, j), 0.00001f));
         }
     }
