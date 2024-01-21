@@ -30,8 +30,8 @@ auto perspective(float fov, float aspect, float near_plane, float far_plane) -> 
 
     return mat4{
         {x_scale, 0, 0, 0},
-        {0, -focal, 0, 0},
-        {0, 0, near_plane / (far_plane - near_plane), (near_plane * far_plane) / (far_plane - near_plane)},
+        {0, focal, 0, 0},
+        {0, 0, far_plane / (near_plane - far_plane), (far_plane * near_plane) / (near_plane - far_plane)},
         {0, 0, -1, 0},
     };
 }

@@ -155,7 +155,6 @@ TEST_CASE("mat4 multiplication") {
     };
 
     auto actual = m1 * m2;
-    print_mat(actual);
     CHECK(actual == expected);
 }
 
@@ -294,14 +293,16 @@ TEST_CASE("rotation") {
 TEST_CASE("Perspective FOV") {
     auto expected = mat4{
         {2.09928f, 0.00000f, 0.00000f, 0.000f},
-        {0.00000f, -3.73205f, 0.00000f, 0.000f},
-        {0.00000f, 0.00000f, 0.001502f, 1.50225f},
+        {0.00000f, 3.73205f, 0.00000f, 0.000f},
+        {0.00000f, 0.00000f, -1.001502f, -1.50225f},
         {0.00000f, 0.00000f, -1.0f, 0.000f},
     };
 
     auto actual = perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f);
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
+            CAPTURE(actual(i, j));
+            CAPTURE(expected(i, j));
             CHECK(adizzle::almost_equal(actual(i, j), expected(i, j), 0.0001f));
         }
     }
