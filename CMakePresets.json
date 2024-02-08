@@ -43,7 +43,7 @@
                 "BUILD_SHARED_LIBS": "ON",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "CMAKE_COLOR_DIAGNOSTICS": "ON",
-                "ADMAT_BUILD_TESTS": "ON",
+                "BUILD_TESTING": "ON",
                 "ADMAT_BUILD_BENCH": "ON"
             }
         },
@@ -68,7 +68,7 @@
             ],
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "ADMAT_BUILD_TESTS": "ON"
+                "BUILD_TESTING": "ON"
             }
         }
     ],

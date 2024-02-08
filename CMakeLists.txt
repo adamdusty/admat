@@ -72,7 +72,7 @@ if(ADMAT_BUILD_BENCH)
 endif()
 
 # Enable testing
-if(ADMAT_BUILD_TESTS)
+if(BUILD_TESTING)
     include(CTest)
     add_subdirectory(tests)
 endif()
