@@ -15,31 +15,13 @@
             }
         },
         {
-            "name": "debug",
-            "binaryDir": "./build/debug",
-            "inherits": [
-                "base"
-            ],
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "debug"
-            }
-        },
-        {
-            "name": "release",
-            "binaryDir": "./build/release",
-            "inherits": [
-                "base"
-            ],
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "release"
-            }
-        },
-        {
             "name": "dev",
+            "binaryDir": "build/dev",
             "inherits": [
-                "debug"
+                "base"
             ],
             "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "debug",
                 "BUILD_SHARED_LIBS": "ON",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "CMAKE_COLOR_DIAGNOSTICS": "ON",
@@ -78,14 +60,6 @@
             "configurePreset": "dev"
         },
         {
-            "name": "debug",
-            "configurePreset": "debug"
-        },
-        {
-            "name": "release",
-            "configurePreset": "release"
-        },
-        {
             "name": "bench",
             "configurePreset": "bench"
         },
@@ -99,7 +73,7 @@
         {
             "name": "dev",
             "configurePreset": "dev",
-            "configuration": "debug",
+            "configuration": "Debug",
             "output": {
                 "outputOnFailure": true
             }
@@ -107,7 +81,7 @@
         {
             "name": "ci",
             "configurePreset": "ci",
-            "configuration": "release",
+            "configuration": "Release",
             "output": {
                 "outputOnFailure": true
             }
