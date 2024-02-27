@@ -1,6 +1,7 @@
 #pragma once
 
 #include "admat/vec/vec.hpp"
+#include "admat/export.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -8,12 +9,12 @@
 namespace admat {
 
 // can't be constexpr due to non-constexpr cmath functions
-auto abs(const vec2& vec) -> vec2;
-auto abs(const vec3& vec) -> vec3;
-auto abs(const vec4& vec) -> vec4;
-auto distance(const vec2& lhs, const vec2& rhs) -> float;
-auto distance(const vec3& lhs, const vec3& rhs) -> float;
-auto distance(const vec4& lhs, const vec4& rhs) -> float;
+ADMAT_EXPORT auto abs(const vec2& vec) -> vec2;
+ADMAT_EXPORT auto abs(const vec3& vec) -> vec3;
+ADMAT_EXPORT auto abs(const vec4& vec) -> vec4;
+ADMAT_EXPORT auto distance(const vec2& lhs, const vec2& rhs) -> float;
+ADMAT_EXPORT auto distance(const vec3& lhs, const vec3& rhs) -> float;
+ADMAT_EXPORT auto distance(const vec4& lhs, const vec4& rhs) -> float;
 
 constexpr auto dot(const vec2& lhs, const vec2& rhs) -> float {
     return (lhs.x * rhs.x) + (lhs.y * rhs.y);

@@ -2,12 +2,13 @@
 
 #include "admat/mat/mat.hpp"
 #include "admat/vec.hpp"
+#include "admat/export.hpp"
 
 namespace admat {
 
 // Not eligible for constexpr due to sqrt in func dependency
-auto look_at(const vec3& position, const vec3& target, const vec3& up) -> mat4;
-auto perspective(float fov, float aspect, float near_plane, float far_plane) -> mat4;
+ADMAT_EXPORT auto look_at(const vec3& position, const vec3& target, const vec3& up) -> mat4;
+ADMAT_EXPORT auto perspective(float fov, float aspect, float near_plane, float far_plane) -> mat4;
 
 constexpr auto orthographic(float width, float height, float near_plane, float far_plane) -> mat4 {
     float range = 1.0f / (near_plane - far_plane);

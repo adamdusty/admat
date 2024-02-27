@@ -3,11 +3,12 @@
 #include "admat/mat/arithmetic.hpp"
 #include "admat/mat/mat.hpp"
 #include "admat/vec/vec.hpp"
+#include "admat/export.hpp"
 
 namespace admat {
 
 // // Can't be constexpr due to cmath
-auto rotation(const vec3& axis, float radians) -> mat4;
+ADMAT_EXPORT auto rotation(const vec3& axis, float radians) -> mat4;
 
 constexpr auto determinant(const mat4& mat) -> float {
     float sub_00 = mat(2, 2) * mat(3, 3) - mat(3, 2) * mat(2, 3);

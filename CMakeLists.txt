@@ -32,6 +32,12 @@ target_include_directories(
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
 )
 
+target_include_directories(
+    admat_admat ${warning_guard}
+    PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
+)
+
 # Include and link dependencies
 target_link_libraries(admat_admat
     PUBLIC
