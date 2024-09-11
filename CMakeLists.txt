@@ -24,7 +24,7 @@ target_sources(admat_admat
         TYPE        HEADERS
         BASE_DIRS   include
         FILES
-            "include/admat/export.hpp>"
+            "include/admat/export.hpp"
             "include/admat/mat.hpp"
             "include/admat/vec.hpp"
             "include/admat/mat/mat.hpp"
@@ -41,7 +41,7 @@ target_sources(admat_admat
 )
 
 # Include and link dependencies
-# target_link_libraries(admat_admat)
+target_link_libraries(admat_admat PRIVATE libassert::assert)
 
 # Add compile options
 target_compile_options(admat_admat PRIVATE ${DEV_COMPILE_OPTIONS})
