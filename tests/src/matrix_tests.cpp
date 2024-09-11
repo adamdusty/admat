@@ -1,5 +1,5 @@
 #include "utils.hpp"
-#include <admat/mat.hpp>
+#include <admat/admat.hpp>
 #include <snitch/snitch.hpp>
 
 #include <format>
