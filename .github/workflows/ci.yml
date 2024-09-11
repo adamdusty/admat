@@ -13,11 +13,11 @@ jobs:
       matrix:
         config:
           - {
-              os: ubuntu-latest,
+              os: ubuntu-24.04,
               cxx: g++-14
             }
           - {
-              os: ubuntu-latest,
+              os: ubuntu-24.04,
               cxx: clang++-18
             }
           - {
