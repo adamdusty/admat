@@ -14,11 +14,11 @@ jobs:
         config:
           - {
               os: ubuntu-latest,
-              cxx: g++-13
+              cxx: g++-14
             }
           - {
               os: ubuntu-latest,
-              cxx: clang++-15
+              cxx: clang++-18
             }
           - {
               os: windows-latest,
