@@ -2,8 +2,6 @@
 
 #include "admat/mat/mat.hpp"
 #include "admat/vec.hpp"
-#include <algorithm>
-#include <ranges>
 
 // namespace rg = std::ranges;
 

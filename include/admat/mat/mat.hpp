@@ -1,10 +1,9 @@
 #pragma once
 
-#include <admat/vec.hpp>
-#include <array>
+#include "admat/vec.hpp"
+#include <libassert/assert.hpp>
+
 #include <cstddef>
-#include <memory>
-#include <span>
 
 namespace admat {
 

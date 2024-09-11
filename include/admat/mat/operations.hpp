@@ -1,13 +1,13 @@
 #pragma once
 
+#include "admat/export.hpp"
 #include "admat/mat/arithmetic.hpp"
 #include "admat/mat/mat.hpp"
 #include "admat/vec/vec.hpp"
-#include "admat/export.hpp"
 
 namespace admat {
 
-// // Can't be constexpr due to cmath
+// Can't be constexpr due to cmath
 ADMAT_EXPORT auto rotation(const vec3& axis, float radians) -> mat4;
 
 constexpr auto determinant(const mat4& mat) -> float {

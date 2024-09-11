@@ -15,7 +15,7 @@ struct vec2 {
     constexpr auto operator[](std::size_t idx) const -> float {
         ASSERT(idx < 2, "vec2 index out of bounds");
 
-        return *(&(this->x) + idx);
+        return *(&(this->x) + idx); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     }
 
     static constexpr auto from_array(const std::array<float, 2>& data) -> vec2 {
@@ -34,7 +34,7 @@ struct vec3 {
     constexpr auto operator[](std::size_t idx) const -> float {
         ASSERT(idx < 3, "vec3 index out of bounds");
 
-        return *(&(this->x) + idx);
+        return *(&(this->x) + idx); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     }
 
     static constexpr auto from_array(const std::array<float, 3>& data) -> vec3 {
@@ -55,7 +55,7 @@ struct vec4 {
     constexpr auto operator[](std::size_t idx) const -> float {
         ASSERT(idx < 4, "vec4 index out of bounds");
 
-        return *(&(this->x) + idx);
+        return *(&(this->x) + idx); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     }
 
     static constexpr auto from_array(const std::array<float, 4>& data) -> vec4 {
