@@ -18,10 +18,10 @@ auto look_at(const vec3& position, const vec3& target, const vec3& up) -> mat4 {
 }
 
 auto perspective(float fov, float aspect, float near_plane, float far_plane) -> mat4 {
-    // ADIZZLE_ASSERT(fov > 0.0f && fov < static_cast<float>(std::numbers::pi), "Invalid FOV");
-    // ADIZZLE_ASSERT(near_plane > 0.0f, "Near plane distance less than zero.");
-    // ADIZZLE_ASSERT(far_plane > near_plane, "Far plane distance less than zero.");
-    // ADIZZLE_ASSERT(far_plane > 0.0f, "Far plane distance less than near plane.");
+    ASSERT(fov > 0.0f && fov < static_cast<float>(std::numbers::pi), "Invalid FOV");
+    ASSERT(near_plane > 0.0f, "Near plane distance less than zero.");
+    ASSERT(far_plane > near_plane, "Far plane distance less than zero.");
+    ASSERT(far_plane > 0.0f, "Far plane distance less than near plane.");
 
     float focal   = 1.0f / std::tan(fov * 0.5f);
     float x_scale = focal / aspect;

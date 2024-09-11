@@ -36,15 +36,18 @@ target_sources(admat_tests PRIVATE
 )
 
 # Link libs
-target_link_libraries(admat_tests PRIVATE admat::admat snitch::snitch)
+target_link_libraries(admat_tests PRIVATE admat::admat snitch::snitch libassert::assert)
 
 # Add test
 add_test(NAME admat_tests COMMAND admat_tests)
 
 # Enable test binary to find the DLL if building a shared lib
 if(BUILD_SHARED_LIBS)
+    set(DLL_DIRS "$<TARGET_RUNTIME_DLL_DIRS:admat_tests>")
+    set(ENV_OP "PATH=path_list_append:")
+
     set_tests_properties(admat_tests PROPERTIES
         ENVIRONMENT_MODIFICATION
-            "PATH=path_list_append:$<TARGET_FILE_DIR:admat::admat>;PATH=path_list_append:$<TARGET_FILE_DIR:snitch::snitch>"
+            "${ENV_OP}$<JOIN:${DLL_DIRS},$<SEMICOLON>${ENV_OP}>"
     )
 endif()
