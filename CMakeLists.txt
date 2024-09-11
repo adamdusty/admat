@@ -41,7 +41,7 @@ target_sources(admat_admat
 )
 
 # Include and link dependencies
-target_link_libraries(admat_admat PRIVATE libassert::assert)
+target_link_libraries(admat_admat PUBLIC libassert::assert)
 
 # Add compile options
 target_compile_options(admat_admat PRIVATE ${DEV_COMPILE_OPTIONS})
