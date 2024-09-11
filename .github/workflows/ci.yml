@@ -32,12 +32,12 @@ jobs:
     - uses: lukka/get-cmake@latest
     
     - name: get gcc
-      if: matrix.config.os == "ubuntu-latest" && ${{ startswith(matrix.config.cxx, 'g++') }}
-      run: sudo apt install gcc-14 g++-14
+      if: matrix.config.os == "ubuntu-latest" && ${{ startsWith(matrix.config.cxx, 'g++') }}
+      run: sudo apt-get install gcc-14 g++-14
         
     - name: get clang
-      if: matrix.config.os == "ubuntu-latest" && ${{ startswith(matrix.config.cxx, 'clang++') }}
-      run: sudo apt install clang-18 clang++-18
+      if: matrix.config.os == "ubuntu-latest" && ${{ startsWith(matrix.config.cxx, 'clang++') }}
+      run: sudo apt-get install clang-18
 
     - name: configure
       shell: pwsh
