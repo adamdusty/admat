@@ -1,6 +1,5 @@
 #pragma once
 
-#include <adizzle/assert.hpp>
 #include <array>
 #include <cstddef>
 #include <type_traits>
@@ -12,7 +11,7 @@ struct vec2 {
     float y;
 
     constexpr auto operator[](std::size_t idx) const -> float {
-        ADIZZLE_ASSERT(idx < 2, "vec2 index out of bounds");
+        // ADIZZLE_ASSERT(idx < 2, "vec2 index out of bounds");
 
         return *(&(this->x) + idx);
     }
@@ -31,7 +30,7 @@ struct vec3 {
     float z;
 
     constexpr auto operator[](std::size_t idx) const -> float {
-        ADIZZLE_ASSERT(idx < 3, "vec3 index out of bounds");
+        // ADIZZLE_ASSERT(idx < 3, "vec3 index out of bounds");
 
         return *(&(this->x) + idx);
     }
@@ -52,7 +51,7 @@ struct vec4 {
     float z;
 
     constexpr auto operator[](std::size_t idx) const -> float {
-        ADIZZLE_ASSERT(idx < 4, "vec4 index out of bounds");
+        // ADIZZLE_ASSERT(idx < 4, "vec4 index out of bounds");
 
         return *(&(this->x) + idx);
     }

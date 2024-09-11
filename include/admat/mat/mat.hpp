@@ -1,6 +1,5 @@
 #pragma once
 
-#include <adizzle/assert.hpp>
 #include <admat/vec.hpp>
 #include <array>
 #include <cstddef>
@@ -24,7 +23,7 @@ struct mat4 {
     }
 
     constexpr auto operator()(std::size_t row, std::size_t col) const -> float {
-        ADIZZLE_ASSERT(row < 4 && col < 4, "Out of bounds matrix access");
+        // ADIZZLE_ASSERT(row < 4 && col < 4, "Out of bounds matrix access");
 
         std::size_t index = col * 4 + row;
         return *(&(w.w) + index);

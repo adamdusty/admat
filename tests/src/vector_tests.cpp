@@ -1,9 +1,8 @@
-#include <adizzle/float.hpp>
+#include "utils.hpp"
 #include <admat/vec.hpp>
 #include <snitch/snitch.hpp>
 
 #include <cmath>
-#include <numbers>
 
 using namespace admat;
 
@@ -14,8 +13,8 @@ TEST_CASE("vec2 addition", "[operator+]") {
     auto expected = vec2{2.0f, 2.0f};
     auto result   = v1 + v2;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec3 addition", "[operator+]") {
@@ -25,9 +24,9 @@ TEST_CASE("vec3 addition", "[operator+]") {
     auto expected = vec3{2.0f, 2.0f, 2.0f};
     auto result   = v1 + v2;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec4 addition", "[operator+]") {
@@ -37,10 +36,10 @@ TEST_CASE("vec4 addition", "[operator+]") {
     auto expected = vec4{2.0f, 2.0f, 2.0f, 2.0f};
     auto result   = v1 + v2;
 
-    CHECK(adizzle::almost_equal(result.w, expected.w, 0.000001f));
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.w, expected.w, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 subtraction", "[operator-]") {
@@ -50,8 +49,8 @@ TEST_CASE("vec2 subtraction", "[operator-]") {
     auto expected = vec2{4.0f, 2.0f};
     auto result   = v1 - v2;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec3 subtraction", "[operator-]") {
@@ -61,9 +60,9 @@ TEST_CASE("vec3 subtraction", "[operator-]") {
     auto expected = vec3{4.0f, 3.0f, 2.0f};
     auto result   = v1 - v2;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec4 subtraction", "[operator-]") {
@@ -73,10 +72,10 @@ TEST_CASE("vec4 subtraction", "[operator-]") {
     auto expected = vec4{8.0f, 7.0f, 6.0f, 5.0f};
     auto result   = v1 - v2;
 
-    CHECK(adizzle::almost_equal(result.w, expected.w, 0.000001f));
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.w, expected.w, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 multiplication", "[operator*]") {
@@ -86,8 +85,8 @@ TEST_CASE("vec2 multiplication", "[operator*]") {
     auto expected = vec2{1.0f, 2.0f};
     auto result   = v1 * v2;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec3 multiplication", "[operator*]") {
@@ -97,9 +96,9 @@ TEST_CASE("vec3 multiplication", "[operator*]") {
     auto expected = vec3{5.0f, 4.0f, 3.0f};
     auto result   = v1 * v2;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec4 multiplication", "[operator*]") {
@@ -109,10 +108,10 @@ TEST_CASE("vec4 multiplication", "[operator*]") {
     auto expected = vec4{9.0f, 8.0f, 7.0f, 6.0f};
     auto result   = v1 * v2;
 
-    CHECK(adizzle::almost_equal(result.w, expected.w, 0.000001f));
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.w, expected.w, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 division", "[operator/]") {
@@ -122,8 +121,8 @@ TEST_CASE("vec2 division", "[operator/]") {
     auto expected = vec2{4.0f, 3.0f};
     auto result   = v1 / v2;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec3 division", "[operator/]") {
@@ -133,9 +132,9 @@ TEST_CASE("vec3 division", "[operator/]") {
     auto expected = vec3{3.0f, 4.0f, 5.0f};
     auto result   = v1 / v2;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec4 division", "[operator/]") {
@@ -145,10 +144,10 @@ TEST_CASE("vec4 division", "[operator/]") {
     auto expected = vec4{3.0f, 4.0f, 7.0f, 2.0f};
     auto result   = v1 / v2;
 
-    CHECK(adizzle::almost_equal(result.w, expected.w, 0.000001f));
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.w, expected.w, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 + scalar", "[operator+]") {
@@ -158,8 +157,8 @@ TEST_CASE("vec2 + scalar", "[operator+]") {
     auto expected = vec2{2.0f, 3.0f};
     auto result   = vec + scalar;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec3 + scalar", "[operator+]") {
@@ -169,9 +168,9 @@ TEST_CASE("vec3 + scalar", "[operator+]") {
     auto expected = vec3{2.0f, 3.0f, 4.0f};
     auto result   = vec + scalar;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec4 + scalar", "[operator+]") {
@@ -181,10 +180,10 @@ TEST_CASE("vec4 + scalar", "[operator+]") {
     auto expected = vec4{2.0f, 3.0f, 4.0f, 5.0f};
     auto result   = vec + scalar;
 
-    CHECK(adizzle::almost_equal(result.w, expected.w, 0.000001f));
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.w, expected.w, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 - scalar", "[operator-]") {
@@ -194,8 +193,8 @@ TEST_CASE("vec2 - scalar", "[operator-]") {
     auto expected = vec2{0.0f, 1.0f};
     auto result   = vec - scalar;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec3 - scalar", "[operator-]") {
@@ -205,9 +204,9 @@ TEST_CASE("vec3 - scalar", "[operator-]") {
     auto expected = vec3{0.0f, 1.0f, 2.0f};
     auto result   = vec - scalar;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec4 - scalar", "[operator-]") {
@@ -217,10 +216,10 @@ TEST_CASE("vec4 - scalar", "[operator-]") {
     auto expected = vec4{0.0f, 1.0f, 2.0f, 3.0f};
     auto result   = vec - scalar;
 
-    CHECK(adizzle::almost_equal(result.w, expected.w, 0.000001f));
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.w, expected.w, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 * scalar", "[operator*]") {
@@ -230,8 +229,8 @@ TEST_CASE("vec2 * scalar", "[operator*]") {
     auto expected = vec2{2.0f, 4.0f};
     auto result   = vec * scalar;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec3 * scalar", "[operator*]") {
@@ -241,9 +240,9 @@ TEST_CASE("vec3 * scalar", "[operator*]") {
     auto expected = vec3{2.0f, 4.0f, 6.0f};
     auto result   = vec * scalar;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec4 * scalar", "[operator*]") {
@@ -253,10 +252,10 @@ TEST_CASE("vec4 * scalar", "[operator*]") {
     auto expected = vec4{2.0f, 4.0f, 6.0f, 8.0f};
     auto result   = vec * scalar;
 
-    CHECK(adizzle::almost_equal(result.w, expected.w, 0.000001f));
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.w, expected.w, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 / scalar", "[operator/]") {
@@ -266,8 +265,8 @@ TEST_CASE("vec2 / scalar", "[operator/]") {
     auto expected = vec2{4.0f, 3.0f};
     auto result   = vec / scalar;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec3 / scalar", "[operator/]") {
@@ -277,9 +276,9 @@ TEST_CASE("vec3 / scalar", "[operator/]") {
     auto expected = vec3{4.0f, 3.0f, 2.0f};
     auto result   = vec / scalar;
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec4 / scalar", "[operator/]") {
@@ -289,10 +288,10 @@ TEST_CASE("vec4 / scalar", "[operator/]") {
     auto expected = vec4{4.0f, 3.5f, 3.0f, 2.5f};
     auto result   = vec / scalar;
 
-    CHECK(adizzle::almost_equal(result.w, expected.w, 0.000001f));
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.w, expected.w, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 dot product", "[dot]") {
@@ -300,7 +299,7 @@ TEST_CASE("vec2 dot product", "[dot]") {
     auto v2 = vec2{10.0f, 5.0f};
 
     auto result = dot(v1, v2);
-    CHECK(adizzle::almost_equal(result, 10.0f, 0.00001f));
+    CHECK(almost_equal(result, 10.0f, 0.00001f));
 }
 
 TEST_CASE("vec3 dot product", "[dot]") {
@@ -308,7 +307,7 @@ TEST_CASE("vec3 dot product", "[dot]") {
     auto v2 = vec3{10.0f, 5.0f, 3.0f};
 
     auto result = dot(v1, v2);
-    CHECK(adizzle::almost_equal(result, 22.0f, 0.00001f));
+    CHECK(almost_equal(result, 22.0f, 0.00001f));
 }
 
 TEST_CASE("vec4 dot product", "[dot]") {
@@ -316,7 +315,7 @@ TEST_CASE("vec4 dot product", "[dot]") {
     auto v2 = vec4{10.0f, 5.0f, 3.0f, 6.0f};
 
     auto result = dot(v1, v2);
-    CHECK(adizzle::almost_equal(result, 34.0f, 0.00001f));
+    CHECK(almost_equal(result, 34.0f, 0.00001f));
 }
 
 TEST_CASE("vec3 cross product", "[cross]") {
@@ -326,9 +325,9 @@ TEST_CASE("vec3 cross product", "[cross]") {
     auto expected = vec3{-8.0f, -8.0f, 12.0f};
     auto result   = cross(v1, v2);
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 magnitude", "[magnitude]") {
@@ -336,7 +335,7 @@ TEST_CASE("vec2 magnitude", "[magnitude]") {
 
     auto result = magnitude(vec);
 
-    CHECK(adizzle::almost_equal(result, 5.0f, 0.000001f));
+    CHECK(almost_equal(result, 5.0f, 0.000001f));
 }
 
 TEST_CASE("vec3 magnitude", "[magnitude]") {
@@ -344,7 +343,7 @@ TEST_CASE("vec3 magnitude", "[magnitude]") {
 
     auto result = magnitude(vec);
 
-    CHECK(adizzle::almost_equal(result, 2.0f * std::sqrt(6.0f), 0.000001f));
+    CHECK(almost_equal(result, 2.0f * std::sqrt(6.0f), 0.000001f));
 }
 
 TEST_CASE("vec4 magnitude", "[magnitude]") {
@@ -352,7 +351,7 @@ TEST_CASE("vec4 magnitude", "[magnitude]") {
 
     auto result = magnitude(vec);
 
-    CHECK(adizzle::almost_equal(result, std::sqrt(30.0f), 0.000001f));
+    CHECK(almost_equal(result, std::sqrt(30.0f), 0.000001f));
 }
 
 TEST_CASE("vec normalize") {
@@ -372,17 +371,17 @@ TEST_CASE("vec normalize") {
     auto res3 = normalize(v3);
     auto res4 = normalize(v4);
 
-    CHECK(adizzle::almost_equal(res2.x, exp2.x, 0.000001f));
-    CHECK(adizzle::almost_equal(res2.y, exp2.y, 0.000001f));
+    CHECK(almost_equal(res2.x, exp2.x, 0.000001f));
+    CHECK(almost_equal(res2.y, exp2.y, 0.000001f));
 
-    CHECK(adizzle::almost_equal(res3.x, exp3.x, 0.000001f));
-    CHECK(adizzle::almost_equal(res3.y, exp3.y, 0.000001f));
-    CHECK(adizzle::almost_equal(res3.z, exp3.z, 0.000001f));
+    CHECK(almost_equal(res3.x, exp3.x, 0.000001f));
+    CHECK(almost_equal(res3.y, exp3.y, 0.000001f));
+    CHECK(almost_equal(res3.z, exp3.z, 0.000001f));
 
-    CHECK(adizzle::almost_equal(res4.w, exp4.w, 0.000001f));
-    CHECK(adizzle::almost_equal(res4.x, exp4.x, 0.000001f));
-    CHECK(adizzle::almost_equal(res4.y, exp4.y, 0.000001f));
-    CHECK(adizzle::almost_equal(res4.z, exp4.z, 0.000001f));
+    CHECK(almost_equal(res4.w, exp4.w, 0.000001f));
+    CHECK(almost_equal(res4.x, exp4.x, 0.000001f));
+    CHECK(almost_equal(res4.y, exp4.y, 0.000001f));
+    CHECK(almost_equal(res4.z, exp4.z, 0.000001f));
 }
 
 TEST_CASE("vec2 abs") {
@@ -391,8 +390,8 @@ TEST_CASE("vec2 abs") {
 
     auto result = abs(vec);
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec3 abs") {
@@ -401,9 +400,9 @@ TEST_CASE("vec3 abs") {
 
     auto result = abs(vec);
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec4 abs") {
@@ -412,10 +411,10 @@ TEST_CASE("vec4 abs") {
 
     auto result = abs(vec);
 
-    CHECK(adizzle::almost_equal(result.w, expected.w, 0.000001f));
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.w, expected.w, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 clamp") {
@@ -424,8 +423,8 @@ TEST_CASE("vec2 clamp") {
 
     auto result = clamp(vec * 100.0f, -1.0f, 0.75f);
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec3 clamp") {
@@ -437,9 +436,9 @@ TEST_CASE("vec3 clamp") {
     CAPTURE(vec.z);
     CAPTURE(result.z);
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec4 clamp") {
@@ -448,10 +447,10 @@ TEST_CASE("vec4 clamp") {
 
     auto result = clamp(vec * 100.0f, -1.0f, 0.75f);
 
-    CHECK(adizzle::almost_equal(result.w, expected.w, 0.000001f));
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.w, expected.w, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 distance") {
@@ -461,7 +460,7 @@ TEST_CASE("vec2 distance") {
     auto result   = distance(v1, v2);
     auto expected = 93.6002f;
 
-    CHECK(adizzle::almost_equal(result, expected, 0.0001f));
+    CHECK(almost_equal(result, expected, 0.0001f));
 }
 
 TEST_CASE("vec3 distance") {
@@ -471,7 +470,7 @@ TEST_CASE("vec3 distance") {
     auto result   = distance(v1, v2);
     auto expected = 95.5091f;
 
-    CHECK(adizzle::almost_equal(result, expected, 0.0001f));
+    CHECK(almost_equal(result, expected, 0.0001f));
 }
 
 TEST_CASE("vec4 distance") {
@@ -481,7 +480,7 @@ TEST_CASE("vec4 distance") {
     auto result   = distance(v1, v2);
     auto expected = 96.0312f;
 
-    CHECK(adizzle::almost_equal(result, expected, 0.0001f));
+    CHECK(almost_equal(result, expected, 0.0001f));
 }
 
 TEST_CASE("vec reflect") {
@@ -491,8 +490,8 @@ TEST_CASE("vec reflect") {
     auto result   = reflect(inc, surf);
     auto expected = vec2{1.0f, -1.0f};
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
 }
 
 TEST_CASE("vec reflect") {
@@ -502,9 +501,9 @@ TEST_CASE("vec reflect") {
     auto result   = reflect(inc, surf);
     auto expected = vec3{1.0f, -1.0f, 0.0f};
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec refract") {
@@ -514,9 +513,9 @@ TEST_CASE("vec refract") {
     auto result   = refract(inc, surf, 0.5f);
     auto expected = vec3{0.5f, -1.0f, 0.0f};
 
-    CHECK(adizzle::almost_equal(result.x, expected.x, 0.000001f));
-    CHECK(adizzle::almost_equal(result.y, expected.y, 0.000001f));
-    CHECK(adizzle::almost_equal(result.z, expected.z, 0.000001f));
+    CHECK(almost_equal(result.x, expected.x, 0.000001f));
+    CHECK(almost_equal(result.y, expected.y, 0.000001f));
+    CHECK(almost_equal(result.z, expected.z, 0.000001f));
 }
 
 TEST_CASE("vec2 lerp") {
@@ -526,11 +525,11 @@ TEST_CASE("vec2 lerp") {
     auto quarter_lerp = lerp(from, to, 0.25f);
     auto half_lerp    = lerp(from, to, 0.5f);
 
-    CHECK(adizzle::almost_equal(quarter_lerp.x, 1.25f, 0.000001f));
-    CHECK(adizzle::almost_equal(quarter_lerp.y, 2.00f, 0.000001f));
+    CHECK(almost_equal(quarter_lerp.x, 1.25f, 0.000001f));
+    CHECK(almost_equal(quarter_lerp.y, 2.00f, 0.000001f));
 
-    CHECK(adizzle::almost_equal(half_lerp.x, 1.5f, 0.000001f));
-    CHECK(adizzle::almost_equal(half_lerp.y, 3.0f, 0.000001f));
+    CHECK(almost_equal(half_lerp.x, 1.5f, 0.000001f));
+    CHECK(almost_equal(half_lerp.y, 3.0f, 0.000001f));
 }
 
 TEST_CASE("vec3 lerp") {
@@ -540,13 +539,13 @@ TEST_CASE("vec3 lerp") {
     auto quarter_lerp = lerp(from, to, 0.25f);
     auto half_lerp    = lerp(from, to, 0.5f);
 
-    CHECK(adizzle::almost_equal(quarter_lerp.x, 1.25f, 0.000001f));
-    CHECK(adizzle::almost_equal(quarter_lerp.y, 2.00f, 0.000001f));
-    CHECK(adizzle::almost_equal(quarter_lerp.z, 3.00f, 0.000001f));
+    CHECK(almost_equal(quarter_lerp.x, 1.25f, 0.000001f));
+    CHECK(almost_equal(quarter_lerp.y, 2.00f, 0.000001f));
+    CHECK(almost_equal(quarter_lerp.z, 3.00f, 0.000001f));
 
-    CHECK(adizzle::almost_equal(half_lerp.x, 1.5f, 0.000001f));
-    CHECK(adizzle::almost_equal(half_lerp.y, 3.0f, 0.000001f));
-    CHECK(adizzle::almost_equal(half_lerp.z, 5.0f, 0.000001f));
+    CHECK(almost_equal(half_lerp.x, 1.5f, 0.000001f));
+    CHECK(almost_equal(half_lerp.y, 3.0f, 0.000001f));
+    CHECK(almost_equal(half_lerp.z, 5.0f, 0.000001f));
 }
 
 TEST_CASE("vec4 lerp") {
@@ -556,13 +555,13 @@ TEST_CASE("vec4 lerp") {
     auto quarter_lerp = lerp(from, to, 0.25f);
     auto half_lerp    = lerp(from, to, 0.5f);
 
-    CHECK(adizzle::almost_equal(quarter_lerp.w, 1.25f, 0.000001f));
-    CHECK(adizzle::almost_equal(quarter_lerp.x, 2.00f, 0.000001f));
-    CHECK(adizzle::almost_equal(quarter_lerp.y, 3.00f, 0.000001f));
-    CHECK(adizzle::almost_equal(quarter_lerp.z, 1.00f, 0.000001f));
+    CHECK(almost_equal(quarter_lerp.w, 1.25f, 0.000001f));
+    CHECK(almost_equal(quarter_lerp.x, 2.00f, 0.000001f));
+    CHECK(almost_equal(quarter_lerp.y, 3.00f, 0.000001f));
+    CHECK(almost_equal(quarter_lerp.z, 1.00f, 0.000001f));
 
-    CHECK(adizzle::almost_equal(half_lerp.w, 1.5f, 0.000001f));
-    CHECK(adizzle::almost_equal(half_lerp.x, 3.0f, 0.000001f));
-    CHECK(adizzle::almost_equal(half_lerp.y, 5.0f, 0.000001f));
-    CHECK(adizzle::almost_equal(half_lerp.z, 1.0f, 0.000001f));
+    CHECK(almost_equal(half_lerp.w, 1.5f, 0.000001f));
+    CHECK(almost_equal(half_lerp.x, 3.0f, 0.000001f));
+    CHECK(almost_equal(half_lerp.y, 5.0f, 0.000001f));
+    CHECK(almost_equal(half_lerp.z, 1.0f, 0.000001f));
 }

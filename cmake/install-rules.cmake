@@ -17,7 +17,7 @@ install(
     LIBRARY COMPONENT admat_Runtime
     NAMELINK_COMPONENT admat_Development
     ARCHIVE COMPONENT admat_Development
-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILE_SET admat_headers
 )
 
 # Write package file for installations

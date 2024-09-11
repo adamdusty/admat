@@ -16,7 +16,7 @@ include(FetchContent)
 FetchContent_Declare(
     snitch
     GIT_REPOSITORY https://github.com/snitch-org/snitch.git
-    GIT_TAG        v1.2.4
+    GIT_TAG        v1.2.5
     GIT_SHALLOW    TRUE
     SYSTEM
     FIND_PACKAGE_ARGS # Use system package if installed
@@ -25,8 +25,8 @@ FetchContent_MakeAvailable(snitch)
 
 # Add test exe
 add_executable(admat_tests)
+target_compile_options(admat_tests PRIVATE ${DEV_COMPILE_OPTIONS})
 
-add_dev_compile_opts(admat_tests)
 
 
 # Add test sources

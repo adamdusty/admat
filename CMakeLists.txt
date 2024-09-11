@@ -18,41 +18,40 @@ add_library(admat_admat)
 add_library(admat::admat ALIAS admat_admat)
 
 # Add sources
-target_sources(admat_admat PRIVATE
-    src/vec/operations.cpp
-    src/mat/operations.cpp
-    src/mat/projections.cpp
-)
-
-# Add include directory
-# warning_guard adds SYSTEM modifier if the project isn't top level
-target_include_directories(
-    admat_admat ${warning_guard}
+target_sources(admat_admat
     PUBLIC
-    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
-)
-
-target_include_directories(
-    admat_admat ${warning_guard}
-    PUBLIC
-    "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
+        FILE_SET    admat_headers
+        TYPE        HEADERS
+        BASE_DIRS   include
+        FILES
+            "include/admat/export.hpp>"
+            "include/admat/mat.hpp"
+            "include/admat/vec.hpp"
+            "include/admat/mat/mat.hpp"
+            "include/admat/mat/arithmetic.hpp"
+            "include/admat/mat/operations.hpp"
+            "include/admat/mat/projections.hpp"
+            "include/admat/vec/vec.hpp"
+            "include/admat/vec/arithmetic.hpp"
+            "include/admat/vec/operations.hpp"
+    PRIVATE
+        src/vec/operations.cpp
+        src/mat/operations.cpp
+        src/mat/projections.cpp
 )
 
 # Include and link dependencies
-target_link_libraries(admat_admat
-    PUBLIC
-        adizzle::adizzle
-)
+# target_link_libraries(admat_admat)
 
 # Add compile options
-add_dev_compile_opts(admat_admat)
+target_compile_options(admat_admat PRIVATE ${DEV_COMPILE_OPTIONS})
 
 # Generate header for export
 include(GenerateExportHeader)
 generate_export_header(
     admat_admat
     BASE_NAME admat
-    EXPORT_FILE_NAME include/admat/export.hpp
+    EXPORT_FILE_NAME "${CMAKE_CURRENT_SOURCE_DIR}/include/admat/export.hpp"
     CUSTOM_CONTENT_FROM_VARIABLE pragma_suppress_c4251
 )
 
