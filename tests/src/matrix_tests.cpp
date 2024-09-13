@@ -12,22 +12,22 @@ auto print_mat(const mat4& mat) {
                            "{}, {}, {}, {}\n"
                            "{}, {}, {}, {}\n"
                            "{}, {}, {}, {}\n",
-                           mat(0, 0),
-                           mat(0, 1),
-                           mat(0, 2),
-                           mat(0, 3),
-                           mat(1, 0),
-                           mat(1, 1),
-                           mat(1, 2),
-                           mat(1, 3),
-                           mat(2, 0),
-                           mat(2, 1),
-                           mat(2, 2),
-                           mat(2, 3),
-                           mat(3, 0),
-                           mat(3, 1),
-                           mat(3, 2),
-                           mat(3, 3));
+                           mat[0, 0],
+                           mat[0, 1],
+                           mat[0, 2],
+                           mat[0, 3],
+                           mat[1, 0],
+                           mat[1, 1],
+                           mat[1, 2],
+                           mat[1, 3],
+                           mat[2, 0],
+                           mat[2, 1],
+                           mat[2, 2],
+                           mat[2, 3],
+                           mat[3, 0],
+                           mat[3, 1],
+                           mat[3, 2],
+                           mat[3, 3]);
 
     std::cout << str;
 }
@@ -39,7 +39,7 @@ auto operator==(const vec4& lhs, const vec4& rhs) -> bool {
 auto operator==(const mat4& lhs, const mat4& rhs) -> bool {
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
-            if(!almost_equal(lhs(i, j), rhs(i, j))) {
+            if(!almost_equal(lhs[i, j], rhs[i, j])) {
                 return false;
             }
         }
@@ -53,7 +53,7 @@ TEST_CASE("mat4 initialization") {
 
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
-            CHECK(almost_equal(mat(i, j), 0.0f));
+            CHECK(almost_equal(mat[i, j], 0.0f));
         }
     }
 }
@@ -79,22 +79,22 @@ TEST_CASE("Matrix access") {
         {13, 14, 15, 16},
     };
 
-    CHECK(almost_equal(mat(0, 0), 1.0f, 0.00001f));
-    CHECK(almost_equal(mat(0, 1), 2.0f, 0.00001f));
-    CHECK(almost_equal(mat(0, 2), 3.0f, 0.00001f));
-    CHECK(almost_equal(mat(0, 3), 4.0f, 0.00001f));
-    CHECK(almost_equal(mat(1, 0), 5.0f, 0.00001f));
-    CHECK(almost_equal(mat(1, 1), 6.0f, 0.00001f));
-    CHECK(almost_equal(mat(1, 2), 7.0f, 0.00001f));
-    CHECK(almost_equal(mat(1, 3), 8.0f, 0.00001f));
-    CHECK(almost_equal(mat(2, 0), 9.0f, 0.00001f));
-    CHECK(almost_equal(mat(2, 1), 10.0f, 0.00001f));
-    CHECK(almost_equal(mat(2, 2), 11.0f, 0.00001f));
-    CHECK(almost_equal(mat(2, 3), 12.0f, 0.00001f));
-    CHECK(almost_equal(mat(3, 0), 13.0f, 0.00001f));
-    CHECK(almost_equal(mat(3, 1), 14.0f, 0.00001f));
-    CHECK(almost_equal(mat(3, 2), 15.0f, 0.00001f));
-    CHECK(almost_equal(mat(3, 3), 16.0f, 0.00001f));
+    CHECK(almost_equal(mat[0, 0], 1.0f, 0.00001f));
+    CHECK(almost_equal(mat[0, 1], 2.0f, 0.00001f));
+    CHECK(almost_equal(mat[0, 2], 3.0f, 0.00001f));
+    CHECK(almost_equal(mat[0, 3], 4.0f, 0.00001f));
+    CHECK(almost_equal(mat[1, 0], 5.0f, 0.00001f));
+    CHECK(almost_equal(mat[1, 1], 6.0f, 0.00001f));
+    CHECK(almost_equal(mat[1, 2], 7.0f, 0.00001f));
+    CHECK(almost_equal(mat[1, 3], 8.0f, 0.00001f));
+    CHECK(almost_equal(mat[2, 0], 9.0f, 0.00001f));
+    CHECK(almost_equal(mat[2, 1], 10.0f, 0.00001f));
+    CHECK(almost_equal(mat[2, 2], 11.0f, 0.00001f));
+    CHECK(almost_equal(mat[2, 3], 12.0f, 0.00001f));
+    CHECK(almost_equal(mat[3, 0], 13.0f, 0.00001f));
+    CHECK(almost_equal(mat[3, 1], 14.0f, 0.00001f));
+    CHECK(almost_equal(mat[3, 2], 15.0f, 0.00001f));
+    CHECK(almost_equal(mat[3, 3], 16.0f, 0.00001f));
 }
 
 TEST_CASE("mat4 addition") {
@@ -285,7 +285,7 @@ TEST_CASE("rotation") {
 
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
-            CHECK(almost_equal(actual(i, j), expected(i, j), 0.001f));
+            CHECK(almost_equal(actual[i, j], expected[i, j], 0.001f));
         }
     }
 }
@@ -301,9 +301,9 @@ TEST_CASE("Perspective FOV") {
     auto actual = perspective(0.523599f, 1280.0f / 720.0f, 1.5f, 1000.0f);
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
-            CAPTURE(actual(i, j));
-            CAPTURE(expected(i, j));
-            CHECK(almost_equal(actual(i, j), expected(i, j), 0.0001f));
+            CAPTURE(actual[i, j]);
+            CAPTURE(expected[i, j]);
+            CHECK(almost_equal(actual[i, j], expected[i, j], 0.0001f));
         }
     }
 }
@@ -319,7 +319,7 @@ TEST_CASE("Orthographic") {
     auto actual = orthographic(100.0f, 200.0f, 1.5f, 1000.0f);
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
-            CHECK(almost_equal(actual(i, j), expected(i, j), 0.0001f));
+            CHECK(almost_equal(actual[i, j], expected[i, j], 0.0001f));
         }
     }
 }
@@ -336,7 +336,7 @@ TEST_CASE("Look at") {
     for(size_t i = 0; i < 4; ++i) {
         for(size_t j = 0; j < 4; ++j) {
             CAPTURE(i, j);
-            CHECK(almost_equal(actual(i, j), expected(i, j), 0.00001f));
+            CHECK(almost_equal(actual[i, j], expected[i, j], 0.00001f));
         }
     }
 }

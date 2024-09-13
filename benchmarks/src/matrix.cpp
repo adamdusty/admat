@@ -2,10 +2,8 @@
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 
 #include <admat/mat.hpp>
-#include <format>
 #include <glm/ext.hpp>
 #include <glm/glm.hpp>
-#include <iostream>
 #include <nanobench.h>
 #include <random>
 
