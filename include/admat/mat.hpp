@@ -4,6 +4,7 @@
 #include <libassert/assert.hpp>
 
 #include <cstddef>
+#include <numbers>
 
 namespace admat {
 
