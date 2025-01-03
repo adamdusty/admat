@@ -246,6 +246,7 @@ constexpr auto look_at(const vec3& position, const vec3& target, const vec3& up)
     };
 }
 
+// Right-handed, zero to one depth, projection matrix
 constexpr auto perspective(float fov, float aspect, float near_plane, float far_plane) -> mat4 {
     assert(fov > 0.0f && fov < static_cast<float>(std::numbers::pi));
     assert(near_plane > 0.0f);

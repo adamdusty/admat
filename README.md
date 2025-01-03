@@ -44,3 +44,7 @@ Linear algebra lib specific to my use cases.
 - [x] vec reflect
 - [x] vec refract
 - [x] lerp
+
+0.5.0a
+
+- [ ] quaternion
