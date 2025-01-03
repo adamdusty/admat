@@ -29,7 +29,7 @@ target_sources(admat_admat
 )
 
 # Include and link dependencies
-target_link_libraries(admat_admat INTERFACE libassert::assert)
+# target_link_libraries(admat_admat)
 
 # Install rules
 if(NOT CMAKE_SKIP_INSTALL_RULES)

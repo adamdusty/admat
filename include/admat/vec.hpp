@@ -1,7 +1,6 @@
 #pragma once
 
-#include <libassert/assert.hpp>
-
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <cstddef>
@@ -14,7 +13,6 @@ struct vec2 {
     float y;
 
     constexpr auto operator[](std::size_t idx) const -> float {
-        ASSERT(idx < 2, "vec2 index out of bounds");
 
         return *(&(this->x) + idx); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     }
@@ -33,7 +31,6 @@ struct vec3 {
     float z;
 
     constexpr auto operator[](std::size_t idx) const -> float {
-        ASSERT(idx < 3, "vec3 index out of bounds");
 
         return *(&(this->x) + idx); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     }
@@ -54,8 +51,6 @@ struct vec4 {
     float z;
 
     constexpr auto operator[](std::size_t idx) const -> float {
-        ASSERT(idx < 4, "vec4 index out of bounds");
-
         return *(&(this->x) + idx); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     }
 

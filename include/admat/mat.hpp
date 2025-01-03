@@ -1,8 +1,8 @@
 #pragma once
 
 #include "admat/vec.hpp"
-#include <libassert/assert.hpp>
 
+#include <cassert>
 #include <cstddef>
 
 namespace admat {
@@ -22,7 +22,7 @@ struct mat4 {
     }
 
     constexpr auto operator[](std::size_t row, std::size_t col) const -> float {
-        ASSERT(row < 4 && col < 4, "Out of bounds matrix access");
+        assert(row < 4 && col < 4);
 
         std::size_t index = col * 4 + row;
         return *(&(w.w) + index); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
@@ -247,10 +247,10 @@ constexpr auto look_at(const vec3& position, const vec3& target, const vec3& up)
 }
 
 constexpr auto perspective(float fov, float aspect, float near_plane, float far_plane) -> mat4 {
-    ASSERT(fov > 0.0f && fov < static_cast<float>(std::numbers::pi), "Invalid FOV");
-    ASSERT(near_plane > 0.0f, "Near plane distance less than zero.");
-    ASSERT(far_plane > near_plane, "Far plane distance less than zero.");
-    ASSERT(far_plane > 0.0f, "Far plane distance less than near plane.");
+    assert(fov > 0.0f && fov < static_cast<float>(std::numbers::pi));
+    assert(near_plane > 0.0f);
+    assert(far_plane > near_plane);
+    assert(far_plane > 0.0f);
 
     float focal   = 1.0f / std::tan(fov * 0.5f);
     float x_scale = focal / aspect;

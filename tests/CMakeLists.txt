@@ -36,7 +36,7 @@ target_sources(admat_tests PRIVATE
 )
 
 # Link libs
-target_link_libraries(admat_tests PRIVATE admat::admat snitch::snitch libassert::assert)
+target_link_libraries(admat_tests PRIVATE admat::admat snitch::snitch)
 
 # Add test
 add_test(NAME admat_tests COMMAND admat_tests)
